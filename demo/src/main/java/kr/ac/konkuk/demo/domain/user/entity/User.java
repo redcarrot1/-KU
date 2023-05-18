@@ -22,7 +22,7 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
-    private String imageUri;
+    private String imageUrl;
 
     private String email;
 
@@ -40,15 +40,19 @@ public class User {
     private Integer badCount;
 
     @Builder
-    public User(String password, String nickname, String imageUri, String email, Major major, String introduction) {
+    public User(String password, String nickname, String imageUrl, String email, Major major, String introduction) {
         this.password = password;
         this.nickname = nickname;
-        this.imageUri = imageUri;
+        this.imageUrl = imageUrl;
         this.email = email;
         this.major = major;
         this.introduction = introduction;
         this.volunteerTime = 0;
         this.goodCount = 0;
         this.badCount = 0;
+    }
+
+    public void updateUserPassword(String password) {
+        this.password = password;
     }
 }

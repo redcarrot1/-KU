@@ -1,7 +1,8 @@
-package kr.ac.konkuk.demo.global.validation;
+package kr.ac.konkuk.demo.global.validation.annotation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import kr.ac.konkuk.demo.global.validation.validator.EnumValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

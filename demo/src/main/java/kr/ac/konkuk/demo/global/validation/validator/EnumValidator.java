@@ -1,8 +1,9 @@
-package kr.ac.konkuk.demo.global.validation;
+package kr.ac.konkuk.demo.global.validation.validator;
 
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import kr.ac.konkuk.demo.global.validation.annotation.ValidEnum;
 
 public class EnumValidator implements ConstraintValidator<ValidEnum, String> {
 

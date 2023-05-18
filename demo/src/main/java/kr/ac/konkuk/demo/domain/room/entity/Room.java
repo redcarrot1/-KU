@@ -35,7 +35,6 @@ public class Room {
     private String content;
 
     @Builder
-
     public Room(Long id, String kakaoURL, String internetURL, String title, Integer limitHeadCount,
                 Integer currentHeadCount, LocalDateTime closedDateTime, String content) {
         this.id = id;
