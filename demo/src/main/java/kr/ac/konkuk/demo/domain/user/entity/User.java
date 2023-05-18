@@ -17,40 +17,38 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
     private String password;
-    private String birth;
-    private Integer attendanceNumber;
-    private String faceImageUri;
 
-    @Enumerated(value = EnumType.STRING)
-    private Team team;
+    @Column(nullable = false)
+    private String nickname;
+
+    private String imageUri;
+
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Major major;
+
+    @Lob
+    private String introduction;
+
+    private Integer volunteerTime;
+
+    private Integer goodCount;
+
+    private Integer badCount;
 
     @Builder
-    public User(String name, String password, String birth, Team team, String faceImageUri) {
-        this.name = name;
+    public User(String password, String nickname, String imageUri, String email, Major major, String introduction) {
         this.password = password;
-        this.birth = birth;
-        this.team = team;
-        this.faceImageUri = faceImageUri;
-        this.attendanceNumber = 0;
+        this.nickname = nickname;
+        this.imageUri = imageUri;
+        this.email = email;
+        this.major = major;
+        this.introduction = introduction;
+        this.volunteerTime = 0;
+        this.goodCount = 0;
+        this.badCount = 0;
     }
-
-    public void increaseAttendanceNumber() {
-        attendanceNumber++;
-    }
-
-    public void decreaseAttendanceNumber() {
-        attendanceNumber--;
-    }
-
-    public void updateFaceImageUri(String faceImageUri) {
-        this.faceImageUri = faceImageUri;
-    }
-
-    public void updateUserPassword(String password) {
-        this.password = password;
-    }
-
 }
