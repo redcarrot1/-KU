@@ -1,52 +1,55 @@
-server:
-  port: 8080
-  servlet:
-    context-path: /
-
 spring:
-  redis:
-    host:
-    port: 6379
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
     password:
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username:
-    password:
-    properties:
-      mail:
-        smtp:
-          port: 465
-          auth: true
-          starttls:
-            required: true
-            enable: true
-          socketFactory:
-            class: javax.net.ssl.SSLSocketFactory
-            fallback: false
-            port: 465
+    driver-class-name: org.h2.Driver
 
   jpa:
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: none
-
+      ddl-auto: create
     properties:
       hibernate:
-        format_sql: true
-        default_batch_fetch_size: 1000
-        globally_quoted_identifiers: true
-
+        format_sql: true # 실행되는 query를 보여줌
     show-sql: true
-    open-in-view: false
 
-logging:
-  level:
-    org.hibernate.type: trace
+  sql.init: # data-h2.sql 을 실행하기 위한 설정입니다.
+    platform: h2
+    mode: never #always
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+logging.level:
+  org.hibernate:
+    orm.jdbc.bind: trace
+  #org.apache.coyote.http11: debug
+
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
+
+file:
+  #path: /workspace/file
+  #path: /Users/hongseungtaeg/Desktop/toyproject/toyProject8-onlineAttendanceServer/file
 
 token:
   secret: test
-  access-token-expiration: 900000  # 15분
-  refresh-token-expiration: 60 # 60일
+  access-token-expiration: 7200000 # 2시간
+
+image:
+  #path: /workspace/image
+  path: image
+  default_filename: default.png
 
 jasypt:
   encryptor:
