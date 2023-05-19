@@ -28,6 +28,7 @@ public class AuthEmailVerifyService {
         if (!authEmail.getCode().equals(code)) {
             throw new NotMatchAuthCodeException();
         }
+        authEmailRepository.delete(authEmail);
     }
 
 }

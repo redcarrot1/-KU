@@ -1,10 +1,14 @@
 package kr.ac.konkuk.demo.domain.user.entity;
 
 import jakarta.persistence.*;
+import kr.ac.konkuk.demo.domain.volunteer.entity.Volunteer;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,6 +42,9 @@ public class User {
     private Integer goodCount;
 
     private Integer badCount;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Volunteer> volunteers = new ArrayList<>();
 
     @Builder
     public User(String password, String nickname, String imageUrl, String email, Major major, String introduction) {

@@ -23,7 +23,7 @@ public class EmailService {
             message.addRecipients(MimeMessage.RecipientType.TO, target);
             message.setSubject(title);
             message.setText(content, "UTF-8", "HTML");
-            message.setFrom(new InternetAddress("playkuround@gmail.com", "플레이쿠라운드"));
+            message.setFrom(new InternetAddress("volunteerku0@gmail.com", "봉사하자KU"));
 
             mailSender.send(message);
         } catch (MessagingException | UnsupportedEncodingException e) {

@@ -26,11 +26,16 @@ public class AuthEmail {
     @Column(nullable = false)
     private LocalDateTime expiredAt;
 
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
     @Builder
     public AuthEmail(String target, String code, LocalDateTime expiredAt) {
         this.code = code;
         this.target = target;
         this.expiredAt = expiredAt;
+        this.createdAt = LocalDateTime.now();
     }
+
 
 }

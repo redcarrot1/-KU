@@ -28,6 +28,19 @@ spring:
       max-file-size: 5MB
       max-request-size: 10MB
 
+  mail:
+    host: smtp.gmail.com # SMTP 서버 호스트
+    port: 587 # SMTP 서버 포트
+    username: ENC(A9cd9mnrJB97o85N1XP+IEYIHjATJ1lf) # SMTP 서버 로그인 아이디
+    password: ENC(ijsk4qYDTLtu8R1pKXr5Bz/4a8iUEYQXQF0t6wMlzK4=) # SMTP 서버 로그인 패스워드
+    properties:
+      mail:
+        smtp:
+          auth: true # 사용자 인증 시도 여부
+          timeout: 5000 # Socket Read Timeout 시간(ms)
+          starttls:
+            enable: true # StartTLS 활성화 여부
+
 logging.level:
   org.hibernate:
     orm.jdbc.bind: trace
@@ -43,14 +56,10 @@ file:
   #path: /Users/hongseungtaeg/Desktop/toyproject/toyProject8-onlineAttendanceServer/file
 
 token:
-  secret: test
+  secret: ENC(YCB9ydM0GGmZ9ItYWHMlpeIpncqIuaYS)
   access-token-expiration: 7200000 # 2시간
 
 image:
   #path: /workspace/image
   path: image
   default_filename: default.png
-
-jasypt:
-  encryptor:
-    password: test
