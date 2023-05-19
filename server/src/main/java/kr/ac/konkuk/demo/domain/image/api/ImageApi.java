@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/users/images")
+@RequestMapping("/api/users/images")
 public class ImageApi {
 
     private final ImageService imageService;

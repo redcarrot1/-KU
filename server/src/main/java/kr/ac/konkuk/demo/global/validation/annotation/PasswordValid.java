@@ -22,5 +22,5 @@ public @interface PasswordValid {
 
     int max() default 15;
 
-    String pattern() default "^[a-zA-Z0-9]*$";
+    String pattern() default "^(?=.*[a-zA-Z])(?=.*\\d).+$";
 }

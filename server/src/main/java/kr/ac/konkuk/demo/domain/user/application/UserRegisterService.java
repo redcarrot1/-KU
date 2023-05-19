@@ -1,5 +1,6 @@
 package kr.ac.konkuk.demo.domain.user.application;
 
+import kr.ac.konkuk.demo.domain.auth.email.exception.NotKUEmailException;
 import kr.ac.konkuk.demo.domain.user.dao.UserRepository;
 import kr.ac.konkuk.demo.domain.user.entity.User;
 import kr.ac.konkuk.demo.domain.user.exception.DuplicateUserNameException;
@@ -16,9 +17,12 @@ public class UserRegisterService {
     private final PasswordEncoder passwordEncoder;
 
     public void registerUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail()))
+        if (!user.getEmail().split("@")[1].equals("konkuk.ac.kr")) {
+            throw new NotKUEmailException();
+        }
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new DuplicateUserNameException();
-
+        }
         user.updateUserPassword(passwordEncoder.encrypt(user.getPassword()));
         userRepository.save(user);
     }

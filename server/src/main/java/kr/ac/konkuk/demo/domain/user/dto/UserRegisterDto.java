@@ -36,7 +36,9 @@ public class UserRegisterDto {
         @ValidEnum(enumClass = Major.class, message = "잘못된 학과명입니다.")
         private String major;
 
+        @NotBlank(message = "imageUrl은 필수값입니다.")
         private String imageUrl;
+
         private String introduction;
 
         public User toEntity() {
