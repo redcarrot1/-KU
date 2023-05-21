@@ -2,7 +2,7 @@ package kr.ac.konkuk.demo.global.config;
 
 import kr.ac.konkuk.demo.global.interceptor.UserLoginInterceptor;
 import kr.ac.konkuk.demo.global.manager.TokenManager;
-import kr.ac.konkuk.demo.global.resolver.UserEntityArgumentResolver;
+import kr.ac.konkuk.demo.global.resolver.UserIdArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +19,7 @@ import java.util.List;
 public class WebConfig implements WebMvcConfigurer {
 
     private final TokenManager tokenManager;
-    private final UserEntityArgumentResolver userEmailArgumentResolver;
+    private final UserIdArgumentResolver userEmailArgumentResolver;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
