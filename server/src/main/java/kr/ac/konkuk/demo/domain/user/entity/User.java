@@ -62,4 +62,16 @@ public class User {
     public void updateUserPassword(String password) {
         this.password = password;
     }
+
+    public void updateUserNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updateUserIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public void updateUserImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

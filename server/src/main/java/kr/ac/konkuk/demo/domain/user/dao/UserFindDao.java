@@ -18,4 +18,9 @@ public class UserFindDao {
                 .orElseThrow(UserNotFoundException::new);
     }
 
+    public User findByEmail(final String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
 }
