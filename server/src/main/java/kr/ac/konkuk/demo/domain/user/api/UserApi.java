@@ -2,6 +2,7 @@ package kr.ac.konkuk.demo.domain.user.api;
 
 import jakarta.validation.Valid;
 import kr.ac.konkuk.demo.domain.user.application.UserRegisterService;
+import kr.ac.konkuk.demo.domain.user.dto.TokenDto;
 import kr.ac.konkuk.demo.domain.user.dto.UserLoginDto;
 import kr.ac.konkuk.demo.domain.user.dto.UserRegisterDto;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ public class UserApi {
     }
 
     @PostMapping("/login")
-    public void userLogin(@RequestBody @Valid UserLoginDto.Request registerRequest) {
-        userRegisterService.loginUser(registerRequest.getEmail(), registerRequest.getPassword());
+    public TokenDto userLogin(@RequestBody @Valid UserLoginDto.Request registerRequest) {
+        TokenDto tokenDto = userRegisterService.loginUser(registerRequest.getEmail(), registerRequest.getPassword());
+        return tokenDto;
     }
 }

@@ -43,7 +43,7 @@ public class User {
 
     private Integer badCount;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Volunteer> volunteers = new ArrayList<>();
 
     @Builder

@@ -42,7 +42,7 @@ public class TokenManager {
                 .setHeaderParam("typ", "JWT")
                 .setSubject("accessToken")
                 .setAudience(String.valueOf(userId))
-                .setIssuer("sungam.site")
+                .setIssuer("volunteerKU")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpiration)))
                 .signWith(SignatureAlgorithm.HS256, tokenSecret.getBytes(StandardCharsets.UTF_8))
