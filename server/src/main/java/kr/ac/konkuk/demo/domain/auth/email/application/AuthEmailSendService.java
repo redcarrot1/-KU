@@ -65,8 +65,7 @@ public class AuthEmailSendService {
         String content = "<div>" +
                 "<h2>안녕하세요, 봉사하자KU 입니다.</h1>" +
                 "<div font-family:verdana'>" +
-                "<p>아래 인증코드를 회원가입 창으로 돌아가 입력해주세요.<p>" +
-                "<p>회원가입 인증코드입니다.<p>" +
+                "<p>아래 인증코드를 앱 창으로 돌아가 입력해주세요.<p>" +
                 "<div style='font-size:130%'>" +
                 "<strong>" +
                 code +

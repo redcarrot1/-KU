@@ -2,6 +2,7 @@ package kr.ac.konkuk.demo.domain.user.api;
 
 import jakarta.validation.Valid;
 import kr.ac.konkuk.demo.domain.user.application.UserRegisterService;
+import kr.ac.konkuk.demo.domain.user.dto.UserLoginDto;
 import kr.ac.konkuk.demo.domain.user.dto.UserRegisterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,4 +21,8 @@ public class UserApi {
         userRegisterService.registerUser(registerRequest.toEntity());
     }
 
+    @PostMapping("/login")
+    public void userLogin(@RequestBody @Valid UserLoginDto.Request registerRequest) {
+        userRegisterService.loginUser(registerRequest.getEmail(), registerRequest.getPassword());
+    }
 }
