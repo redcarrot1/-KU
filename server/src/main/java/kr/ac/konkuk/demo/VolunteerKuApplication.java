@@ -15,7 +15,6 @@ public class VolunteerKuApplication {
         SpringApplication.run(VolunteerKuApplication.class, args);
     }
 
-
     @Autowired
     private UserRegisterService userRegisterService;
 
