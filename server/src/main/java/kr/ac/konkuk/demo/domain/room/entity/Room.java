@@ -1,6 +1,7 @@
 package kr.ac.konkuk.demo.domain.room.entity;
 
 import jakarta.persistence.*;
+import kr.ac.konkuk.demo.domain.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,10 @@ public class Room {
 
     private LocalDateTime closedDateTime;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "host_user_id")
+    private User hostUser;
+
     @Lob
     private String content;
 
@@ -45,5 +50,9 @@ public class Room {
         this.currentHeadCount = currentHeadCount;
         this.closedDateTime = closedDateTime;
         this.content = content;
+    }
+
+    public void updateHostUser(User user) {
+        this.hostUser = user;
     }
 }
