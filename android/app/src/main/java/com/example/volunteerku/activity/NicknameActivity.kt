@@ -17,11 +17,9 @@ import com.example.volunteerku.databinding.ActivityNicknameBinding
 import com.example.volunteerku.dialog.LoadingDialog
 import com.example.volunteerku.service.UserService
 
-
 class NicknameActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityNicknameBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNicknameBinding.inflate(layoutInflater)
@@ -36,7 +34,6 @@ class NicknameActivity : AppCompatActivity() {
             savename()
         }
     }
-
 
     private fun nickname() {
         val nickname = binding.nicknameEt.text.toString()
@@ -76,7 +73,6 @@ class NicknameActivity : AppCompatActivity() {
                         }
                         Log.d("retrofit", "getResponseBody: " + body.isDuplicate)
                     }
-
                 } else {
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                 }
@@ -111,5 +107,4 @@ class NicknameActivity : AppCompatActivity() {
             }
         }).register(user)
     }
-
 }

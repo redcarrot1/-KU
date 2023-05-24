@@ -162,10 +162,11 @@ class EmailCertifyActivity : AppCompatActivity() {
         TODO("Not yet implemented")
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun startTimer(expiredAt: String) {
-        val expiredTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(expiredAt).time
+        val expiredTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(expiredAt)?.time
         val now = Date(System.currentTimeMillis()).time
-        var time: Long = (expiredTime - now) / 10
+        var time: Long = (expiredTime?.minus(now))?.div(10) ?: 0
         Log.d("timer", "startTimer: $time, $expiredAt, $expiredTime, $now")
 
         certifyTimer = timer(period = 10) {
@@ -186,7 +187,7 @@ class EmailCertifyActivity : AppCompatActivity() {
     }
 
     private fun showTimeoutDialog() {
-        var contentView: View =
+        val contentView: View =
             (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
                 R.layout.dialog_certify_timeout, null
             )
