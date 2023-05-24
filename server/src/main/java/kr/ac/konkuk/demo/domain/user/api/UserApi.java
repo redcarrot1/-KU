@@ -6,8 +6,11 @@ import kr.ac.konkuk.demo.domain.user.application.UserRegisterService;
 import kr.ac.konkuk.demo.domain.user.dto.*;
 import kr.ac.konkuk.demo.global.resolver.UserId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/users")
@@ -21,6 +24,14 @@ public class UserApi {
     @ResponseStatus(HttpStatus.CREATED)
     public void userRegister(@RequestBody @Valid UserRegisterDto.Request registerRequest) {
         userRegisterService.registerUser(registerRequest.toEntity());
+    }
+
+    @GetMapping("/duplication")
+    public HashMap<String, Object> nicknameDuplication(@Param("nickname") String nickname) {
+        boolean result = userProfileService.checkDuplicateNickname(nickname);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("isDuplicate", result);
+        return map;
     }
 
     @PostMapping("/login")
