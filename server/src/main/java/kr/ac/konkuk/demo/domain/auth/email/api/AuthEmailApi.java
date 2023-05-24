@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import kr.ac.konkuk.demo.domain.auth.email.application.AuthEmailSendService;
 import kr.ac.konkuk.demo.domain.auth.email.application.AuthEmailVerifyService;
 import kr.ac.konkuk.demo.domain.auth.email.dto.AuthEmailSendDto;
+import kr.ac.konkuk.demo.domain.auth.email.dto.AuthEmailVerify;
 import kr.ac.konkuk.demo.domain.auth.email.exception.NotKUEmailException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,9 @@ public class AuthEmailApi {
     }
 
     @GetMapping
-    public void authEmailVerify(@RequestParam("code") String code,
-                                @RequestParam("email") String email) {
-        authEmailVerifyService.verifyAuthEmail(code, email);
+    public AuthEmailVerify.Response authEmailVerify(@RequestParam("code") String code,
+                                                    @RequestParam("email") String email) {
+        return authEmailVerifyService.verifyAuthEmail(code, email);
     }
 
 }
