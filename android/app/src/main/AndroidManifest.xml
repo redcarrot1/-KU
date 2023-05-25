@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.PasswordActivity"
+            android:name=".activity.IntroductionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,7 @@
         <activity android:name=".activity.NicknameActivity" />
         <activity android:name=".activity.MajorChoiceActivity" />
         <activity android:name=".activity.EmailCertifyActivity" />
+        <activity android:name=".activity.PasswordActivity" />
 
     </application>
 

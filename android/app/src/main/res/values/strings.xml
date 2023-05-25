@@ -13,6 +13,10 @@
     <string name="password_sub2">영문과 숫자의 조합</string>
     <string name="password_sub1">6자리 이상, 15자 이하</string>
 
+    <string name="introduction_set1">자기소개(선택)</string>
+    <string name="introduction_set2">남에게 자신을 소개하세요!(최대 500글자)</string>
+    <string name="introduction_input">자기소개를 입력주세요.</string>
+
     <string name="login">로그인</string>
     <string name="greeting">안녕하세요!</string>
     <string name="certify_email">건국대학교 이메일을 인증해주세요.</string>
