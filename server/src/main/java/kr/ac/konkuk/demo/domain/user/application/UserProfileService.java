@@ -1,6 +1,7 @@
 package kr.ac.konkuk.demo.domain.user.application;
 
 import kr.ac.konkuk.demo.domain.user.dao.UserFindDao;
+import kr.ac.konkuk.demo.domain.user.dao.UserRepository;
 import kr.ac.konkuk.demo.domain.user.entity.User;
 import kr.ac.konkuk.demo.global.manager.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserProfileService {
     private final UserFindDao userFindDao;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public void changePassword(Long userId, String password) {
@@ -32,5 +34,9 @@ public class UserProfileService {
     public void changeImageUrl(Long userId, String imageUrl) {
         User user = userFindDao.findById(userId);
         user.updateUserImageUrl(imageUrl);
+    }
+
+    public boolean checkDuplicateNickname(String nickname) {
+        return userRepository.existsByNickname(nickname);
     }
 }

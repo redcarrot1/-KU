@@ -23,7 +23,7 @@ public class VolunteerKuApplication {
         userRegisterService.registerUser(User.builder()
                 .email("test@konkuk.ac.kr")
                 .password("testtest123")
-                .nickname("teser1")
+                .nickname("tester1")
                 .major(Major.valueOf("컴퓨터공학부"))
                 .imageUrl("default.png")
                 .introduction("자기소개")
