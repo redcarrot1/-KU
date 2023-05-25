@@ -6,13 +6,14 @@ import com.google.gson.annotations.SerializedName
 data class User(
     @SerializedName(value = "email") var email: String,
     @SerializedName(value = "nickname") var nickname: String,
+    @SerializedName(value = "password") var password: String,
     @SerializedName(value = "major") var major: String,
     @SerializedName(value = "jwt") var jwt: String,
 ) {
 
     companion object {
         fun getDefaultUser(): User {
-            return User("null", "null", "null", "null")
+            return User("null", "null", "null", "null", "null")
         }
     }
 
@@ -20,6 +21,7 @@ data class User(
         pref.setString("email", this.email)
         pref.setString("nickname", this.nickname)
         pref.setString("major", this.major)
+        pref.setString("password", this.password)
         pref.setString("jwt", this.jwt)
     }
 
@@ -27,6 +29,7 @@ data class User(
         this.email = pref.getString("email", "null")
         this.nickname = pref.getString("nickname", "null")
         this.major = pref.getString("major", "null")
+        this.major = pref.getString("password", "null")
         this.jwt = pref.getString("jwt", "null")
     }
 

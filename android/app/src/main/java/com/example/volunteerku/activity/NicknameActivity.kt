@@ -9,12 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import com.example.volunteerku.R
-import com.example.volunteerku.VolunteerKUApplication.Companion.pref
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.DuplicateResponse
-import com.example.volunteerku.data.EmailCertifyCodeResponse
 import com.example.volunteerku.databinding.ActivityNicknameBinding
-import com.example.volunteerku.dialog.LoadingDialog
 import com.example.volunteerku.service.UserService
 
 class NicknameActivity : AppCompatActivity() {
@@ -81,30 +78,8 @@ class NicknameActivity : AppCompatActivity() {
     }
 
     private fun savename() {
-        val loading = LoadingDialog(this)
-        loading.show()
-        val userService = UserService()
         user.nickname = binding.nicknameEt.text.toString()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                loading.dismiss()
-                if (isSuccess) {
-                    if (body is EmailCertifyCodeResponse)
-                    //user.emailCertifyCodeResponse = body.copy()
-                        user.save(pref)
-
-                    val intent = Intent(applicationContext, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
-                    finish()
-
-                    Log.d("userInfo", "onCreate: $user")
-                } else {
-                    Log.d("retrofit", "getResponseBody: $err")
-                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }).register(user)
+        val intent = Intent(this, PasswordActivity::class.java)
+        startActivity(intent)
     }
 }
