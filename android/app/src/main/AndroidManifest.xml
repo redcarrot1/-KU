@@ -24,10 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.Register2Activity">
+        <activity android:name=".activity.Register2Activity"/>
+        <activity android:name=".activity.EmailCertifyActivity"/>
+        <activity android:name=".activity.DetailActivity"/>
+        <activity android:name=".activity.MajorChoiceActivity"/>
+        <activity android:name=".activity.NicknameActivity"/>
+        <activity android:name=".activity.PasswordActivity"/>
+        <activity android:name=".activity.ListActivity"/>
 
-        </activity>
     </application>
 
 </manifest>
