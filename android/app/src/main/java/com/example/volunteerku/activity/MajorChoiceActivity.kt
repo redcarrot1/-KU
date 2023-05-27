@@ -20,7 +20,6 @@ class MajorChoiceActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.agreeNextBtn.setOnClickListener {
-            Log.d("major", user.major)
             user.major = binding.majorDbSpinner.selectedItem.toString()
             val intent = Intent(this, NicknameActivity::class.java)
             startActivity(intent)

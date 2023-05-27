@@ -1,5 +1,6 @@
 package com.example.volunteerku.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -60,7 +61,7 @@ class PasswordActivity : AppCompatActivity() {
 
     private fun savepassword() {
         user.password = binding.passwordEt.text.toString()
-        //val intent = Intent(this, IntroductionActivity::class.java)
+        val intent = Intent(this, IntroductionActivity::class.java)
         startActivity(intent)
     }
 }

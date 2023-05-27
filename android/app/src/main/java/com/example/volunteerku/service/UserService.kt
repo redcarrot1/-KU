@@ -4,11 +4,14 @@ import android.util.Log
 import com.example.volunteerku.data.DuplicateResponse
 import com.example.volunteerku.data.EmailCertifyCodeResponse
 import com.example.volunteerku.data.EmailResponse
-import com.example.volunteerku.data.User
+import com.example.volunteerku.data.SaveImageResponse
+import com.example.volunteerku.data.SignupRequest
+import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class UserService {
 
@@ -24,38 +27,6 @@ class UserService {
     fun setOnResponseListener(listener: OnResponseListener): UserService {
         this.onResponseListener = listener
         return this
-    }
-
-    fun register(user: User) {
-        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
-
-        userService.register(user).enqueue(object : Callback<EmailCertifyCodeResponse> {
-            override fun onResponse(
-                call: Call<EmailCertifyCodeResponse>,
-                response: Response<EmailCertifyCodeResponse>
-            ) {
-                Log.d("retrofit", "onResponse: ${response.code()} is received ")
-                when (response.code()) {
-                    200 -> { // success
-                        val resp: EmailCertifyCodeResponse = response.body()!!
-                        onResponseListener.getResponseBody(resp, true, "")
-                    }
-
-                    400 -> { // failed
-                        val err = JSONObject(
-                            response.errorBody()?.string()!!
-                        ).getJSONObject("errorResponse").get("message").toString()
-                        onResponseListener.getResponseBody(null, false, err)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<EmailCertifyCodeResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail register $call")
-                t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
-            }
-        })
     }
 
     fun isDuplicate(nickname: String) {
@@ -131,4 +102,50 @@ class UserService {
         })
     }
 
+    fun saveImage(filePart: MultipartBody.Part) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+        userService.saveImage(filePart).enqueue(object : Callback<SaveImageResponse> {
+            override fun onResponse(
+                call: Call<SaveImageResponse>,
+                response: Response<SaveImageResponse>
+            ) {
+                Log.d("certifyCode", "onResponse: ${response.body()}")
+                if (response.code() != 201) {
+                    onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
+                } else {
+                    val resp: SaveImageResponse = response.body()!!
+                    onResponseListener.getResponseBody(resp, true, "")
+                }
+            }
+
+            override fun onFailure(call: Call<SaveImageResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail certifyCode $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun signup(requestBody: SignupRequest) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+        userService.signup(requestBody).enqueue(object : Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                Log.d("certifyCode", "onResponse: ${response.body()}")
+                if (response.code() != 201) {
+                    onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
+                } else {
+                    onResponseListener.getResponseBody(null, true, "")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail certifyCode $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
 }
