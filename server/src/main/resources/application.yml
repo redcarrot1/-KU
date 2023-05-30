@@ -30,3 +30,7 @@ server:
 token:
   secret: ENC(YCB9ydM0GGmZ9ItYWHMlpeIpncqIuaYS)
   access-token-expiration: 7200000 # 2시간
+
+image:
+  path: /app/image
+  default_filename: default.png
