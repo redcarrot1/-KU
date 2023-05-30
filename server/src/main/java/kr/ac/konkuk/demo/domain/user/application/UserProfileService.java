@@ -47,4 +47,8 @@ public class UserProfileService {
     public boolean checkDuplicateNickname(String nickname) {
         return userRepository.existsByNickname(nickname);
     }
+
+    public boolean existUserByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }
