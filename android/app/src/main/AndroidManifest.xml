@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,18 +17,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.EmailCertifyActivity"
+            android:name=".activity.IntroductionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".activity.NicknameActivity" />
         <activity android:name=".activity.MajorChoiceActivity" />
-        <activity android:name=".activity.IntroductionActivity" />
+        <activity android:name=".activity.EmailCertifyActivity" />
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.PasswordActivity" />
         <activity android:name=".activity.SuccessSignupActivity" />
 

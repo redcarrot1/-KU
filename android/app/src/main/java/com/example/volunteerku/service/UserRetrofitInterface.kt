@@ -29,6 +29,6 @@ interface UserRetrofitInterface {
 
     @Multipart
     @POST("/api/users/images")
-    fun saveImage(@Part files: MultipartBody.Part): Call<SaveImageResponse>
+    fun saveImage(@Part faceImageFile: MultipartBody.Part): Call<SaveImageResponse>
 
 }

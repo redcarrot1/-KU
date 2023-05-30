@@ -103,13 +103,14 @@ class UserService {
     }
 
     fun saveImage(filePart: MultipartBody.Part) {
+
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
         userService.saveImage(filePart).enqueue(object : Callback<SaveImageResponse> {
             override fun onResponse(
                 call: Call<SaveImageResponse>,
                 response: Response<SaveImageResponse>
             ) {
-                Log.d("certifyCode", "onResponse: ${response.body()}")
+                Log.d("saveImage", "onResponse: ${response.body()}")
                 if (response.code() != 201) {
                     onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
                 } else {
@@ -133,7 +134,7 @@ class UserService {
                 call: Call<Void>,
                 response: Response<Void>
             ) {
-                Log.d("certifyCode", "onResponse: ${response.body()}")
+                Log.d("signup", "onResponse: ${response.body()}")
                 if (response.code() != 201) {
                     onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
                 } else {
