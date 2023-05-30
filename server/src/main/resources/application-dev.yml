@@ -10,5 +10,5 @@ spring:
     hibernate:
       ddl-auto: create
 image:
-  path: ~/app/image
+  path: /home/ithinkso/app/image
   default_filename: default.png
