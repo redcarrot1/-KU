@@ -3,6 +3,7 @@ package kr.ac.konkuk.demo.domain.user.application;
 import kr.ac.konkuk.demo.domain.user.dao.UserFindDao;
 import kr.ac.konkuk.demo.domain.user.dao.UserRepository;
 import kr.ac.konkuk.demo.domain.user.entity.User;
+import kr.ac.konkuk.demo.domain.user.exception.UserNotFoundException;
 import kr.ac.konkuk.demo.global.manager.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,13 @@ public class UserProfileService {
         User user = userFindDao.findById(userId);
         user.updateUserPassword(passwordEncoder.encrypt(password));
     }
+
+    public void changePassword(String email, String password) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+        user.updateUserPassword(passwordEncoder.encrypt(password));
+    }
+
 
     public void changeNickname(Long userId, String nickname) {
         User user = userFindDao.findById(userId);

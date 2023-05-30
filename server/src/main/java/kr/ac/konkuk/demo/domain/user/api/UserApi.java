@@ -40,6 +40,11 @@ public class UserApi {
         return tokenDto;
     }
 
+    @PostMapping("/password")
+    public void changePasswordWithoutLogin(@RequestBody @Valid PasswordChangeWithoutLoginDto.Request request) {
+        userProfileService.changePassword(request.getEmail(), request.getPassword());
+    }
+
     @PostMapping("/change/password")
     public void changePassword(@UserId Long userId, @RequestBody @Valid PasswordChangeDto.Request request) {
         userProfileService.changePassword(userId, request.getPassword());
