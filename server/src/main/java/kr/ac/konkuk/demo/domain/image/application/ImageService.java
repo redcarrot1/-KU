@@ -27,9 +27,6 @@ public class ImageService {
     private String defaultImageName;
 
     public String registryImage(MultipartFile faceImageFile) {
-        System.out.println(faceImageFile.getContentType());
-        System.out.println(faceImageFile.getOriginalFilename());
-        System.out.println(faceImageFile.getSize());
         try {
             if (faceImageFile == null || faceImageFile.isEmpty()) return defaultImageName;
             String imageFullName = createStoreFileName(faceImageFile.getOriginalFilename());
