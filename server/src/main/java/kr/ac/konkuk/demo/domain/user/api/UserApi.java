@@ -40,6 +40,11 @@ public class UserApi {
         return tokenDto;
     }
 
+    @PostMapping("/password")
+    public void changePasswordWithoutLogin(@RequestBody @Valid PasswordChangeWithoutLoginDto.Request request) {
+        userProfileService.changePassword(request.getEmail(), request.getPassword());
+    }
+
     @PostMapping("/change/password")
     public void changePassword(@UserId Long userId, @RequestBody @Valid PasswordChangeDto.Request request) {
         userProfileService.changePassword(userId, request.getPassword());
@@ -58,5 +63,13 @@ public class UserApi {
     @PostMapping("/change/image")
     public void changeImage(@UserId Long userId, @RequestBody @Valid ImageChangeDto.Request request) {
         userProfileService.changeImageUrl(userId, request.getImageUrl());
+    }
+
+    @GetMapping("/exist")
+    public HashMap<String, Object> existCheckUserByEmail(@Param("email") String email) {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        if (userProfileService.existUserByEmail(email)) map.put("isExist", true);
+        else map.put("isExist", false);
+        return map;
     }
 }

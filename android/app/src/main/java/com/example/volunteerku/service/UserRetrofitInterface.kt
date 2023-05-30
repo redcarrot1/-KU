@@ -1,20 +1,19 @@
 package com.example.volunteerku.service
 
-import android.location.Location
-import com.example.volunteerku.data.CommonResponse
 import com.example.volunteerku.data.DuplicateResponse
-import com.example.volunteerku.data.EmailResponse
-import com.example.volunteerku.data.LogoutResponse
-import com.example.volunteerku.data.RefreshTokenResponse
-import com.example.volunteerku.data.User
 import com.example.volunteerku.data.EmailCertifyCodeResponse
+import com.example.volunteerku.data.EmailResponse
+import com.example.volunteerku.data.SaveImageResponse
+import com.example.volunteerku.data.SignupRequest
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
+
 
 interface UserRetrofitInterface {
 
     @POST("/api/users/register")
-    fun register(@Body user: User): Call<EmailCertifyCodeResponse>
+    fun signup(@Body request: SignupRequest): Call<Void>
 
     @GET("/api/users/duplication")
     fun isDuplicate(@Query("nickname") nickname: String): Call<DuplicateResponse>
@@ -27,5 +26,9 @@ interface UserRetrofitInterface {
         @Query("email") email: String,
         @Query("code") code: String
     ): Call<EmailCertifyCodeResponse>
+
+    @Multipart
+    @POST("/api/users/images")
+    fun saveImage(@Part faceImageFile: MultipartBody.Part): Call<SaveImageResponse>
 
 }
