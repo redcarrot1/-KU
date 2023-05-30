@@ -54,12 +54,12 @@ class PasswordActivity : AppCompatActivity() {
         )
 
         binding.passwordEndBtn.setOnClickListener {
-            savepassword()
+            goToIntroductionActivity()
         }
     }
 
 
-    private fun savepassword() {
+    private fun goToIntroductionActivity() {
         user.password = binding.passwordEt.text.toString()
         val intent = Intent(this, IntroductionActivity::class.java)
         startActivity(intent)
