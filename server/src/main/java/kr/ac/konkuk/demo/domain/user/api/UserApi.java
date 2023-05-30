@@ -65,8 +65,8 @@ public class UserApi {
         userProfileService.changeImageUrl(userId, request.getImageUrl());
     }
 
-    @GetMapping("/isExist")
-    public HashMap<String, Object> existUserByEmail(@Param("email") String email) {
+    @GetMapping("/exist")
+    public HashMap<String, Object> existCheckUserByEmail(@Param("email") String email) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         if (userProfileService.existUserByEmail(email)) map.put("isExist", true);
         else map.put("isExist", false);
