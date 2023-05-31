@@ -35,9 +35,8 @@ public class UserApi {
     }
 
     @PostMapping("/login")
-    public TokenDto userLogin(@RequestBody @Valid UserLoginDto.Request request) {
-        TokenDto tokenDto = userRegisterService.loginUser(request.getEmail(), request.getPassword());
-        return tokenDto;
+    public LoginDto userLogin(@RequestBody @Valid UserLoginDto.Request request) {
+        return userRegisterService.loginUser(request.getEmail(), request.getPassword());
     }
 
     @PostMapping("/password")

@@ -24,9 +24,6 @@ public class TokenManager {
     @Value("${token.secret}")
     private String tokenSecret;
 
-    @Value("${token.access-token-expiration}")
-    private String accessTokenExpiration;
-
     private final UserRepository userRepository;
 
     public TokenDto createTokenDto(Long userId) {
@@ -44,7 +41,6 @@ public class TokenManager {
                 .setAudience(String.valueOf(userId))
                 .setIssuer("volunteerKU")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpiration)))
                 .signWith(SignatureAlgorithm.HS256, tokenSecret.getBytes(StandardCharsets.UTF_8))
                 .compact();
     }
