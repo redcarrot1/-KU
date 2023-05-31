@@ -196,7 +196,8 @@
         android:layout_height="wrap_content"
         android:text="신청하기"
         android:textColor="#FFFFFF"
-            android:enabled="false" />
+            android:background="@drawable/rounded_button"
+            />
 
 
     </LinearLayout>
