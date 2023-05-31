@@ -16,8 +16,8 @@ class RegisterActivity : AppCompatActivity() {
 
 
         binding.nextButton.setOnClickListener {
-            val title = binding.titleEt.text.toString()
-            val content = binding.contentEt.text.toString()
+            val title = binding.title.text.toString()
+            val content = binding.content.text.toString()
             val intent = Intent(this, Register2Activity::class.java)
             intent.putExtra("title", title)
             intent.putExtra("content", content)

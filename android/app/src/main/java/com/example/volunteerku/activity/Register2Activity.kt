@@ -133,12 +133,12 @@ class Register2Activity : AppCompatActivity() {
         val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
         //임시토큰
 
-        val intent = Intent(this@Register2Activity, ListActivity::class.java)
-        val kakaoUrl = binding.KakaoUrl.text.toString()
+        val intent = intent
+        val kakaoUrl = binding.kakaourl.text.toString()
         val internetUrl = "" // 인터넷 URL 아직 없음
         val title = intent.getStringExtra("title").toString()
         val limitHeadCount = currentCount // 현재 모집 인원을 저장할 변수
-        val closedDateTime = "2023-07-01T18:00:00" // 임시날짜
+        val closedDateTime = "2023-07-01T19:00:00" // 임시날짜
         val content = intent.getStringExtra("content").toString()
 
         val room = Room(kakaoUrl, internetUrl, title, limitHeadCount, closedDateTime, content)
@@ -154,10 +154,12 @@ class Register2Activity : AppCompatActivity() {
                         .setMessage("게시글이 성공적으로 등록되었습니다.")
                         .setPositiveButton("확인") { dialog, _ ->
                             dialog.dismiss()
+                            val intent = Intent(this@Register2Activity, ListActivity::class.java)
+                            startActivity(intent)
                             finish()
                         }
                         .show()
-                    startActivity(intent)
+                    //startActivity(intent)
                 } else {
                     // 게시글 등록 실패
                     val errorBody = response.errorBody()?.string()
