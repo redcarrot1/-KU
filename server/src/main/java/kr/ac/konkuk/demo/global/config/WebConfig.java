@@ -26,7 +26,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new UserLoginInterceptor(tokenManager))
                 .addPathPatterns("/api/users/**", "/api/volunteers/**", "/api/rooms/**")
                 .excludePathPatterns("/api/users/login", "/api/users/register", "/api/users/password", "/api/users/duplication",
-                        "/api/users/images/**", "/api/users/exist", "/css/**", "/*.ico", "/error", "/js/**");
+                        "/api/users/images/**", "/api/users/exist", "/api/rooms", "/api/rooms/detail/**",
+                        "/css/**", "/*.ico", "/error", "/js/**");
     }
 
     @Override
