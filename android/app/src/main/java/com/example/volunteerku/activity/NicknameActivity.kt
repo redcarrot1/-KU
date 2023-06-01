@@ -28,7 +28,7 @@ class NicknameActivity : AppCompatActivity() {
         }
 
         binding.nicknameEndBtn.setOnClickListener {
-            savename()
+            goToPasswordActivity()
         }
     }
 
@@ -77,7 +77,7 @@ class NicknameActivity : AppCompatActivity() {
         }).isDuplicate(nickname)
     }
 
-    private fun savename() {
+    private fun goToPasswordActivity() {
         user.nickname = binding.nicknameEt.text.toString()
         val intent = Intent(this, PasswordActivity::class.java)
         startActivity(intent)

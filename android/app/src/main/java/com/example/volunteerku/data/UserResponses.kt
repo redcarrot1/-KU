@@ -20,25 +20,11 @@ data class DuplicateResponse(
     @SerializedName(value = "isDuplicate") var isDuplicate: Boolean,
 )
 
-data class LogoutResponse(
-    @SerializedName(value = "isSuccess") var isSuccess: Boolean?
-)
-
-data class RefreshTokenResponse(
-    @SerializedName(value = "isSuccess") var isSuccess: Boolean?,
-    @SerializedName(value = "response") var response: RefreshResponse
-)
-
-data class RefreshResponse(
-    @SerializedName(value = "grantType") var grantType: String,
-    @SerializedName(value = "accessToken") var accessToken: String,
-    @SerializedName(value = "accessTokenExpireTime") var accessTokenExpireTime: String
-)
-
 data class EmailResponse(
     @SerializedName(value = "expireAt") var expireAt: String,
     @SerializedName(value = "sendingCount") var sendingCount: Int
 )
+
 
 data class EmailCertifyResponse(
     @SerializedName(value = "isSuccess") var isSuccess: Boolean,
@@ -53,3 +39,17 @@ data class ChangePasswordRequest(
     @SerializedName(value = "email") var email: String,
     @SerializedName(value = "password") var password: String,
 )
+
+data class SaveImageResponse(
+    @SerializedName(value = "imageFileName") var imageFileName: String,
+)
+
+data class SignupRequest(
+    @SerializedName(value = "email") var email: String,
+    @SerializedName(value = "password") var password: String,
+    @SerializedName(value = "nickname") var nickname: String,
+    @SerializedName(value = "major") var major: String,
+    @SerializedName(value = "imageUrl") var imageUrl: String,
+    @SerializedName(value = "introduction") var introduction: String,
+)
+

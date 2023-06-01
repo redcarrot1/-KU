@@ -3,6 +3,7 @@ package kr.ac.konkuk.demo.domain.user.application;
 import kr.ac.konkuk.demo.domain.auth.email.exception.NotKUEmailException;
 import kr.ac.konkuk.demo.domain.user.dao.UserFindDao;
 import kr.ac.konkuk.demo.domain.user.dao.UserRepository;
+import kr.ac.konkuk.demo.domain.user.dto.LoginDto;
 import kr.ac.konkuk.demo.domain.user.dto.TokenDto;
 import kr.ac.konkuk.demo.domain.user.entity.User;
 import kr.ac.konkuk.demo.domain.user.exception.DuplicateUserEmailException;
@@ -37,11 +38,18 @@ public class UserRegisterService {
         userRepository.save(user);
     }
 
-    public TokenDto loginUser(String email, String password) {
+    public LoginDto loginUser(String email, String password) {
         User user = userFindDao.findByEmail(email);
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new FailUserLoginException();
         }
-        return tokenManager.createTokenDto(user.getId());
+        TokenDto tokenDto = tokenManager.createTokenDto(user.getId());
+        return LoginDto.builder()
+                .grantType(tokenDto.getGrantType())
+                .accessToken(tokenDto.getAccessToken())
+                .major(user.getMajor().toString())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .build();
     }
 }

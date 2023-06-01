@@ -2,7 +2,6 @@ package com.example.volunteerku.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -20,10 +19,7 @@ class MajorChoiceActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.agreeNextBtn.setOnClickListener {
-            Log.d("major", user.major)
-            user.major = binding.majorDbSpinner.selectedItem.toString()
-            val intent = Intent(this, NicknameActivity::class.java)
-            startActivity(intent)
+            goToNicknameActivity()
         }
 
         binding.majorScSpinner.adapter =
@@ -168,5 +164,11 @@ class MajorChoiceActivity : AppCompatActivity() {
                         .show()
                 }
             }
+    }
+
+    private fun goToNicknameActivity() {
+        user.major = binding.majorDbSpinner.selectedItem.toString()
+        val intent = Intent(this, NicknameActivity::class.java)
+        startActivity(intent)
     }
 }
