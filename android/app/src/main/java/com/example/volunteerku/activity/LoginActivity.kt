@@ -2,10 +2,10 @@ package com.example.volunteerku.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.JWT
 import com.example.volunteerku.databinding.ActivityLoginBinding
@@ -13,7 +13,7 @@ import com.example.volunteerku.dialog.LoadingDialog
 import com.example.volunteerku.service.UserService
 
 class LoginActivity : AppCompatActivity() {
-    lateinit var binding:ActivityLoginBinding
+    lateinit var binding: ActivityLoginBinding
     private var email: String = ""
     private var password: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,12 +22,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         init()
     }
-    fun init(){
+
+    fun init() {
         binding.goChangePassword.setOnClickListener {
             var Intent = Intent(this, PasswordChangeCertifyActivity::class.java)
             startActivity(Intent)
         }
-        binding.goSignup.setOnClickListener{
+        binding.goSignup.setOnClickListener {
             var Intent = Intent(this, EmailCertifyActivity::class.java)
             startActivity(Intent)
         }
@@ -40,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun LoginResponse(email:String, password:String){
+    fun LoginResponse(email: String, password: String) {
         val loading = LoadingDialog(this)
         loading.show()
 
@@ -54,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("login code", "LoginResponse: code is correct")
                     if (body is JWT) {
                         user.jwt = body.accessToken
-//                        goToRoomActivity()
+                        goToRoomActivity()
                     } else {
                         Toast.makeText(applicationContext, "서버의 응답이 올바르지 않습니다.", Toast.LENGTH_SHORT)
                             .show()
@@ -66,6 +67,11 @@ class LoginActivity : AppCompatActivity() {
         })
 
         userService.signIn(email, password)
+    }
+
+    private fun goToRoomActivity() {
+        var Intent = Intent(this, RegisterActivity::class.java)
+        startActivity(Intent)
     }
 
 }
