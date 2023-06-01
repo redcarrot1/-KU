@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityRegister2Binding
 import com.example.volunteerku.service.BASE_URL
@@ -28,7 +29,7 @@ class Register2Activity : AppCompatActivity() {
     var dateString = "" // 날짜
     var timeString = "" // 시간
     var internetUrlText = "" // 나중에 받아올 봉사활동 주소
-    private lateinit var retrofitInterface : UserRetrofitInterface
+    private lateinit var retrofitInterface: UserRetrofitInterface
     lateinit var progressDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,21 +43,21 @@ class Register2Activity : AppCompatActivity() {
             .build()
         retrofitInterface = retrofit.create(UserRetrofitInterface::class.java)
 
-        binding.plus.setOnClickListener{
+        binding.plus.setOnClickListener {
             if (currentCount < 10) {
                 currentCount++ // 모집 인원 증가
                 binding.countTextView.text = "$currentCount 명" // 텍스트뷰에 변경된 모집 인원 표시
             }
         }
 
-        binding.minus.setOnClickListener{
+        binding.minus.setOnClickListener {
             if (currentCount > 0) {
                 currentCount--
                 binding.countTextView.text = "$currentCount 명"
             }
         }
 
-        binding.kakaotalk.setOnClickListener{
+        binding.kakaotalk.setOnClickListener {
             onKakao()
         }
 
@@ -66,11 +67,18 @@ class Register2Activity : AppCompatActivity() {
 
         binding.DateBtn.setOnClickListener {
             val cal = Calendar.getInstance()    //캘린더뷰 만들기
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                dateString = "${year}년 ${month+1}월 ${dayOfMonth}일"
-                binding.Date.text = dateString
-            }
-            DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    dateString = "${year}년 ${month + 1}월 ${dayOfMonth}일"
+                    binding.Date.text = dateString
+                }
+            DatePickerDialog(
+                this,
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
         binding.TimeBtn.setOnClickListener {
@@ -79,13 +87,19 @@ class Register2Activity : AppCompatActivity() {
                 timeString = "${hourOfDay}시 ${minute}분"
                 binding.Clock.text = timeString
             }
-            TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true).show()
+            TimePickerDialog(
+                this,
+                timeSetListener,
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                true
+            ).show()
         }
 
-        binding.RegisterBtn.setOnClickListener{
-         //   val intent = Intent(this, ListActivity::class.java)
+        binding.RegisterBtn.setOnClickListener {
+            //   val intent = Intent(this, ListActivity::class.java)
             createPost()
-           // startActivity(intent)
+            // startActivity(intent)
         }
 
 
@@ -130,12 +144,11 @@ class Register2Activity : AppCompatActivity() {
         progressDialog.show()
 
         // 액세스 토큰 값
-        val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
-        //임시토큰
+        val accessToken = user.getAccessToken()
 
         val intent = intent
         val kakaoUrl = binding.kakaourl.text.toString()
-        val internetUrl = "" // 인터넷 URL 아직 없음
+        val internetUrl = "" // TODO
         val title = intent.getStringExtra("title").toString()
         val limitHeadCount = currentCount // 현재 모집 인원을 저장할 변수
         val closedDateTime = "2023-07-01T19:00:00" // 임시날짜

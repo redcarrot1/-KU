@@ -159,7 +159,9 @@ class EmailCertifyActivity : AppCompatActivity() {
     }
 
     private fun goToLoginActivity() {
-        TODO("Not yet implemented")
+        Toast.makeText(applicationContext, "이미 가입된 계정입니다.", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 
     @SuppressLint("SimpleDateFormat")

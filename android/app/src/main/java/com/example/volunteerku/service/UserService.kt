@@ -7,7 +7,6 @@ import com.example.volunteerku.data.EmailCertifyCodeResponse
 import com.example.volunteerku.data.EmailResponse
 import com.example.volunteerku.data.ExistEmailResponse
 import com.example.volunteerku.data.JWT
-import com.example.volunteerku.data.User
 import com.example.volunteerku.data.SaveImageResponse
 import com.example.volunteerku.data.SignupRequest
 import okhttp3.MultipartBody
@@ -131,14 +130,14 @@ class UserService {
                 }
             }
 
-            override fun onFailure(call: Call<SaveImageResponse>, t: Throwable) {
+            override fun onFailure(call: Call<JWT>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail certifyCode $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
-    
+
     fun saveImage(filePart: MultipartBody.Part) {
 
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
@@ -169,8 +168,11 @@ class UserService {
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
         val request = ChangePasswordRequest(email, password)
         userService.changePassword(request).enqueue(object : Callback<Void> {
-
-           Log.d("retrofit", "onResponse: ${response.code()} is received ")
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                Log.d("retrofit", "onResponse: ${response.code()} is received ")
                 when (response.code()) {
                     200 -> { // success
                         onResponseListener.getResponseBody(null, true, "")
@@ -186,13 +188,14 @@ class UserService {
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail change password $call")
+                Log.e("retrofit", "onResponse: fail certifyCode $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
-    
+
+
     fun signup(requestBody: SignupRequest) {
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
         userService.signup(requestBody).enqueue(object : Callback<Void> {
@@ -242,15 +245,6 @@ class UserService {
             }
 
             override fun onFailure(call: Call<ExistEmailResponse>, t: Throwable) {
-                Log.d("signup", "onResponse: ${response.body()}")
-                if (response.code() != 201) {
-                    onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
-                } else {
-                    onResponseListener.getResponseBody(null, true, "")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail certifyCode $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
@@ -258,3 +252,4 @@ class UserService {
         })
     }
 }
+
