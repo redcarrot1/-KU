@@ -25,6 +25,21 @@ data class EmailResponse(
     @SerializedName(value = "sendingCount") var sendingCount: Int
 )
 
+
+data class EmailCertifyResponse(
+    @SerializedName(value = "isSuccess") var isSuccess: Boolean,
+    @SerializedName(value = "response") var response: Boolean
+)
+
+data class ExistEmailResponse(
+    @SerializedName(value = "isExist") var isExist: Boolean,
+)
+
+data class ChangePasswordRequest(
+    @SerializedName(value = "email") var email: String,
+    @SerializedName(value = "password") var password: String,
+)
+
 data class SaveImageResponse(
     @SerializedName(value = "imageFileName") var imageFileName: String,
 )
@@ -37,3 +52,4 @@ data class SignupRequest(
     @SerializedName(value = "imageUrl") var imageUrl: String,
     @SerializedName(value = "introduction") var introduction: String,
 )
+

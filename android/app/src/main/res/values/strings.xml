@@ -2,14 +2,20 @@
     <string name="app_name">VolunteerKU</string>
 
     <string name="police_agree">회원가입</string>
+    <string name="police_do_agree">회원가입 하기</string>
     <string name="intro_agree">서비스 이용을 위한 약관에 동의해주세요.</string>
     <string name="major_choice">소속 대학 및 학과를 선택해주세요.</string>
     <string name="nickname_set">닉네임을 설정해주세요.</string>
     <string name="nickname_input">닉네임을 입력주세요.</string>
     <string name="nickname_sub">- 닉네임은 한/영 2자에서 8자 사이로 설정 가능합니다.\n- 띄어쓰기와 특수문자 사용이 불가합니다.\n- 부적절한 단어 사용시 추후 사용이 정지될 수 있습니다.</string>
 
+    <string name="password">비밀번호</string>
+    <string name="password_find">비밀번호 찾기</string>
     <string name="password_set">비밀번호를 설정해주세요.</string>
+    <string name="password_not_same">비밀번호가 일치하지 않습니다. 다시 입력해주세요.</string>
+    <string name="password_same">비밀번호가 일치합니다.</string>
     <string name="password_input">비밀번호을 입력주세요.</string>
+    <string name="password_again_input">다시 비밀번호을 입력주세요.</string>
     <string name="password_sub2">영문과 숫자의 조합</string>
     <string name="password_sub1">6자리 이상, 15자 이하</string>
 
@@ -19,6 +25,7 @@
 
     <string name="login">로그인</string>
     <string name="greeting">안녕하세요!</string>
+    <string name="email">이메일</string>
     <string name="certify_email">건국대학교 이메일을 인증해주세요.</string>
     <string name="konkuk_address">\@konkuk.ac.kr</string>
     <string name="request_code">인증코드 요청</string>

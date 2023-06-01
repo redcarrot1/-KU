@@ -1,7 +1,13 @@
 package com.example.volunteerku.service
 
+
+import android.location.Location
+import com.example.volunteerku.data.ChangePasswordRequest
+import com.example.volunteerku.data.CommonResponse
 import com.example.volunteerku.data.DuplicateResponse
 import com.example.volunteerku.data.EmailCertifyCodeResponse
+import com.example.volunteerku.data.ExistEmailResponse
+import com.example.volunteerku.data.JWT
 import com.example.volunteerku.data.EmailResponse
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.data.SaveImageResponse
@@ -27,6 +33,21 @@ interface UserRetrofitInterface {
         @Query("email") email: String,
         @Query("code") code: String
     ): Call<EmailCertifyCodeResponse>
+
+    @POST("/api/users/login")
+    fun signIn(
+        @Body request: ChangePasswordRequest
+    ): Call<JWT>
+
+    @POST("/api/users/password")
+    fun changePassword(
+        @Body request: ChangePasswordRequest
+    ):Call<Void>
+
+    @GET("/api/users/exist")
+    fun isMember(
+        @Query("email") email:String
+    ):Call<ExistEmailResponse>
 
     @POST("/api/rooms/register")
     fun createPost(@Header("Authorization") accessToken: String, @Body room: Room): Call<Void>
