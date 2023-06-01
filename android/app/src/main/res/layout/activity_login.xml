@@ -68,7 +68,6 @@
                 android:layout_marginStart="18dp"
                 android:background="@color/transparent"
                 android:fontFamily="@font/pretendard_semi_bold"
-                android:maxLength="8"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:hint="이메일"
