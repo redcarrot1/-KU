@@ -33,7 +33,7 @@ public class RoomApi {
     }
 
     @GetMapping("/detail/{id}")
-    public RoomFindDetailDto.Request findRoomDetail(Long id) {
+    public RoomFindDetailDto.Request findRoomDetail(@PathVariable Long id) {
         return roomService.findRoomById(id);
     }
 
