@@ -1,6 +1,7 @@
 package com.example.volunteerku.service
 
 import android.location.Location
+import com.example.volunteerku.data.ChangePasswordRequest
 import com.example.volunteerku.data.CommonResponse
 import com.example.volunteerku.data.DuplicateResponse
 import com.example.volunteerku.data.EmailResponse
@@ -8,6 +9,8 @@ import com.example.volunteerku.data.LogoutResponse
 import com.example.volunteerku.data.RefreshTokenResponse
 import com.example.volunteerku.data.User
 import com.example.volunteerku.data.EmailCertifyCodeResponse
+import com.example.volunteerku.data.ExistEmailResponse
+import com.example.volunteerku.data.JWT
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -27,5 +30,20 @@ interface UserRetrofitInterface {
         @Query("email") email: String,
         @Query("code") code: String
     ): Call<EmailCertifyCodeResponse>
+
+    @POST("/api/users/login")
+    fun signIn(
+        @Body request: ChangePasswordRequest
+    ): Call<JWT>
+
+    @POST("/api/users/password")
+    fun changePassword(
+        @Body request: ChangePasswordRequest
+    ):Call<Void>
+
+    @GET("/api/users/exist")
+    fun isMember(
+        @Query("email") email:String
+    ):Call<ExistEmailResponse>
 
 }
