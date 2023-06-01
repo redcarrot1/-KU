@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#EEF2E6"
-        android:gravity="left"
-        >
+        android:gravity="start">
 
         <ImageView
             android:id="@+id/back_button"
@@ -34,8 +33,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.2"
         android:orientation="vertical"
-        android:padding="16dp"
-        >
+        android:padding="16dp">
 
         <EditText
             android:id="@+id/title"
@@ -45,7 +43,7 @@
             android:background="#FFFFFF"
             android:hint="제목을 입력하세요."
             android:padding="16dp"
-            android:layout_gravity="left"
+            android:gravity="left"
             />
 
         <View
@@ -66,9 +64,9 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:layout_gravity="left"
             android:gravity="top"
             android:hint="내용을 입력하세요."
             android:padding="16dp" />
@@ -77,8 +75,8 @@
             android:id="@+id/next_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="다음"
             android:background="@drawable/rounded_button"
+            android:text="다음"
             android:textColor="#FFFFFF"
 
             />
