@@ -3,6 +3,7 @@ package com.example.volunteerku.service
 import com.example.volunteerku.data.DuplicateResponse
 import com.example.volunteerku.data.EmailCertifyCodeResponse
 import com.example.volunteerku.data.EmailResponse
+import com.example.volunteerku.data.Room
 import com.example.volunteerku.data.SaveImageResponse
 import com.example.volunteerku.data.SignupRequest
 import okhttp3.MultipartBody
@@ -26,6 +27,13 @@ interface UserRetrofitInterface {
         @Query("email") email: String,
         @Query("code") code: String
     ): Call<EmailCertifyCodeResponse>
+
+    @POST("/api/rooms/register")
+    fun createPost(@Header("Authorization") accessToken: String, @Body room: Room): Call<Void>
+
+    @GET("/api/rooms")
+    fun getRooms(): Call<List<Room>>
+
 
     @Multipart
     @POST("/api/users/images")
