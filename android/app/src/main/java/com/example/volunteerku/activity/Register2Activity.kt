@@ -66,19 +66,29 @@ class Register2Activity : AppCompatActivity() {
         }// 뒤로가기
 
         binding.DateBtn.setOnClickListener {
-            val cal = Calendar.getInstance()    //캘린더뷰 만들기
-            val dateSetListener =
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    dateString = "${year}년 ${month + 1}월 ${dayOfMonth}일"
+            val cal = Calendar.getInstance()    // 현재 시간 가져오기
+            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(Calendar.YEAR, year)
+                selectedDate.set(Calendar.MONTH, month)
+                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                val currentDate = Calendar.getInstance()
+
+                if (selectedDate.before(currentDate)) { // 선택한 날짜가 현재 날짜보다 이전인 경우
+                    // 과거 날짜 선택은 불가능하도록 처리
+                    AlertDialog.Builder(this@Register2Activity)
+                        .setMessage("과거의 날짜는 선택할 수 없습니다.")
+                        .setPositiveButton("확인") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                } else {
+                    dateString = "${year}년 ${month+1}월 ${dayOfMonth}일"
                     binding.Date.text = dateString
                 }
-            DatePickerDialog(
-                this,
-                dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            }
+            DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
         binding.TimeBtn.setOnClickListener {
