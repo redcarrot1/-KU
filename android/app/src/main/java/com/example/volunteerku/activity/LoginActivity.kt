@@ -57,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
                         user.jwt = body.accessToken
                         goToRoomActivity()
                     } else {
+
                         Toast.makeText(applicationContext, "서버의 응답이 올바르지 않습니다.", Toast.LENGTH_SHORT)
                             .show()
                     }
