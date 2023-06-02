@@ -1,6 +1,7 @@
 package com.example.volunteerku.activity
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -77,6 +78,17 @@ class ListActivity : AppCompatActivity() {
                         // 받아온 게시글 목록을 리스트뷰에 표시
                         val adapter = RoomListAdapter(this@ListActivity, R.layout.custom_list_item, roomList)
                         binding.listView.adapter = adapter
+
+                        binding.listView.setOnItemClickListener { parent, view, position, id ->
+                            val selectedRoom = roomList[position]
+                            val roomId = selectedRoom.id
+
+                            // DetailActivity로 id 값을 전달
+                            val intent = Intent(this@ListActivity, DetailActivity::class.java)
+                            intent.putExtra("roomId", roomId)
+                            startActivity(intent)
+                        }
+
                     }
                 } else {
                     // API 호출이 실패한 경우 처리
@@ -99,5 +111,7 @@ class ListActivity : AppCompatActivity() {
             binding.ToggleBtnUp.visibility = View.GONE
             binding.ToggleBtnDown.visibility = View.VISIBLE
         }
+
+
     }
 }

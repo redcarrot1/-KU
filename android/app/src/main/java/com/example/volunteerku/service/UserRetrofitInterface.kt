@@ -52,8 +52,12 @@ interface UserRetrofitInterface {
     @POST("/api/rooms/register")
     fun createPost(@Header("Authorization") accessToken: String, @Body room: Room): Call<Void>
 
+    @GET("/api/rooms/detail/{id}")
+    fun getRoomDetail(@Path("id") roomId: Int): Call<Room>
+
     @GET("/api/rooms")
     fun getRooms(): Call<List<Room>>
+
 
 
     @Multipart

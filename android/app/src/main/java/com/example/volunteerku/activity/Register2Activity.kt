@@ -164,7 +164,7 @@ class Register2Activity : AppCompatActivity() {
         val closedDateTime = "2023-07-01T19:00:00" // 임시날짜
         val content = intent.getStringExtra("content").toString()
 
-        val room = Room(kakaoUrl, internetUrl, title, limitHeadCount, closedDateTime, content)
+        val room = Room(id = 0, kakaoUrl, internetUrl, title, limitHeadCount, closedDateTime, content)
 
         val call: Call<Void> = retrofitInterface.createPost(accessToken, room)
 
