@@ -1,11 +1,15 @@
 package com.example.volunteerku.activity
 
-import android.R
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
+import com.example.volunteerku.R
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityListBinding
 import com.example.volunteerku.service.BASE_URL
@@ -17,8 +21,39 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ListActivity : AppCompatActivity() {
-    lateinit var binding : ActivityListBinding
+    lateinit var binding: ActivityListBinding
     private lateinit var retrofitInterface: UserRetrofitInterface
+
+    private inner class RoomListAdapter(
+        context: Context,
+        resource: Int,
+        rooms: List<Room>
+    ) : ArrayAdapter<Room>(context, resource, rooms) {
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val itemView: View =
+                convertView ?: LayoutInflater.from(context).inflate(
+                    R.layout.custom_list_item,
+                    parent,
+                    false
+                )
+
+            val room: Room? = getItem(position)
+
+            // UI 요소를 findViewById로 찾아와서 처리
+            val titleTextView: TextView = itemView.findViewById(R.id.item_text)
+            val recruitmentTextView: TextView = itemView.findViewById(R.id.item_subtitle)
+
+            if (room != null) {
+                titleTextView.text = room.title
+            }
+            if (room != null) {
+                recruitmentTextView.text = "모집인원: ${room.limitHeadCount}"
+            }
+
+            return itemView
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +75,7 @@ class ListActivity : AppCompatActivity() {
                     val roomList = response.body()
                     if (roomList != null) {
                         // 받아온 게시글 목록을 리스트뷰에 표시
-                        val adapter = ArrayAdapter(this@ListActivity, R.layout.simple_list_item_1, roomList)
+                        val adapter = RoomListAdapter(this@ListActivity, R.layout.custom_list_item, roomList)
                         binding.listView.adapter = adapter
                     }
                 } else {
@@ -55,12 +90,12 @@ class ListActivity : AppCompatActivity() {
             }
         })
 
-        binding.ToggleBtnDown.setOnClickListener{
+        binding.ToggleBtnDown.setOnClickListener {
             binding.ToggleBtnDown.visibility = View.GONE
             binding.ToggleBtnUp.visibility = View.VISIBLE
         }
 
-        binding.ToggleBtnUp.setOnClickListener{
+        binding.ToggleBtnUp.setOnClickListener {
             binding.ToggleBtnUp.visibility = View.GONE
             binding.ToggleBtnDown.visibility = View.VISIBLE
         }
