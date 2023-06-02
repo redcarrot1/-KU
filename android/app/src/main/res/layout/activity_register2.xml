@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="0명" />
+                android:text="1명" />
 
             <ImageView
                 android:id="@+id/plus"
@@ -195,9 +195,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="신청하기"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/rounded_button"
-            />
+            android:background="@drawable/button_green"
+            android:textColor="#FFFFFF"
+            android:enabled="false"/>
 
 
     </LinearLayout>

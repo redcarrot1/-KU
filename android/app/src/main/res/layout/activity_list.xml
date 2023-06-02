@@ -43,6 +43,15 @@
     </RelativeLayout>
 
     <ListView
+        android:id="@+id/listView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:divider="#EEF2E6"
+        android:dividerHeight="1dp"
+        android:padding="16dp"
+        android:visibility="gone"/>
+    <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

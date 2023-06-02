@@ -60,6 +60,7 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val roomTitleList: ArrayList<String> = ArrayList() // 추가한 봉사활동을 추가하기 위한 list
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -78,6 +79,15 @@ class ListActivity : AppCompatActivity() {
                         // 받아온 게시글 목록을 리스트뷰에 표시
                         val adapter = RoomListAdapter(this@ListActivity, R.layout.custom_list_item, roomList)
                         binding.listView.adapter = adapter
+
+                        // roomTitleList에 제목 추가
+                        for (room in roomList) {
+                            roomTitleList.add(room.title)
+                        }
+
+                        // listView2에 제목들을 표시
+                        val titleAdapter = ArrayAdapter(this@ListActivity, R.layout.custom_list_title, R.id.item_title, roomTitleList)
+                        binding.listView2.adapter = titleAdapter
 
                         binding.listView.setOnItemClickListener { parent, view, position, id ->
                             val selectedRoom = roomList[position]
@@ -105,11 +115,13 @@ class ListActivity : AppCompatActivity() {
         binding.ToggleBtnDown.setOnClickListener {
             binding.ToggleBtnDown.visibility = View.GONE
             binding.ToggleBtnUp.visibility = View.VISIBLE
+            binding.listView2.visibility = View.VISIBLE
         }
 
         binding.ToggleBtnUp.setOnClickListener {
             binding.ToggleBtnUp.visibility = View.GONE
             binding.ToggleBtnDown.visibility = View.VISIBLE
+            binding.listView2.visibility = View.GONE
         }
 
 

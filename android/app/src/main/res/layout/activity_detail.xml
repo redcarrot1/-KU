@@ -29,13 +29,15 @@
         android:padding="16dp"
         android:gravity="left">
 
-        <EditText
+        <TextView
             android:id="@+id/titleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="#FFFFFF"
             android:gravity="left"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:padding="16dp"
             android:text="제목" />
 
@@ -127,7 +129,7 @@
         android:padding="16dp"
         >
 
-        <EditText
+        <TextView
             android:id="@+id/content_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -160,7 +162,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <EditText
+        <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

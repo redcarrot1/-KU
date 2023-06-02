@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityRegister2Binding
@@ -25,7 +26,7 @@ import java.util.Calendar
 
 class Register2Activity : AppCompatActivity() {
     lateinit var binding: ActivityRegister2Binding
-    var currentCount = 0 // 현재 모집 인원을 저장할 변수
+    var currentCount = 1 // 현재 모집 인원을 저장할 변수
     var dateString = "" // 날짜
     var timeString = "" // 시간
     var internetUrlText = "" // 나중에 받아올 봉사활동 주소
@@ -51,7 +52,7 @@ class Register2Activity : AppCompatActivity() {
         }
 
         binding.minus.setOnClickListener {
-            if (currentCount > 0) {
+            if (currentCount > 1) {
                 currentCount--
                 binding.countTextView.text = "$currentCount 명"
             }
@@ -84,18 +85,21 @@ class Register2Activity : AppCompatActivity() {
                         }
                         .show()
                 } else {
-                    dateString = "${year}년 ${month+1}월 ${dayOfMonth}일"
+                    dateString = String.format("%04d-%02d-%02dT", year, month + 1, dayOfMonth)
                     binding.Date.text = dateString
+                    updateRegisterButtonState()
                 }
             }
             DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
+
         }
 
         binding.TimeBtn.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                timeString = "${hourOfDay}시 ${minute}분"
+                timeString = String.format("%02d:%02d:00", hourOfDay, minute)
                 binding.Clock.text = timeString
+                updateRegisterButtonState()
             }
             TimePickerDialog(
                 this,
@@ -104,14 +108,20 @@ class Register2Activity : AppCompatActivity() {
                 cal.get(Calendar.MINUTE),
                 true
             ).show()
+
+        }
+
+        if (!dateString.isEmpty() && !timeString.isEmpty() && !binding.kakaourl.text.toString().isEmpty()) {
+            binding.RegisterBtn.isEnabled = true
         }
 
         binding.RegisterBtn.setOnClickListener {
-            //   val intent = Intent(this, ListActivity::class.java)
-            createPost()
-            // startActivity(intent)
+                createPost()
         }
 
+        binding.kakaourl.addTextChangedListener {
+            updateRegisterButtonState()
+        }
 
     }
 
@@ -161,7 +171,7 @@ class Register2Activity : AppCompatActivity() {
         val internetUrl = "" // TODO
         val title = intent.getStringExtra("title").toString()
         val limitHeadCount = currentCount // 현재 모집 인원을 저장할 변수
-        val closedDateTime = "2023-07-01T19:00:00" // 임시날짜
+        val closedDateTime = dateString+timeString // 임시날짜
         val content = intent.getStringExtra("content").toString()
 
         val room = Room(id = 0, kakaoUrl, internetUrl, title, limitHeadCount, closedDateTime, content)
@@ -210,7 +220,12 @@ class Register2Activity : AppCompatActivity() {
             }
         })
     }
-
+    private fun updateRegisterButtonState() {
+        val dateString = binding.Date.text.toString()
+        val timeString = binding.Clock.text.toString()
+        val kakaourlString = binding.kakaourl.text.toString()
+        binding.RegisterBtn.isEnabled = dateString.isNotEmpty() && timeString.isNotEmpty() && kakaourlString.isNotEmpty()
+    }
 
 }
 
