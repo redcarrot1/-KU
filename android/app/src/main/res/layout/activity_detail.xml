@@ -34,7 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="#FFFFFF"
             android:gravity="left"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -134,10 +133,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="#FFFFFF"
             android:gravity="top"
             android:padding="16dp"
             android:text="봉사활동 상세조회"
+            android:textStyle="bold"
 
             />
 
@@ -167,17 +166,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="#FFFFFF"
             android:gravity="top"
             android:padding="16dp"
-            android:text="모집 안내사항" />
+            android:text="모집 안내사항"
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/contentsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="내용" />
+            android:hint="내용"
+            android:gravity="left"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/reg_button"

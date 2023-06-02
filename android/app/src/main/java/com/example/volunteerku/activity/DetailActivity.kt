@@ -102,7 +102,7 @@ class DetailActivity : AppCompatActivity() {
         })
         binding.backButton.setOnClickListener {
             finish()
-        }// 뒤로가기
+        }// 뒤로가기a
     }
 
     fun applyForVolunteerActivity(roomId : Int) {
