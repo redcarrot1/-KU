@@ -77,7 +77,7 @@ class ListActivity : AppCompatActivity() {
                     val roomList = response.body()
                     if (roomList != null) {
                         // 받아온 게시글 목록을 리스트뷰에 표시
-                        val adapter = RoomListAdapter(this@ListActivity, R.layout.custom_list_item, roomList)
+                        val adapter = RoomListAdapter(this@ListActivity, R.layout.custom_list_item, roomList.reversed())
                         binding.listView.adapter = adapter
 
                         // roomTitleList에 제목 추가
@@ -90,7 +90,7 @@ class ListActivity : AppCompatActivity() {
                         binding.listView2.adapter = titleAdapter
 
                         binding.listView.setOnItemClickListener { parent, view, position, id ->
-                            val selectedRoom = roomList[position]
+                            val selectedRoom = roomList.reversed()[position]
                             val roomId = selectedRoom.id
 
                             // DetailActivity로 id 값을 전달

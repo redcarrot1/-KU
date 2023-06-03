@@ -40,7 +40,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="일시"
+            android:hint="모집 마감 시간"
             android:padding="16dp"
             android:layout_gravity="left"/>
 
@@ -159,7 +159,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
-                android:hint="link"/>
+                android:hint="link"
+                android:maxLines="1"
+                />
 
         </LinearLayout>
 
