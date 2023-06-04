@@ -5,6 +5,7 @@ import kr.ac.konkuk.demo.domain.room.application.RoomService;
 import kr.ac.konkuk.demo.domain.room.dto.RoomFindDetailDto;
 import kr.ac.konkuk.demo.domain.room.dto.RoomFindDto;
 import kr.ac.konkuk.demo.domain.room.dto.RoomRegisterDto;
+import kr.ac.konkuk.demo.domain.room.dto.RoomTitleListDto;
 import kr.ac.konkuk.demo.global.resolver.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,11 @@ public class RoomApi {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("title", title);
         return map;
+    }
+
+    @GetMapping("/applicationsview")
+    public RoomTitleListDto findJoinRoom(@UserId Long userId) {
+        List<String> title = roomService.findJoinRoom(userId);
+        return new RoomTitleListDto(title);
     }
 }

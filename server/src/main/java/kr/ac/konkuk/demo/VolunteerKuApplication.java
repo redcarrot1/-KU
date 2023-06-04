@@ -249,6 +249,11 @@ public class VolunteerKuApplication {
                 .build()
         );
 
-
+        roomService.joinRoom(1L, 2L);
+        roomService.joinRoom(2L, 1L);
+        roomService.joinRoom(3L, 2L);
+        roomService.joinRoom(2L, 4L);
+        roomService.joinRoom(3L, 6L);
+        roomService.joinRoom(1L, 7L);
     }
 }

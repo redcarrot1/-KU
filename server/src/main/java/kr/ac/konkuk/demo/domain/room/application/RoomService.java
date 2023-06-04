@@ -65,4 +65,13 @@ public class RoomService {
         userRoomRepository.save(userRoom);
         return room.getTitle();
     }
+
+    @Transactional(readOnly = true)
+    public List<String> findJoinRoom(Long userId) {
+        return userRoomRepository.findByUserId(userId)
+                .stream()
+                .filter(userRoom -> userRoom.getRoom().getClosedDateTime().isAfter(LocalDateTime.now()))
+                .map(userRoom -> userRoom.getRoom().getTitle())
+                .toList();
+    }
 }
