@@ -64,7 +64,7 @@ class DetailActivity : AppCompatActivity() {
                                 .setMessage("봉사활동에 신청하시겠습니까?")
                                 .setPositiveButton("예") { dialog, which ->
                                     // 예를 선택한 경우 처리
-                                    applyForVolunteerActivity(room.id)
+                                    applyForVolunteerActivity(room.title)
                                     val kakaoUrl = room.kakaoUrl
                                     if (kakaoUrl != null) {
                                         // 다이얼로그에 링크 표시
@@ -102,14 +102,13 @@ class DetailActivity : AppCompatActivity() {
         })
         binding.backButton.setOnClickListener {
             finish()
-        }// 뒤로가기a
+        }// 뒤로가기
     }
 
-    fun applyForVolunteerActivity(roomId : Int) {
-        //val accessToken = VolunteerKUApplication.user.getAccessToken()
+    fun applyForVolunteerActivity(roomTitle : String) {
         //임시토큰
-        val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
-        val requestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), roomId.toString())
+        val accessToken = VolunteerKUApplication.user.getAccessToken()
+        val requestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), roomTitle)
 
         val call: Call<Void> = retrofitInterface.applyForVolunteerActivity(accessToken, requestBody)
 

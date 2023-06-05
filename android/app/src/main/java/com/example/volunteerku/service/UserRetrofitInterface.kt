@@ -2,6 +2,7 @@ package com.example.volunteerku.service
 
 
 import android.location.Location
+import com.example.volunteerku.data.Applications
 import com.example.volunteerku.data.ChangePasswordRequest
 import com.example.volunteerku.data.CommonResponse
 import com.example.volunteerku.data.DuplicateResponse
@@ -55,11 +56,19 @@ interface UserRetrofitInterface {
 
     @GET("/api/rooms/detail/{id}")
     fun getRoomDetail(@Path("id") roomId: Int): Call<Room>
+
     @POST("/api/rooms/applications")
     fun applyForVolunteerActivity(
         @Header("Authorization") token: String,
         @Body requestBody: RequestBody
     ): Call<Void>
+
+    @GET("/api/rooms/applicationsview")
+    fun getApplicationRooms(
+        @Header("Authorization") accessToken: String
+    ): Call<Applications>
+
+
     @GET("/api/rooms")
     fun getRooms(): Call<List<Room>>
 
