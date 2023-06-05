@@ -122,8 +122,6 @@ class ListActivity : AppCompatActivity() {
     }
 
     fun applicationview() {
-        //임시토큰
-       // val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ" // 액세스 토큰 설정
         val accessToken = user.getAccessToken()
         val call: Call<Applications> = retrofitInterface.getApplicationRooms(accessToken)
 
@@ -132,12 +130,14 @@ class ListActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val applications = response.body()
                     if (applications != null) {
-                        // 받아온 신청한 봉사활동 목록을 처리하여 원하는 방식으로 표시
-                        // 예를 들어, 리스트뷰에 표시하거나 필요한 정보를 추출하여 다른 곳에 사용할 수 있습니다.
                         val roomTitleList: ArrayList<String> = ArrayList()
 
                         for (room in applications.titles) {
                             roomTitleList.add(room)
+                        }
+
+                        if (roomTitleList.isEmpty()) {
+                            roomTitleList.add("사용자가 신청한 봉사활동이 없습니다.")
                         }
 
                         val titleAdapter = ArrayAdapter(
@@ -172,6 +172,9 @@ class ListActivity : AppCompatActivity() {
             }
         })
     }
+
+
+
 
 
 }
