@@ -40,7 +40,7 @@ public class RoomApi {
 
     @PostMapping("/applications")
     public HashMap<String, Object> joinRoom(@UserId Long userId, @RequestBody HashMap<String, Object> request) {
-        String title = roomService.joinRoom(userId, (Long) request.get("id"));
+        String title = roomService.joinRoom(userId, Long.parseLong(String.valueOf(request.get("id"))));
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("title", title);
         return map;

@@ -55,4 +55,8 @@ public class Room {
     public void updateHostUser(User user) {
         this.hostUser = user;
     }
+
+    public void increaseCurrentHeadCount() {
+        this.currentHeadCount++;
+    }
 }
