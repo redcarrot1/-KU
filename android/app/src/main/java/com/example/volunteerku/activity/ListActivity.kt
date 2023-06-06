@@ -122,6 +122,7 @@ class ListActivity : AppCompatActivity() {
     }
 
     fun applicationview() {
+      // val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
         val accessToken = user.getAccessToken()
         val call: Call<Applications> = retrofitInterface.getApplicationRooms(accessToken)
 
@@ -173,6 +174,10 @@ class ListActivity : AppCompatActivity() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        applicationview()
+    }//DeatilActivity에서 봉사활동을 신청하고 다시 ListActivity가 표시될때 내용 업데이트
 
 
 

@@ -18,6 +18,7 @@ import com.example.volunteerku.service.UserRetrofitInterface
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -64,7 +65,7 @@ class DetailActivity : AppCompatActivity() {
                                 .setMessage("봉사활동에 신청하시겠습니까?")
                                 .setPositiveButton("예") { dialog, which ->
                                     // 예를 선택한 경우 처리
-                                    applyForVolunteerActivity(room.title)
+                                    applyForVolunteerActivity(roomId)
                                     val kakaoUrl = room.kakaoUrl
                                     if (kakaoUrl != null) {
                                         // 다이얼로그에 링크 표시
@@ -105,10 +106,11 @@ class DetailActivity : AppCompatActivity() {
         }// 뒤로가기
     }
 
-    fun applyForVolunteerActivity(roomTitle : String) {
+    fun applyForVolunteerActivity(roomId : Int) {
         //임시토큰
+        //val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
         val accessToken = VolunteerKUApplication.user.getAccessToken()
-        val requestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), roomTitle)
+        val requestBody = "{\"id\": $roomId}".toRequestBody("application/json".toMediaTypeOrNull())
 
         val call: Call<Void> = retrofitInterface.applyForVolunteerActivity(accessToken, requestBody)
 
