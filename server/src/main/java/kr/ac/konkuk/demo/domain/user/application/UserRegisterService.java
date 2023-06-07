@@ -51,6 +51,7 @@ public class UserRegisterService {
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .introduce(user.getIntroduction())
+                .currentVolunteerTime(user.getVolunteerTime())
                 .build();
     }
 }

@@ -14,4 +14,5 @@ public class LoginDto {
     private String nickname;
     private String major;
     private String introduce;
+    private Integer currentVolunteerTime;
 }
