@@ -34,7 +34,7 @@
 
         <activity android:name=".activity.SuccessChangePasswordActivity" />
         <activity android:name=".activity.SuccessSignupActivity" />
-        <activity android:name=".activity.ListActivity" />
+        <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.Register2Activity" />
         <activity android:name=".activity.RegisterActivity" />
 
