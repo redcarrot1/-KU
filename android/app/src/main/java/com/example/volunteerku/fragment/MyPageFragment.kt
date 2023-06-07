@@ -53,5 +53,11 @@ class MyPageFragment() : Fragment() {
                 .replace(R.id.fragmentContainer, MypageModifyActivity())
                 .commit()
         }
+        binding.progressBar.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, MyVolunteerListAvtivity())
+                .commit()
+        }
     }
 }
