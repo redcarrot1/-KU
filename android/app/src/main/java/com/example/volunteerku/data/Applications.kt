@@ -1,3 +1,3 @@
 package com.example.volunteerku.data
 
-data class Applications (val titles: List<String>)
+data class Applications (val id:Int, val title: String)

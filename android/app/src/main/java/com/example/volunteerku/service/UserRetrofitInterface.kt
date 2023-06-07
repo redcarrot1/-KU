@@ -66,7 +66,7 @@ interface UserRetrofitInterface {
     @GET("/api/rooms/applicationsview")
     fun getApplicationRooms(
         @Header("Authorization") accessToken: String
-    ): Call<Applications>
+    ): Call<List<Applications>>
 
 
     @GET("/api/rooms")

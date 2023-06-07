@@ -1,5 +1,6 @@
 package com.example.volunteerku.activity
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -122,19 +123,19 @@ class ListActivity : AppCompatActivity() {
     }
 
     fun applicationview() {
-      // val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
+        //val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
         val accessToken = user.getAccessToken()
-        val call: Call<Applications> = retrofitInterface.getApplicationRooms(accessToken)
+        val call: Call<List<Applications>> = retrofitInterface.getApplicationRooms(accessToken)
 
-        call.enqueue(object : Callback<Applications> {
-            override fun onResponse(call: Call<Applications>, response: Response<Applications>) {
+        call.enqueue(object : Callback<List<Applications>> {
+            override fun onResponse(call: Call<List<Applications>>, response: Response<List<Applications>>) {
                 if (response.isSuccessful) {
                     val applications = response.body()
                     if (applications != null) {
                         val roomTitleList: ArrayList<String> = ArrayList()
 
-                        for (room in applications.titles) {
-                            roomTitleList.add(room)
+                        for (application in applications) {
+                            roomTitleList.add(application.title)
                         }
 
                         if (roomTitleList.isEmpty()) {
@@ -148,6 +149,16 @@ class ListActivity : AppCompatActivity() {
                             roomTitleList
                         )
                         binding.listView2.adapter = titleAdapter
+
+                        binding.listView2.setOnItemClickListener { parent, view, position, id ->
+                            val selectedRoom = applications.get(position)
+                            val roomId = selectedRoom?.id
+
+                            // DetailActivity로 id 값을 전달
+                            val intent = Intent(this@ListActivity, DetailActivity::class.java)
+                            intent.putExtra("roomId", roomId)
+                            startActivity(intent)
+                        }
                     }
                 } else {
                     // API 호출이 실패한 경우 처리
@@ -163,7 +174,7 @@ class ListActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Applications>, t: Throwable) {
+            override fun onFailure(call: Call<List<Applications>>, t: Throwable) {
                 // 네트워크 오류 등 호출 실패한 경우 처리
                 Toast.makeText(
                     this@ListActivity,
@@ -173,6 +184,8 @@ class ListActivity : AppCompatActivity() {
             }
         })
     }
+
+
 
     override fun onResume() {
         super.onResume()

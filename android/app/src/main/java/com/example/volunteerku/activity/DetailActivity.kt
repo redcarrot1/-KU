@@ -19,6 +19,8 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var retrofitInterface: UserRetrofitInterface
+    private var room: Room? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,24 +68,7 @@ class DetailActivity : AppCompatActivity() {
                                 .setMessage("봉사활동에 신청하시겠습니까?")
                                 .setPositiveButton("예") { dialog, which ->
                                     // 예를 선택한 경우 처리
-                                    applyForVolunteerActivity(roomId)
-                                    val kakaoUrl = room.kakaoUrl
-                                    if (kakaoUrl != null) {
-                                        // 다이얼로그에 링크 표시
-                                        val message = "오픈 카카오톡 링크:\n $kakaoUrl"
-                                        AlertDialog.Builder(this@DetailActivity)
-                                            .setMessage(message)
-                                            .setPositiveButton("확인", null)
-                                            .setCancelable(false)
-                                            .show()
-                                            .findViewById<TextView>(android.R.id.message)
-                                            ?.setOnClickListener {
-                                                // 링크 클릭 시 카카오톡 링크 열기
-                                                val intent =
-                                                    Intent(Intent.ACTION_VIEW, Uri.parse(kakaoUrl))
-                                                startActivity(intent)
-                                            }
-                                    }
+                                    applyForVolunteerActivity(roomId, room.kakaoUrl)
                                 }
                                 .setNegativeButton("아니오", null)
                                 .show()
@@ -106,10 +92,10 @@ class DetailActivity : AppCompatActivity() {
         }// 뒤로가기
     }
 
-    fun applyForVolunteerActivity(roomId : Int) {
-        //임시토큰
-        //val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
-        val accessToken = VolunteerKUApplication.user.getAccessToken()
+    fun applyForVolunteerActivity(roomId: Int, kakaoUrl:String?) {
+        // 임시토큰
+       // val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
+         val accessToken = VolunteerKUApplication.user.getAccessToken()
         val requestBody = "{\"id\": $roomId}".toRequestBody("application/json".toMediaTypeOrNull())
 
         val call: Call<Void> = retrofitInterface.applyForVolunteerActivity(accessToken, requestBody)
@@ -118,15 +104,69 @@ class DetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     // 봉사활동 신청이 성공적으로 처리된 경우
-                    Toast.makeText(this@DetailActivity, "봉사활동에 신청되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@DetailActivity,
+                        "봉사활동에 신청되었습니다.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d("Kakao URL", "Kakao URL: $kakaoUrl")
+                    if (kakaoUrl != null) {
+                        // 다이얼로그에 링크 표시 kakaoUrl"
+                        val message = "오픈 카카오톡 링크:\n $kakaoUrl"
+                        val dialog = AlertDialog.Builder(this@DetailActivity)
+                            .setMessage(message)
+                            .setPositiveButton("확인", null)
+                            .setCancelable(false)
+                            .show()
+                        dialog.findViewById<TextView>(android.R.id.message)?.setOnClickListener {
+                            // 링크 클릭 시 카카오톡 링크 열기
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(kakaoUrl))
+                            startActivity(intent)
+                            dialog.dismiss() // 다이얼로그 닫기
+                        }
+                    }
                 } else {
-                    // API 호출이 실패한 경우 처리
-                    Toast.makeText(this@DetailActivity, "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
                     val errorBody = response.errorBody()?.string()
                     if (errorBody != null) {
-                        Log.d("Error Response", errorBody)
+                        try {
+                            val errorJson = JSONObject(errorBody)
+                            val errorCode = errorJson.getString("code")
+                            val errorMessage = errorJson.getString("message")
+
+                            if (errorCode == "RO03") {
+                                // 이미 해당 방에 참여 중인 경우
+                                runOnUiThread {
+                                    AlertDialog.Builder(this@DetailActivity)
+                                        .setMessage(errorMessage)
+                                        .setPositiveButton("확인", null)
+                                        .show()
+                                }
+                                return
+                            }
+                            if (errorCode == "RO02") {
+                                // 방이 꽉 찼을 경우
+                                runOnUiThread {
+                                    AlertDialog.Builder(this@DetailActivity)
+                                        .setMessage(errorMessage)
+                                        .setPositiveButton("확인", null)
+                                        .show()
+                                }
+                                return
+                            }
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
                     }
+                    // API 호출이 실패한 경우 처리
+                    Toast.makeText(
+                        this@DetailActivity,
+                        "API 호출에 실패했습니다.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d("Error Response", errorBody ?: "")
                 }
+
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -135,4 +175,6 @@ class DetailActivity : AppCompatActivity() {
             }
         })
     }
+
+
 }
