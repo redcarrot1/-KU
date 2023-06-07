@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.volunteerku.R
 import com.example.volunteerku.VolunteerKUApplication
+import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityDetailBinding
 import com.example.volunteerku.service.BASE_URL
@@ -95,7 +96,7 @@ class DetailActivity : AppCompatActivity() {
     fun applyForVolunteerActivity(roomId: Int, kakaoUrl:String?) {
         // 임시토큰
        // val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
-         val accessToken = VolunteerKUApplication.user.getAccessToken()
+         val accessToken = user.getAccessToken()
         val requestBody = "{\"id\": $roomId}".toRequestBody("application/json".toMediaTypeOrNull())
 
         val call: Call<Void> = retrofitInterface.applyForVolunteerActivity(accessToken, requestBody)
