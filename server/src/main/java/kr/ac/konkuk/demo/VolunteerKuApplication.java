@@ -39,7 +39,7 @@ public class VolunteerKuApplication {
                 .nickname("tester1")
                 .major(Major.valueOf("컴퓨터공학부"))
                 .imageUrl("default.png")
-                .introduction("자기소개")
+                .introduction("안녕하세요! 저는 홍승택입니다. 좋은 사람들과 새로운 경험을 나누는 것을 좋아하고, 다양한 관심사를 가지고 있습니다. 음악, 영화, 여행, 스포츠 등 다양한 즐길 거리를 즐기며 삶을 즐겁게 보내고 있습니다. 함께 재미있는 이야기를 나누고 서로에 대해 더 알아가면 좋겠습니다. 저와 함께 하시겠어요?")
                 .build());
 
         userRegisterService.registerUser(User.builder()
