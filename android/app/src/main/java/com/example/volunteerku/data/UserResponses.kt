@@ -17,6 +17,8 @@ data class JWT(
     @SerializedName(value = "email") var email: String,
     @SerializedName(value = "nickname") var nickname: String,
     @SerializedName(value = "major") var major: String,
+    @SerializedName(value = "currentVolunteerTime") var currentVolunteerTime: Int,
+    @SerializedName(value = "introduce") var introduce: String,
 )
 
 data class DuplicateResponse(

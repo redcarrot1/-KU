@@ -58,6 +58,8 @@ class LoginActivity : AppCompatActivity() {
                         user.nickname = body.nickname
                         user.major = body.major
                         user.email = body.email
+                        user.introduce = body.introduce
+                        user.currentVolunteerTime = body.currentVolunteerTime
                         goToRoomActivity()
                     } else {
 
@@ -65,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
                             .show()
                     }
                 } else {
-                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "계정이 올바르지 않습니다!", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -74,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToRoomActivity() {
-        var Intent = Intent(this, VolunteerSearch::class.java)
+        var Intent = Intent(this, MainActivity::class.java)
         startActivity(Intent)
     }
 

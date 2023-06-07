@@ -29,7 +29,6 @@
         <activity android:name=".activity.NicknameActivity" />
         <activity android:name=".activity.MajorChoiceActivity" />
         <activity android:name=".activity.IntroductionActivity" />
-        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.EmailCertifyActivity" />
         <activity android:name=".activity.PasswordActivity" />
 
@@ -42,14 +41,10 @@
         <activity android:name=".activity.PasswordChangeActivity" />
         <activity android:name=".activity.PasswordChangeCertifyActivity" />
 
-        <activity android:name=".activity.MyVolunteerAddActivity" />
-        <activity android:name=".activity.MyVolunteerListAvtivity" />
-        <activity android:name=".activity.MypageActivity" />
-        <activity android:name=".activity.MypageModifyActivity" />
-        <activity android:name=".activity.MypasswordChangeActivity" />
-        <activity android:name=".activity.MypasswordChangeCertifyActivity" />
-        <activity android:name=".activity.VolunteerItemDetail" />
-        <activity android:name=".activity.VolunteerSearch" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true">
+        </activity>
 
     </application>
 

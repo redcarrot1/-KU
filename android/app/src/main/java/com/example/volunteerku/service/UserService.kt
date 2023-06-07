@@ -122,10 +122,7 @@ class UserService {
                     }
 
                     400 -> { // failed
-                        val err = JSONObject(
-                            response.errorBody()?.string()!!
-                        ).getJSONObject("errorResponse").get("message").toString()
-                        onResponseListener.getResponseBody(null, false, err)
+                        onResponseListener.getResponseBody(null, false, "")
                     }
                 }
             }

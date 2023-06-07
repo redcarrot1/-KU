@@ -9,11 +9,16 @@ data class User(
     @SerializedName(value = "password") var password: String,
     @SerializedName(value = "major") var major: String,
     @SerializedName(value = "jwt") var jwt: String,
+    @SerializedName(value = "introduce") var introduce: String,
+    @SerializedName(value = "currentVolunteerTime") var currentVolunteerTime: Int
 ) {
 
     companion object {
         fun getDefaultUser(): User {
-            return User("null", "null", "null", "null", "null")
+            return User(
+                "null", "null", "null", "null",
+                "null", "null", 0
+            )
         }
     }
 

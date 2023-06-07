@@ -21,6 +21,7 @@ public class VolunteerService {
 
     public void registerVolunteer(Long userId, Volunteer volunteer) {
         User user = userFindDao.findById(userId);
+        user.increaseVolunteerTime(volunteer.getMinuteTime());
         volunteer.updateUser(user);
         volunteerRepository.save(volunteer);
     }
