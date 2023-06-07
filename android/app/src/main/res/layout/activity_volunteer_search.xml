@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="봉사 기간" />
+                    android:text="봉사시작일자" />
 
                 <EditText
                     android:id="@+id/editTextText_date"
@@ -68,14 +68,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="기간 입력"
+                    android:hint="20230607"
                     android:inputType="date" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="봉사명" />
+                    android:text="봉사종료일자" />
 
                 <EditText
                     android:id="@+id/editText_volunteer_name"
@@ -83,8 +83,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="봉사명"
-                    android:inputType="text" />
+                    android:hint="20230609"
+                    android:inputType="date" />
             </LinearLayout>
 
         </LinearLayout>

@@ -83,6 +83,7 @@ class PasswordChangeActivity : AppCompatActivity() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
                 }
 
                 @SuppressLint("ResourceAsColor")
