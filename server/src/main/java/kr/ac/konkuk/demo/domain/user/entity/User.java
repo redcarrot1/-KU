@@ -74,4 +74,8 @@ public class User {
     public void updateUserImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public void increaseVolunteerTime(Integer volunteerTime) {
+        this.volunteerTime += volunteerTime;
+    }
 }
