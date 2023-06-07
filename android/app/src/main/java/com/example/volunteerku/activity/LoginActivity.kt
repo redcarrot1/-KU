@@ -55,6 +55,9 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("login code", "LoginResponse: code is correct")
                     if (body is JWT) {
                         user.jwt = body.accessToken
+                        user.nickname = body.nickname
+                        user.major = body.major
+                        user.email = body.email
                         goToRoomActivity()
                     } else {
 
@@ -71,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToRoomActivity() {
-        var Intent = Intent(this, RegisterActivity::class.java)
+        var Intent = Intent(this, VolunteerSearch::class.java)
         startActivity(Intent)
     }
 

@@ -45,6 +45,8 @@ public enum ErrorCode {
     FAIL_CALL_IMAGE(HttpStatus.BAD_REQUEST, "I002", "이미지를 불러오는데 실패했습니다."),
 
     NOT_FOUND_ROOM(HttpStatus.BAD_REQUEST, "RO01", "게시물을 찾을 수 없습니다."),
+    FULL_ROOM_ROOM(HttpStatus.BAD_REQUEST, "RO02", "방이 꽉 찼습니다."),
+    ALREADY_PARTICIPATION_ROOM(HttpStatus.BAD_REQUEST, "RO03", "이미 해당 방에 참여 중입니다."),
 
     ;
 
