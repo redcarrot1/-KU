@@ -2,6 +2,7 @@ package com.example.volunteerku.activity
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+//import android.app.ListActivity
 import android.app.ProgressDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -14,6 +15,8 @@ import androidx.core.widget.addTextChangedListener
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityRegister2Binding
+import com.example.volunteerku.fragment.ListFragment
+//import com.example.volunteerku.fragment.ListActivity
 import com.example.volunteerku.service.BASE_URL
 import com.example.volunteerku.service.UserRetrofitInterface
 import retrofit2.Call
@@ -26,7 +29,7 @@ import java.util.Calendar
 
 class Register2Activity : AppCompatActivity() {
     lateinit var binding: ActivityRegister2Binding
-    var currentCount = 1 // 현재 모집 인원을 저장할 변수
+    var currentCount = 2 // 현재 모집 인원을 저장할 변수
     var dateString = "" // 날짜
     var timeString = "" // 시간
     var internetUrlText = "" // 나중에 받아올 봉사활동 주소
@@ -52,7 +55,7 @@ class Register2Activity : AppCompatActivity() {
         }
 
         binding.minus.setOnClickListener {
-            if (currentCount > 1) {
+            if (currentCount > 2) {
                 currentCount--
                 binding.countTextView.text = "$currentCount 명"
             }
@@ -164,6 +167,7 @@ class Register2Activity : AppCompatActivity() {
         progressDialog.show()
 
         // 액세스 토큰 값
+        //val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
         val accessToken = user.getAccessToken()
 
         val intent = intent
@@ -187,7 +191,7 @@ class Register2Activity : AppCompatActivity() {
                         .setMessage("게시글이 성공적으로 등록되었습니다.")
                         .setPositiveButton("확인") { dialog, _ ->
                             dialog.dismiss()
-                            val intent = Intent(this@Register2Activity, ListActivity::class.java)
+                            val intent = Intent(this@Register2Activity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         }

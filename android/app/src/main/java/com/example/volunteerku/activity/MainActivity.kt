@@ -11,9 +11,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
-    val textarr = arrayListOf<String>("검색하기", "즐겨찾기")
+    val textarr = arrayListOf<String>("게시판", "검색하기", "즐겨찾기")
     val imgarr = arrayListOf<Int>(
-        R.drawable.baseline_search_24, R.drawable.baseline_bookmark_24
+        R.drawable.billboard_icon_135884, R.drawable.baseline_search_24, R.drawable.baseline_bookmark_24
     )
     lateinit var adapter: MyViewPagerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {

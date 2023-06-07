@@ -1,9 +1,7 @@
-package com.example.volunteerku.activity
+package com.example.volunteerku.fragment
 
-import android.app.Application
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +10,15 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.Fragment
 import com.example.volunteerku.R
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
+import com.example.volunteerku.activity.DetailActivity
 import com.example.volunteerku.data.Applications
 import com.example.volunteerku.data.Room
-import com.example.volunteerku.databinding.ActivityListBinding
+import com.example.volunteerku.databinding.FragmentListBinding
 import com.example.volunteerku.service.BASE_URL
 import com.example.volunteerku.service.UserRetrofitInterface
 import retrofit2.Call
@@ -25,8 +27,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ListActivity : AppCompatActivity() {
-    lateinit var binding: ActivityListBinding
+class ListFragment : Fragment() {
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var retrofitInterface: UserRetrofitInterface
 
     private inner class RoomListAdapter(
@@ -60,10 +64,13 @@ class ListActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -81,31 +88,31 @@ class ListActivity : AppCompatActivity() {
                     if (roomList != null) {
                         // 받아온 게시글 목록을 리스트뷰에 표시
                         val adapter = RoomListAdapter(
-                            this@ListActivity,
+                            requireContext(),
                             R.layout.custom_list_item,
                             roomList.reversed()
                         )
                         binding.listView.adapter = adapter
                     }
-                    applicationview()
+                    applicationView()
                     binding.listView.setOnItemClickListener { parent, view, position, id ->
                         val selectedRoom = roomList?.reversed()?.get(position)
                         val roomId = selectedRoom?.id
 
                         // DetailActivity로 id 값을 전달
-                        val intent = Intent(this@ListActivity, DetailActivity::class.java)
+                        val intent = Intent(requireContext(), DetailActivity::class.java)
                         intent.putExtra("roomId", roomId)
                         startActivity(intent)
                     }
                 } else {
                     // API 호출이 실패한 경우 처리
-                    Toast.makeText(this@ListActivity, "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Room>>, t: Throwable) {
                 // 네트워크 오류 등 호출 실패한 경우 처리
-                Toast.makeText(this@ListActivity, "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -120,10 +127,16 @@ class ListActivity : AppCompatActivity() {
             binding.ToggleBtnDown.visibility = View.VISIBLE
             binding.listView2.visibility = View.GONE
         }
+
+        return view
     }
 
-    fun applicationview() {
-        //val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
+    override fun onResume() {
+        super.onResume()
+        applicationView()
+    }
+
+    fun applicationView() {
         val accessToken = user.getAccessToken()
         val call: Call<List<Applications>> = retrofitInterface.getApplicationRooms(accessToken)
 
@@ -143,7 +156,7 @@ class ListActivity : AppCompatActivity() {
                         }
 
                         val titleAdapter = ArrayAdapter(
-                            this@ListActivity,
+                            requireContext(),
                             R.layout.custom_list_title,
                             R.id.item_title,
                             roomTitleList
@@ -155,7 +168,7 @@ class ListActivity : AppCompatActivity() {
                             val roomId = selectedRoom?.id
 
                             // DetailActivity로 id 값을 전달
-                            val intent = Intent(this@ListActivity, DetailActivity::class.java)
+                            val intent = Intent(requireContext(), DetailActivity::class.java)
                             intent.putExtra("roomId", roomId)
                             startActivity(intent)
                         }
@@ -163,7 +176,7 @@ class ListActivity : AppCompatActivity() {
                 } else {
                     // API 호출이 실패한 경우 처리
                     Toast.makeText(
-                        this@ListActivity,
+                        requireContext(),
                         "API 호출에 실패했습니다.",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -177,7 +190,7 @@ class ListActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<Applications>>, t: Throwable) {
                 // 네트워크 오류 등 호출 실패한 경우 처리
                 Toast.makeText(
-                    this@ListActivity,
+                    requireContext(),
                     "네트워크 오류가 발생했습니다.",
                     Toast.LENGTH_SHORT
                 ).show()
@@ -185,14 +198,8 @@ class ListActivity : AppCompatActivity() {
         })
     }
 
-
-
-    override fun onResume() {
-        super.onResume()
-        applicationview()
-    }//DeatilActivity에서 봉사활동을 신청하고 다시 ListActivity가 표시될때 내용 업데이트
-
-
-
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
