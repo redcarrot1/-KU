@@ -47,8 +47,7 @@ public class RoomApi {
     }
 
     @GetMapping("/applicationsview")
-    public RoomTitleListDto findJoinRoom(@UserId Long userId) {
-        List<String> title = roomService.findJoinRoom(userId);
-        return new RoomTitleListDto(title);
+    public List<RoomTitleListDto> findJoinRoom(@UserId Long userId) {
+        return roomService.findJoinRoom(userId);
     }
 }

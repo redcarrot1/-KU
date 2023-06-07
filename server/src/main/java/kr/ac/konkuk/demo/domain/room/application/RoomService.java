@@ -3,6 +3,7 @@ package kr.ac.konkuk.demo.domain.room.application;
 import kr.ac.konkuk.demo.domain.room.dao.RoomRepository;
 import kr.ac.konkuk.demo.domain.room.dto.RoomFindDetailDto;
 import kr.ac.konkuk.demo.domain.room.dto.RoomFindDto;
+import kr.ac.konkuk.demo.domain.room.dto.RoomTitleListDto;
 import kr.ac.konkuk.demo.domain.room.entity.Room;
 import kr.ac.konkuk.demo.domain.room.exception.AlreadyParticipationException;
 import kr.ac.konkuk.demo.domain.room.exception.FullRoomException;
@@ -78,11 +79,11 @@ public class RoomService {
     }
 
     @Transactional(readOnly = true)
-    public List<String> findJoinRoom(Long userId) {
+    public List<RoomTitleListDto> findJoinRoom(Long userId) {
         return userRoomRepository.findByUserId(userId)
                 .stream()
                 .filter(userRoom -> userRoom.getRoom().getClosedDateTime().isAfter(LocalDateTime.now()))
-                .map(userRoom -> userRoom.getRoom().getTitle())
+                .map(userRoom -> new RoomTitleListDto(userRoom.getRoom().getId(), userRoom.getRoom().getTitle()))
                 .toList();
     }
 }
