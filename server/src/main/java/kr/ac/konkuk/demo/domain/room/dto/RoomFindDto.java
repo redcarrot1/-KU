@@ -19,9 +19,10 @@ public class RoomFindDto {
         private String title;
 
         private Integer limitHeadCount;
+        private Integer currentHeadCount;
 
         public static Request of(Room room) {
-            return new Request(room.getId(), room.getTitle(), room.getLimitHeadCount());
+            return new Request(room.getId(), room.getTitle(), room.getLimitHeadCount(), room.getCurrentHeadCount());
         }
     }
 }
