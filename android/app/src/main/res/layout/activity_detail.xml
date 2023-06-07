@@ -29,13 +29,14 @@
         android:padding="16dp"
         android:gravity="left">
 
-        <EditText
-            android:id="@+id/title_et"
+        <TextView
+            android:id="@+id/titleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="#FFFFFF"
             android:gravity="left"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:padding="16dp"
             android:text="제목" />
 
@@ -54,7 +55,7 @@
                 app:srcCompat="@drawable/location" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/locationView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -77,7 +78,7 @@
                 app:srcCompat="@drawable/clock" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/ClosedDateView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -100,7 +101,7 @@
                 app:srcCompat="@drawable/person" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/LimitheadCountView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -127,15 +128,15 @@
         android:padding="16dp"
         >
 
-        <EditText
+        <TextView
             android:id="@+id/content_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="#FFFFFF"
             android:gravity="top"
             android:padding="16dp"
             android:text="봉사활동 상세조회"
+            android:textStyle="bold"
 
             />
 
@@ -160,22 +161,24 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <EditText
+        <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="#FFFFFF"
             android:gravity="top"
             android:padding="16dp"
-            android:text="모집 안내사항" />
+            android:text="모집 안내사항"
+            android:textStyle="bold"
+            />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/contentsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="내용" />
+            android:hint="내용"
+            android:gravity="left"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/reg_button"

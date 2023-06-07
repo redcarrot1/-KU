@@ -3,6 +3,7 @@ package com.example.volunteerku.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.example.volunteerku.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
@@ -13,7 +14,13 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.title.addTextChangedListener { text ->
+            binding.nextButton.isEnabled = text.toString().isNotEmpty() && binding.content.text.toString().isNotEmpty()
+        }
 
+        binding.content.addTextChangedListener { text ->
+            binding.nextButton.isEnabled = binding.title.text.toString().isNotEmpty() && text.toString().isNotEmpty()
+        }
 
         binding.nextButton.setOnClickListener {
             val title = binding.title.text.toString()
@@ -22,9 +29,8 @@ class RegisterActivity : AppCompatActivity() {
             intent.putExtra("title", title)
             intent.putExtra("content", content)
 
-            if(title.isNotEmpty() && content.isNotEmpty()) {
-                startActivity(intent)
-            }
+            startActivity(intent)
+
         }//다음 액티비티로 넘어가는 버튼
 
             binding.backButton.setOnClickListener {

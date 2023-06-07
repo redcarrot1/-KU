@@ -75,10 +75,10 @@
             android:id="@+id/next_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/button_green"
             android:text="다음"
             android:textColor="#FFFFFF"
-
+            android:enabled="false"
             />
 
     </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.volunteerku.service
 
 
 import android.location.Location
+import com.example.volunteerku.data.Applications
 import com.example.volunteerku.data.ChangePasswordRequest
 import com.example.volunteerku.data.CommonResponse
 import com.example.volunteerku.data.DuplicateResponse
@@ -13,6 +14,7 @@ import com.example.volunteerku.data.Room
 import com.example.volunteerku.data.SaveImageResponse
 import com.example.volunteerku.data.SignupRequest
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -52,8 +54,24 @@ interface UserRetrofitInterface {
     @POST("/api/rooms/register")
     fun createPost(@Header("Authorization") accessToken: String, @Body room: Room): Call<Void>
 
+    @GET("/api/rooms/detail/{id}")
+    fun getRoomDetail(@Path("id") roomId: Int): Call<Room>
+
+    @POST("/api/rooms/applications")
+    fun applyForVolunteerActivity(
+        @Header("Authorization") token: String,
+        @Body requestBody: RequestBody
+    ): Call<Void>
+
+    @GET("/api/rooms/applicationsview")
+    fun getApplicationRooms(
+        @Header("Authorization") accessToken: String
+    ): Call<List<Applications>>
+
+
     @GET("/api/rooms")
     fun getRooms(): Call<List<Room>>
+
 
 
     @Multipart

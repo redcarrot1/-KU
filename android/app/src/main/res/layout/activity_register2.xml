@@ -40,7 +40,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="일시"
+            android:hint="모집 마감 시간"
             android:padding="16dp"
             android:layout_gravity="left"/>
 
@@ -85,7 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
+                android:gravity="center"
                 android:hint="날짜" />
             <View
                 android:layout_width="8dp"
@@ -96,7 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
+                android:gravity="center"
                 android:hint="시간" />
         </LinearLayout>
 
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="0명" />
+                android:text="2명" />
 
             <ImageView
                 android:id="@+id/plus"
@@ -159,7 +159,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
-                android:hint="link"/>
+                android:hint="link"
+                android:maxLines="1"
+                />
 
         </LinearLayout>
 
@@ -195,9 +197,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="신청하기"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/rounded_button"
-            />
+            android:background="@drawable/button_green"
+            android:textColor="#FFFFFF"
+            android:enabled="false"/>
 
 
     </LinearLayout>
