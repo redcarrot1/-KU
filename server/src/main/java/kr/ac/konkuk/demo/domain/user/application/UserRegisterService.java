@@ -50,6 +50,7 @@ public class UserRegisterService {
                 .major(user.getMajor().toString())
                 .nickname(user.getNickname())
                 .email(user.getEmail())
+                .introduce(user.getIntroduction())
                 .build();
     }
 }

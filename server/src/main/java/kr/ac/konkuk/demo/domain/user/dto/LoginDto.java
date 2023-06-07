@@ -13,4 +13,5 @@ public class LoginDto {
     private String email;
     private String nickname;
     private String major;
+    private String introduce;
 }
