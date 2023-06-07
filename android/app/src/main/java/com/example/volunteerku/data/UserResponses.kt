@@ -14,6 +14,9 @@ data class EmailCertifyCodeResponse(
 data class JWT(
     @SerializedName(value = "grantType") var grantType: String,
     @SerializedName(value = "accessToken") var accessToken: String,
+    @SerializedName(value = "email") var email: String,
+    @SerializedName(value = "nickname") var nickname: String,
+    @SerializedName(value = "major") var major: String,
 )
 
 data class DuplicateResponse(

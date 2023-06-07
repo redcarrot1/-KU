@@ -119,7 +119,7 @@
                 android:background="@color/transparent"
                 android:fontFamily="@font/pretendard_semi_bold"
                 android:hint="@string/password"
-                android:maxLength="8"
+                android:maxLength="15"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textAlignment="textStart"
