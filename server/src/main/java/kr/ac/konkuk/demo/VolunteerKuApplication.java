@@ -199,7 +199,7 @@ public class VolunteerKuApplication {
                 .content("어르신분들 머리 관리해주는 봉사활동입니다. 미용사 자격있으신분만 카톡방 입장해주세요.")
                 .closedDateTime(LocalDateTime.of(2023, 7, 2, 15, 50))
                 .currentHeadCount(1)
-                .limitHeadCount(2)
+                .limitHeadCount(3)
                 .internetURL("https://www.naver.com")
                 .kakaoURL("https://open.kakao.com/o/sKitPvnf")
                 .build()
