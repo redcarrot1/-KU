@@ -29,15 +29,17 @@ public class RoomService {
     private final UserRoomRepository userRoomRepository;
     private final UserFindDao userFindDao;
 
-    public void registerRoom(Long userId, Room entity) {
+    public void registerRoom(Long userId, Room room) {
         User user = userFindDao.findById(userId);
-        entity.updateHostUser(user);
-        roomRepository.save(entity);
+        room.updateHostUser(user);
+        room.increaseCurrentHeadCount();
+        roomRepository.save(room);
 
         UserRoom userRoom = UserRoom.builder()
-                .room(entity)
+                .room(room)
                 .user(user)
                 .build();
+
         userRoomRepository.save(userRoom);
     }
 

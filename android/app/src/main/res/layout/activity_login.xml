@@ -63,15 +63,15 @@
 
             <EditText
                 android:id="@+id/get_email"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="135dp"
+                android:layout_height="21dp"
                 android:layout_marginStart="18dp"
                 android:background="@color/transparent"
                 android:fontFamily="@font/pretendard_semi_bold"
+                android:hint="이메일"
                 android:maxLength="15"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:hint="이메일"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="15dp"
@@ -113,8 +113,8 @@
 
             <EditText
                 android:id="@+id/get_password"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="247dp"
+                android:layout_height="22dp"
                 android:layout_marginStart="18dp"
                 android:background="@color/transparent"
                 android:fontFamily="@font/pretendard_semi_bold"

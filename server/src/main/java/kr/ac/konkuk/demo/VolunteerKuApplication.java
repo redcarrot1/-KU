@@ -39,7 +39,7 @@ public class VolunteerKuApplication {
                 .nickname("tester1")
                 .major(Major.valueOf("컴퓨터공학부"))
                 .imageUrl("default.png")
-                .introduction("자기소개")
+                .introduction("안녕하세요! 저는 홍승택입니다. 좋은 사람들과 새로운 경험을 나누는 것을 좋아하고, 서로에 대해 더 알아가면 좋겠습니다. 저와 함께 하시겠어요?")
                 .build());
 
         userRegisterService.registerUser(User.builder()
@@ -199,7 +199,7 @@ public class VolunteerKuApplication {
                 .content("어르신분들 머리 관리해주는 봉사활동입니다. 미용사 자격있으신분만 카톡방 입장해주세요.")
                 .closedDateTime(LocalDateTime.of(2023, 7, 2, 15, 50))
                 .currentHeadCount(1)
-                .limitHeadCount(2)
+                .limitHeadCount(3)
                 .internetURL("https://www.naver.com")
                 .kakaoURL("https://open.kakao.com/o/sKitPvnf")
                 .build()
