@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var retrofitInterface: UserRetrofitInterface
-    private var room: Room? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +59,7 @@ class DetailActivity : AppCompatActivity() {
                         binding.titleView.setText(room.title)
                         // binding.location.text = room.
                         binding.ClosedDateView.text = room.closedDateTime
-                        binding.LimitheadCountView.text = room.limitHeadCount.toString()
+                        binding.LimitheadCountView.text = "${room.currentHeadCount}/${room.limitHeadCount}"
                         binding.contentsView.setText(room.content)
 
                         binding.regButton.setOnClickListener {

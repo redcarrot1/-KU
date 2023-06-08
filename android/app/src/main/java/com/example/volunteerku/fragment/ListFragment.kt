@@ -57,7 +57,7 @@ class ListFragment : Fragment() {
                 titleTextView.text = room.title
             }
             if (room != null) {
-                recruitmentTextView.text = "모집인원: ${room.limitHeadCount}"
+                recruitmentTextView.text = "모집인원: ${room.currentHeadCount}/${room.limitHeadCount}"
             }
 
             return itemView
