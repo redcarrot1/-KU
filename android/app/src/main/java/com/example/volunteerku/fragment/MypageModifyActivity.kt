@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.volunteerku.R
+import com.example.volunteerku.VolunteerKUApplication
+import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.databinding.ActivityMypageModifyBinding
 
 class MypageModifyActivity : Fragment() {
@@ -21,6 +23,25 @@ class MypageModifyActivity : Fragment() {
     ): View? {
         binding = ActivityMypageModifyBinding.inflate(inflater, container, false)
 
+        initSpinner()
+        initText()
+        eventListener()
+        return binding.root
+
+    }
+
+    private fun eventListener(){
+
+    }
+    private fun initText(){
+        binding.modifyUserName.setText(user.nickname)
+        binding.editIntroduce.setText(user.introduce)
+        binding.progressBar.min = 0
+        binding.progressBar.max = 1860
+        binding.progressBar.progress = user.currentVolunteerTime
+
+    }
+    private fun initSpinner(){
         // Spinner 어댑터 설정
         binding.departmentSpinner.adapter =
             ArrayAdapter.createFromResource(requireContext(), R.array.magjor_array, R.layout.spinner_text)
@@ -177,8 +198,6 @@ class MypageModifyActivity : Fragment() {
                         .show()
                 }
             }
-
-        return binding.root
     }
 
 }

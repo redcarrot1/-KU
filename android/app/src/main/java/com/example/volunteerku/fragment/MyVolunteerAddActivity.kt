@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.databinding.ActivityMyVolunteerAddBinding
 
 class MyVolunteerAddActivity : Fragment() {
@@ -16,6 +17,7 @@ class MyVolunteerAddActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ActivityMyVolunteerAddBinding.inflate(inflater, container, false)
+        binding.userName.text = user.nickname
         return binding.root
     }
 }

@@ -13,6 +13,8 @@ import com.example.volunteerku.data.EmailResponse
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.data.SaveImageResponse
 import com.example.volunteerku.data.SignupRequest
+import com.example.volunteerku.data.VolunteerDetailData
+import com.example.volunteerku.data.response
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -77,5 +79,18 @@ interface UserRetrofitInterface {
     @Multipart
     @POST("/api/users/images")
     fun saveImage(@Part faceImageFile: MultipartBody.Part): Call<SaveImageResponse>
+
+
+
+}
+
+interface VolunteerDataInterface{
+    @GET("/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList")
+    fun volunteerSearch(): Call<response>
+
+    @GET("/openapi/service/rest/VolunteerPartcptnService/getVltrPartcptnItem")
+    fun volunteerSearchDetail(
+        @Query("progrmRegistNo") progrmRegistNo: String
+    ): Call<VolunteerDetailData.Detailresponse>
 
 }
