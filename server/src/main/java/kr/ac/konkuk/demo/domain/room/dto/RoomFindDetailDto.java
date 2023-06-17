@@ -22,6 +22,7 @@ public class RoomFindDetailDto {
         private String title;
 
         private Integer limitHeadCount;
+        private Integer currentHeadCount;
 
         @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime closedDateTime;
@@ -29,13 +30,14 @@ public class RoomFindDetailDto {
         private String content;
 
         public static RoomFindDetailDto.Request of(Room room) {
-            return RoomFindDetailDto.Request.builder()
+            return Request.builder()
                     .kakaoUrl(room.getKakaoURL())
                     .internetUrl(room.getInternetURL())
                     .title(room.getTitle())
                     .limitHeadCount(room.getLimitHeadCount())
                     .closedDateTime(room.getClosedDateTime())
                     .content(room.getContent())
+                    .currentHeadCount(room.getCurrentHeadCount())
                     .build();
         }
     }
