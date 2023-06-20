@@ -1,12 +1,12 @@
 package com.example.volunteerku.fragment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.volunteerku.data.VolunteerDetailData
+import com.example.volunteerku.data.Detailresponse
 import com.example.volunteerku.databinding.ActivityVolunteerItemDetailBinding
-import com.example.volunteerku.service.VolunteerDataInterface
+import com.example.volunteerku.service.VolunteerDataDetailInterface
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import okhttp3.OkHttpClient
@@ -17,21 +17,25 @@ import retrofit2.Retrofit
 
 class VolunteerItemDetail : AppCompatActivity() {
     private lateinit var binding: ActivityVolunteerItemDetailBinding
+    lateinit var progrmRegistNo: String
+    lateinit var itemUrl: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVolunteerItemDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent = intent
-        val progrmRegistNo = intent.getStringExtra("progrmRegistNo")
-        println("Detail progrmRegistNo: $progrmRegistNo")
-        if (progrmRegistNo != null) {
-            volunteerItemDetail(progrmRegistNo)
+        progrmRegistNo = intent.getStringExtra("progrmRegistNo").toString()
+        itemUrl = intent.getStringExtra("url").toString()
+        if (progrmRegistNo.isNotEmpty()) {
+            println("Detail progrmRegistNo: $progrmRegistNo")
+            volunteerItemDetail(progrmRegistNo) // 변경된 매개변수 전달
         }
-
     }
 
-    private fun volunteerItemDetail(progrmRegistNo: String) {
+    private fun volunteerItemDetail(progrmRegistNo: String?) {
+        println("volunteerItemDetail: $progrmRegistNo")
+
         val client = OkHttpClient()
         val parser = TikXml.Builder().exceptionOnUnreadXml(false).build()
         val url = "http://openapi.1365.go.kr"
@@ -40,32 +44,36 @@ class VolunteerItemDetail : AppCompatActivity() {
             .addConverterFactory(TikXmlConverterFactory.create(parser))
             .baseUrl(url)
             .build()
-            .create(VolunteerDataInterface::class.java)
+            .create(VolunteerDataDetailInterface::class.java)
 
-        // Replace "progrmRegistNo" with the actual value you want to pass
-        retrofit.volunteerSearchDetail(progrmRegistNo)
-            .enqueue(object : retrofit2.Callback<VolunteerDetailData.Detailresponse> {
-                override fun onResponse(
-                    call: Call<VolunteerDetailData.Detailresponse>,
-                    response: Response<VolunteerDetailData.Detailresponse>
-                ) {
-                    println("Detail response: $response")
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
-                            println(responseBody)
+        if (progrmRegistNo != null) {
+            retrofit.volunteerSearchDetail(progrmRegistNo) // 변경된 매개변수 전달
+                .enqueue(object : Callback<Detailresponse> {
+                    override fun onResponse(
+                        call: Call<Detailresponse>,
+                        response: Response<Detailresponse>
+                    ) {
+                        println("Response: ${response.body()?.body?.items?.item?.get(0)?.progrmCn}")
+                        binding.textViewName.text = response.body()?.body?.items?.item?.get(0)?.progrmSj
+                        binding.textViewDate.text = response.body()?.body?.items?.item?.get(0)?.progrmBgnde + " ~ " + response.body()?.body?.items?.item?.get(0)?.progrmEndde
+                        binding.textViewDetailInfo.text = response.body()?.body?.items?.item?.get(0)?.progrmCn
+                        binding.textViewTime.text = response.body()?.body?.items?.item?.get(0)?.actBeginTm + " ~ " + response.body()?.body?.items?.item?.get(0)?.actEndTm
+                        binding.textViewLocation.text = response.body()?.body?.items?.item?.get(0)?.postAdres
+                        binding.soloPlayBtn.setOnClickListener{
+                            println("soloPlayBtn clicked")
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(itemUrl))
+                            startActivity(intent)
                         }
-                    } else {
-                        Log.e("VolunteerSearch", "Request failed: ${response.code()}")
                     }
-                }
 
-                override fun onFailure(
-                    call: Call<VolunteerDetailData.Detailresponse>,
-                    t: Throwable
-                ) {
-                    Log.e("VolunteerSearch", "Request failed: ${t.message}")
-                }
-            })
+                    override fun onFailure(
+                        call: Call<Detailresponse>,
+                        t: Throwable
+                    ) {
+                        error("volunteerItemDetail ${t.message}")
+                    }
+
+                })
+        }
     }
 }

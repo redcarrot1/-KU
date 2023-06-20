@@ -1,6 +1,7 @@
 package com.example.volunteerku.service
 
 import android.util.Log
+import com.example.volunteerku.data.ChangeIntroductionRequest
 import com.example.volunteerku.data.ChangePasswordRequest
 import com.example.volunteerku.data.DuplicateResponse
 import com.example.volunteerku.data.EmailCertifyCodeResponse
@@ -191,7 +192,6 @@ class UserService {
             }
         })
     }
-
 
     fun signup(requestBody: SignupRequest) {
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)

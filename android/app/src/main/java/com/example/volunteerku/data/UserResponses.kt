@@ -49,6 +49,20 @@ data class SaveImageResponse(
     @SerializedName(value = "imageFileName") var imageFileName: String,
 )
 
+data class ChangeIntroductionRequest(
+    @SerializedName(value = "introduction") var introduction: String,
+)
+
+data class ChangeNickName(
+  @SerializedName(value = "nickname") var nickname: String,
+)
+
+data class MyVolunteerInfoRequest(
+    @SerializedName(value = "minuteTime") var volunteerTime: Int,
+    @SerializedName(value = "content") var volunteerTitle: String,
+    @SerializedName(value = "date") var volunteerDate: String
+)
+
 data class SignupRequest(
     @SerializedName(value = "email") var email: String,
     @SerializedName(value = "password") var password: String,

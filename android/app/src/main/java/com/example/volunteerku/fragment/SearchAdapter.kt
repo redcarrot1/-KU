@@ -17,7 +17,7 @@ class SearchAdapter(): ListAdapter<item, SearchAdapter.ViewHolder>(diffUtil) {
             binding.root.setOnClickListener{
                 val intent = Intent(binding.root.context, VolunteerItemDetail::class.java)
                 intent.putExtra("progrmRegistNo",currentList[adapterPosition].progrmRegistNo)
-                println("progrmRegistNo: "+currentList[adapterPosition].progrmRegistNo);
+                intent.putExtra("url",currentList[adapterPosition].url)
                 binding.root.context.startActivity(intent)
             }
         }

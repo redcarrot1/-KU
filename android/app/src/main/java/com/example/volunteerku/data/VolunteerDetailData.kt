@@ -3,11 +3,11 @@ import com.tickaroo.tikxml.annotation.Element
 import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml
 
-class VolunteerDetailData {
+
     @Xml(name = "header")
     data class Detailheader (
         @PropertyElement(name="resultCode")
-        var resultCode: Int = 0,
+        var resultCode: Int? = 0,
 
         @PropertyElement(name="resultMsg")
         var resultMsg: String? = null
@@ -19,17 +19,17 @@ class VolunteerDetailData {
         var items: items? = null,
 
         @PropertyElement(name="numOfRows")
-        var numOfRows: Int = 0,
+        var numOfRows: Int? = 0,
 
         @PropertyElement(name="pageNo")
-        var pageNo: Int = 0,
+        var pageNo: Int? = 0,
 
         @PropertyElement(name="totalCount")
-        var totalCount: Int = 0
+        var totalCount: Int? = 0
     )
 
     @Xml(name = "response")
-    data class Detailresponse (
+    data class  Detailresponse (
         @Element(name = "header")
         var header: header? = null,
 
@@ -47,74 +47,73 @@ class VolunteerDetailData {
     @Xml(name= "item")
     data class Detailitem(
         @PropertyElement(name="actBeginTm")
-        var actBeginTm: String = "",
+        var actBeginTm: String? = "",
         @PropertyElement(name="actEndTm")
-        var actEndTm: String = "",
+        var actEndTm: String? = "",
         @PropertyElement(name="actPlace")
-        var actPlace: String = "",
+        var actPlace: String? = "",
         @PropertyElement(name="actWkdy")
-        var actWkdy: String = "",
+        var actWkdy: String? = "",
         @PropertyElement(name="adultPosblAt")
-        var adultPosblAt: String = "",
+        var adultPosblAt: String? = "",
         @PropertyElement(name="appTotal")
-        var appTotal: String = "",
+        var appTotal: String? = "",
         @PropertyElement(name="areaAddress1")
-        var areaAddress1: String = "",
+        var areaAddress1: String? = "",
         @PropertyElement(name="areaAddress2")
-        var areaAddress2: String = "",
+        var areaAddress2: String? = "",
         @PropertyElement(name="areaAddress3")
-        var areaAddress3: String = "",
+        var areaAddress3: String? = "",
         @PropertyElement(name="areaLalo1")
-        var areaLalo1: String = "",
+        var areaLalo1: String? = "",
         @PropertyElement(name="areaLalo2")
-        var areaLalo2: String = "",
+        var areaLalo2: String? = "",
         @PropertyElement(name="areaLalo3")
-        var areaLalo3: String = "",
+        var areaLalo3: String? = "",
         @PropertyElement(name="email")
-        var email: String = "",
+        var email: String? = "",
         @PropertyElement(name="familyPosblAt")
-        var familyPosblAt: String = "",
+        var familyPosblAt: String? = "",
         @PropertyElement(name="fxnum")
-        var fxnum: String = "",
+        var fxnum: String? = "",
         @PropertyElement(name="grpPosblAt")
-        var grpPosblAt: String = "",
+        var grpPosblAt: String? = "",
         @PropertyElement(name="gugunCd")
-        var gugunCd: String = "",
+        var gugunCd: String? = "",
         @PropertyElement(name="mnnstNm")
-        var mnnstNm: String = "",
+        var mnnstNm: String? = "",
         @PropertyElement(name="nanmmbyNm")
-        var nanmmbyNm: String = "",
+        var nanmmbyNm: String? = "",
         @PropertyElement(name="nanmmbyNmAdmn")
-        var nanmmbyNmAdmn: String = "",
+        var nanmmbyNmAdmn: String? = "",
         @PropertyElement(name="noticeBgnde")
-        var noticeBgnde: String = "",
+        var noticeBgnde: String? = "",
         @PropertyElement(name="noticeEndde")
-        var noticeEndde: String = "",
+        var noticeEndde: String? = "",
         @PropertyElement(name="pbsvntPosblAt")
-        var pbsvntPosblAt: String = "",
+        var pbsvntPosblAt: String? = "",
         @PropertyElement(name="postAdres")
-        var postAdres: String = "",
+        var postAdres: String? = "",
         @PropertyElement(name="progrmBgnde")
-        var progrmBgnde: String = "",
+        var progrmBgnde: String? = "",
         @PropertyElement(name="progrmCn")
-        var progrmCn: String = "",
+        var progrmCn: String? = "",
         @PropertyElement(name="progrmEndde")
-        var progrmEndde: String = "",
+        var progrmEndde: String? = "",
         @PropertyElement(name="progrmRegistNo")
-        var progrmRegistNo: String = "",
+        var progrmRegistNo: String? = "",
         @PropertyElement(name="progrmSj")
-        var progrmSj: String = "",
+        var progrmSj: String? = "",
         @PropertyElement(name="progrmSttusSe")
-        var progrmSttusSe: String = "",
+        var progrmSttusSe: String? = "",
         @PropertyElement(name="rcritNmpr")
-        var rcritNmpr: String = "",
+        var rcritNmpr: String? = "",
         @PropertyElement(name="sidoCd")
-        var sidoCd: String = "",
+        var sidoCd: String? = "",
         @PropertyElement(name="srvcClCode")
-        var srvcClCode: String = "",
+        var srvcClCode: String? = "",
         @PropertyElement(name="telno")
-        var telno: String = "",
+        var telno: String? = "",
         @PropertyElement(name="yngbgsPosblAt")
-        var yngbgsPosblAt: String = ""
+        var yngbgsPosblAt: String? = ""
     )
-}

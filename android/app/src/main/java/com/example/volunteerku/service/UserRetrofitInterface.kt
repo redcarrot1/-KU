@@ -1,19 +1,18 @@
 package com.example.volunteerku.service
 
 
-import android.location.Location
 import com.example.volunteerku.data.Applications
 import com.example.volunteerku.data.ChangePasswordRequest
-import com.example.volunteerku.data.CommonResponse
+import com.example.volunteerku.data.Detailresponse
 import com.example.volunteerku.data.DuplicateResponse
 import com.example.volunteerku.data.EmailCertifyCodeResponse
 import com.example.volunteerku.data.ExistEmailResponse
 import com.example.volunteerku.data.JWT
 import com.example.volunteerku.data.EmailResponse
+import com.example.volunteerku.data.MyVolunteerInfoRequest
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.data.SaveImageResponse
 import com.example.volunteerku.data.SignupRequest
-import com.example.volunteerku.data.VolunteerDetailData
 import com.example.volunteerku.data.response
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -54,7 +53,10 @@ interface UserRetrofitInterface {
     ):Call<ExistEmailResponse>
 
     @POST("/api/rooms/register")
-    fun createPost(@Header("Authorization") accessToken: String, @Body room: Room): Call<Void>
+    fun createPost(
+        @Header("Authorization") accessToken: String,
+        @Body room: Room
+    ): Call<Void>
 
     @GET("/api/rooms/detail/{id}")
     fun getRoomDetail(@Path("id") roomId: Int): Call<Room>
@@ -80,7 +82,28 @@ interface UserRetrofitInterface {
     @POST("/api/users/images")
     fun saveImage(@Part faceImageFile: MultipartBody.Part): Call<SaveImageResponse>
 
+    @POST("/api/users/change/introduction")
+    fun changeIntroduction(
+        @Header("Authorization") accessToken: String,
+        @Body introduction: String
+    ): Call<Void>
 
+    @POST("/api/users/change/nickname")
+    fun changeNickname(
+        @Header("Authorization") accessToken: String,
+        @Body nickname: String
+    ): Call<Void>
+
+    @POST("/api/volunteers")
+    fun getMyVolunteerInfo(
+        @Header("Authorization") accessToken: String,
+    ): Call<List<MyVolunteerInfoRequest>>
+
+    @GET("/api/volunteers/register")
+    fun volunteerRegist(
+        @Header("Authorization") accessToken: String,
+        @Body request: MyVolunteerInfoRequest
+    ): Call<Void>
 
 }
 
@@ -88,9 +111,12 @@ interface VolunteerDataInterface{
     @GET("/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList")
     fun volunteerSearch(): Call<response>
 
-    @GET("/openapi/service/rest/VolunteerPartcptnService/getVltrPartcptnItem")
+
+}
+
+interface VolunteerDataDetailInterface{
+    @GET("/openapi/service/rest/VolunteerPartcptnService/getVltrPartcptnItem/")
     fun volunteerSearchDetail(
         @Query("progrmRegistNo") progrmRegistNo: String
-    ): Call<VolunteerDetailData.Detailresponse>
-
+    ): Call<Detailresponse>
 }
