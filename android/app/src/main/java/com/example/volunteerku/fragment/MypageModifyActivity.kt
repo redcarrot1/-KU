@@ -17,6 +17,7 @@ import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.databinding.ActivityMypageModifyBinding
 import com.example.volunteerku.service.BASE_URL
 import com.example.volunteerku.service.UserRetrofitInterface
+import com.example.volunteerku.service.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -123,6 +124,8 @@ class MypageModifyActivity : Fragment() {
                 .addToBackStack(null)
                 .replace(R.id.fragmentContainer, MypageActivity())
                 .commit()
+            val userService = UserService()
+            userService.signIn(user.email, user.password)
         }
         builder.setNegativeButton("아니오") { dialog, which ->
             Toast.makeText(requireContext(), "내 정보 변경 취소", Toast.LENGTH_SHORT).show()

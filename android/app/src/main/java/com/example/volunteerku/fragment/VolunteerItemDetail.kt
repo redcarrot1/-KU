@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.volunteerku.activity.RegisterActivity
 import com.example.volunteerku.data.Detailresponse
 import com.example.volunteerku.databinding.ActivityVolunteerItemDetailBinding
 import com.example.volunteerku.service.VolunteerDataDetailInterface
@@ -21,6 +22,7 @@ class VolunteerItemDetail : AppCompatActivity() {
     lateinit var itemUrl: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityVolunteerItemDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -30,6 +32,12 @@ class VolunteerItemDetail : AppCompatActivity() {
         if (progrmRegistNo.isNotEmpty()) {
             println("Detail progrmRegistNo: $progrmRegistNo")
             volunteerItemDetail(progrmRegistNo) // 변경된 매개변수 전달
+        }
+        binding.partyPlayBtn.setOnClickListener{//단체신청버튼
+            val intent = Intent(this@VolunteerItemDetail, RegisterActivity::class.java)
+            intent.putExtra("itemUrl", itemUrl)
+            println("detail : $itemUrl")
+            startActivity(intent)
         }
     }
 

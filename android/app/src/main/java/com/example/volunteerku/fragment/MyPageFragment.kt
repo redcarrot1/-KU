@@ -20,6 +20,7 @@ class MyPageFragment() : Fragment() {
         binding = FragmentMyPageBinding.inflate(inflater, container, false)
         textViewInit()
         buttonInit()
+        println("JWT: ${user.jwt}")
         return binding.root
     }
 

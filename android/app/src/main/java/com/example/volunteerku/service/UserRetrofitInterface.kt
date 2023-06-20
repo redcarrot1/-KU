@@ -22,6 +22,8 @@ import retrofit2.http.*
 
 interface UserRetrofitInterface {
 
+    @GET("")
+
     @POST("/api/users/register")
     fun signup(@Body request: SignupRequest): Call<Void>
 
@@ -109,7 +111,12 @@ interface UserRetrofitInterface {
 
 interface VolunteerDataInterface{
     @GET("/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList")
-    fun volunteerSearch(): Call<response>
+    fun volunteerSearch(
+        @Query("progrmBgnde") progrmBgnde: String,
+        @Query("progrmEndde") progrmEndde: String,
+        @Query("Keyword") Keyword: String,
+        @Query("actPlace") actPlace: String,
+    ): Call<response>
 
 
 }

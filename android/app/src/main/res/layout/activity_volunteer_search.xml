@@ -31,7 +31,7 @@
                 <EditText
                     android:id="@+id/editText_volunteer_location"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="봉사 지역"
@@ -40,16 +40,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="봉사 분야" />
+                    android:text="봉사 명" />
 
                 <EditText
-                    android:id="@+id/editTextText_volunteer_type"
+                    android:id="@+id/editTextText_volunteer_Name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="봉사 분야"
+                    android:hint="봉사 명"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -65,9 +64,9 @@
                     android:text="봉사시작일자" />
 
                 <EditText
-                    android:id="@+id/editTextText_date"
+                    android:id="@+id/editTextText_start_date"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="20230607"
@@ -80,7 +79,7 @@
                     android:text="봉사종료일자" />
 
                 <EditText
-                    android:id="@+id/editText_volunteer_name"
+                    android:id="@+id/editText_volunteer_end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -90,6 +89,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/searchBtn"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"

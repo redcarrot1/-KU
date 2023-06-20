@@ -44,6 +44,7 @@ class MyVolunteerListAvtivity : Fragment() {
         retrofitInterface = retrofit.create(UserRetrofitInterface::class.java)
         getVolunteerList()
         onViewCreated(binding.root, savedInstanceState)
+        getVolunteerList()
 
         binding.addVolunteerTime1.setOnClickListener {
             parentFragmentManager.beginTransaction()
@@ -60,7 +61,7 @@ class MyVolunteerListAvtivity : Fragment() {
         myVolunteerAdapter = MyVolunteerAdapter(volunteerDataList)
         binding.myVolunteerList.adapter = myVolunteerAdapter
 
-        getVolunteerList()
+
     }
 
     private fun getVolunteerList() {
@@ -70,9 +71,10 @@ class MyVolunteerListAvtivity : Fragment() {
                 call: Call<List<MyVolunteerInfoRequest>>,
                 response: Response<List<MyVolunteerInfoRequest>>
             ) {
+                println("MyVolunteerListActivity Response: $response");
                 if (response.isSuccessful) {
                     val body = response.body()
-
+                    println("Response Volunteer Body: $body")
                     if (body != null) {
                         for (i in body) {
                             volunteerDataList.add(i)
@@ -86,7 +88,7 @@ class MyVolunteerListAvtivity : Fragment() {
 
             override fun onFailure(call: Call<List<MyVolunteerInfoRequest>>, t: Throwable) {
                 // Handle failure
-                Toast.makeText(requireContext(), "Response Failure", Toast.LENGTH_SHORT).show()
+               println("Fail to Load Volunteer List ${t.message}")
             }
         })
     }

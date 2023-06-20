@@ -22,6 +22,12 @@ class VolunteerSearch : Fragment() {
     private val volunteerDataList: MutableList<response> = mutableListOf()
     private lateinit var searchAdapter: SearchAdapter
 
+    var searchKeyword = ""
+    var searchArea = ""
+    var searchStartDate = ""
+    var searchEndDate = ""
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,12 +36,22 @@ class VolunteerSearch : Fragment() {
 
         volunteerSearch()
 
+        binding.searchBtn.setOnClickListener {
+            searchKeyword = binding.editTextTextVolunteerName.text.toString()
+            searchArea = binding.editTextVolunteerLocation.text.toString()
+            searchStartDate = binding.editTextTextStartDate.text.toString()
+            searchEndDate = binding.editTextVolunteerEndDate.text.toString()
+            volunteerSearch(searchKeyword, searchArea, searchStartDate, searchEndDate)
+        }
         searchAdapter = SearchAdapter()
+
         binding.searchRecyclerView.adapter = searchAdapter
         return binding.root
     }
 
-    private fun volunteerSearch() {
+
+
+    private fun volunteerSearch(keyword: String = "", area: String = "", startDate: String = "", endDate: String = "") {
 
         val client = OkHttpClient()
         val parser = TikXml.Builder().exceptionOnUnreadXml(false).build()
@@ -50,7 +66,7 @@ class VolunteerSearch : Fragment() {
             .create(VolunteerDataInterface::class.java)
 
 
-        retrofit.volunteerSearch().enqueue(object: retrofit2.Callback<response> {
+        retrofit.volunteerSearch(startDate,endDate,keyword,area).enqueue(object: retrofit2.Callback<response> {
             override fun onResponse(call: Call<response>, response: Response<response>) {
                 if (!response.isSuccessful) {
                     try {
