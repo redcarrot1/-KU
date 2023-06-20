@@ -45,9 +45,18 @@ class MypageModifyActivity : Fragment() {
         newName = user.nickname
         newIntroduce = user.introduce
         binding.majorTextView.text = user.major
+
         initText()
         nickNameEventListner()
         introduceEventListner()
+
+        binding.backButton.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, MyPageFragment())
+                .commit()
+        }
+
         binding.endEditButton.setOnClickListener {
             editButtonClick()
         }

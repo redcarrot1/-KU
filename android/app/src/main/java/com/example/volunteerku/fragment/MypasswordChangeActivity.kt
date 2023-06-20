@@ -26,6 +26,12 @@ class MypasswordChangeActivity : Fragment() {
     ): View? {
         binding = ActivityMypasswordChangeBinding.inflate(inflater, container, false)
         init()
+        binding.backButton.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, MyPageFragment())
+                .commit()
+        }
         return binding.root
     }
 
