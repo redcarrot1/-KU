@@ -52,14 +52,6 @@
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/addVolunteerTime2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="봉사 시간 추가하기"
-                android:textAlignment="textEnd"
-                android:textSize="18dp" />
         </LinearLayout>
 
         <ProgressBar
@@ -79,7 +71,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@id/majorTextView"
+            android:id="@+id/majorTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
