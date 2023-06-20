@@ -32,6 +32,7 @@ class ListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var retrofitInterface: UserRetrofitInterface
+    private var roomList: List<Room>? = null
 
     private inner class RoomListAdapter(
         context: Context,
@@ -57,7 +58,7 @@ class ListFragment : Fragment() {
                 titleTextView.text = room.title
             }
             if (room != null) {
-                recruitmentTextView.text = "모집인원: ${room.limitHeadCount}"
+                recruitmentTextView.text = "모집인원: ${room.currentHeadCount}/${room.limitHeadCount}"
             }
 
             return itemView
@@ -134,8 +135,10 @@ class ListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         applicationView()
+        getRoomList()
     }
-
+    
+    //사용자가 신청한 봉사활동 조회
     fun applicationView() {
         val accessToken = user.getAccessToken()
         val call: Call<List<Applications>> = retrofitInterface.getApplicationRooms(accessToken)
@@ -172,6 +175,8 @@ class ListFragment : Fragment() {
                             intent.putExtra("roomId", roomId)
                             startActivity(intent)
                         }
+
+
                     }
                 } else {
                     // API 호출이 실패한 경우 처리
@@ -197,7 +202,35 @@ class ListFragment : Fragment() {
             }
         })
     }
+    //onResume() 사용하여 게시글 업데이트ㅂ
+    private fun getRoomList() {
+        val call: Call<List<Room>> = retrofitInterface.getRooms()
 
+        call.enqueue(object : Callback<List<Room>> {
+            override fun onResponse(call: Call<List<Room>>, response: Response<List<Room>>) {
+                if (response.isSuccessful) {
+                    roomList = response.body()
+                    if (roomList != null) {
+                        // 받아온 게시글 목록을 리스트뷰에 표시
+                        val adapter = RoomListAdapter(
+                            requireContext(),
+                            R.layout.custom_list_item,
+                            roomList!!.reversed()
+                        )
+                        binding.listView.adapter = adapter
+                    }
+                } else {
+                    // API 호출이 실패한 경우 처리
+                    Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Room>>, t: Throwable) {
+                // 네트워크 오류 등 호출 실패한 경우 처리
+                Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

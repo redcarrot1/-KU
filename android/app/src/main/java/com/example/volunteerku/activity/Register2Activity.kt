@@ -119,7 +119,7 @@ class Register2Activity : AppCompatActivity() {
         }
 
         binding.RegisterBtn.setOnClickListener {
-                createPost()
+            createPost()
         }
 
         binding.kakaourl.addTextChangedListener {
@@ -172,13 +172,13 @@ class Register2Activity : AppCompatActivity() {
 
         val intent = intent
         val kakaoUrl = binding.kakaourl.text.toString()
-        val internetUrl = "" // TODO
+        val internetUrl = intent.getStringExtra("itemUrl").toString() // TODO
         val title = intent.getStringExtra("title").toString()
         val limitHeadCount = currentCount // 현재 모집 인원을 저장할 변수
         val closedDateTime = dateString+timeString // 임시날짜
         val content = intent.getStringExtra("content").toString()
 
-        val room = Room(id = 0, kakaoUrl, internetUrl, title, limitHeadCount, closedDateTime, content)
+        val room = Room(id = 0, kakaoUrl, internetUrl, title, currentHeadCount = 0, limitHeadCount, closedDateTime, content)
 
         val call: Call<Void> = retrofitInterface.createPost(accessToken, room)
 
@@ -232,4 +232,3 @@ class Register2Activity : AppCompatActivity() {
     }
 
 }
-

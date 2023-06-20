@@ -14,6 +14,7 @@
         tools:layout_editor_absoluteY="1dp">
 
         <ImageView
+            android:layout_gravity="center_horizontal"
             android:id="@+id/profile_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -21,6 +22,7 @@
 
 
         <TextView
+            android:layout_gravity="center_horizontal"
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

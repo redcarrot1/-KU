@@ -17,16 +17,19 @@
             android:id="@+id/profile_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:layout_gravity="center"
             app:srcCompat="@drawable/baseline_account_circle_24" />
 
         <TextView
             android:id="@+id/change_profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:text="프로필 사진 변경" />
 
         <EditText
+            android:layout_gravity="center_horizontal"
             android:id="@+id/modify_userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,48 +78,16 @@
             android:textSize="15dp"
             android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/department_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/spinner_theme"
-            android:dropDownHeight="10dp"
-            android:dropDownVerticalOffset="25dp"
-            android:dropDownSelector="@color/green_main"
-            android:overlapAnchor="false"
-            android:popupBackground="@drawable/background_dropdown_spinner"
-            android:spinnerMode="dropdown"
-            android:textAlignment="textStart"
-            android:textColor="@color/white" />
-
         <TextView
-            android:id="@+id/major"
-            android:layout_width="wrap_content"
+            android:id="@id/majorTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginTop="20dp"
-            android:text="학과"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/major_db_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/spinner_theme"
-            android:dropDownVerticalOffset="25dp"
-            android:overlapAnchor="false"
-            android:popupBackground="@drawable/background_dropdown_spinner"
-            android:spinnerMode="dropdown"
-            android:textAlignment="textStart"
-            app:layout_constraintStart_toStartOf="@id/major_dp_tv"
-            app:layout_constraintTop_toBottomOf="@id/major_dp_tv" />
+            android:padding="5dp"
+            android:text="소프트웨어융합대학" />
 
 
         <TextView
+            android:id="@+id/introduce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"

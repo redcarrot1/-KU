@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var retrofitInterface: UserRetrofitInterface
-    private var room: Room? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +59,13 @@ class DetailActivity : AppCompatActivity() {
                         binding.titleView.setText(room.title)
                         // binding.location.text = room.
                         binding.ClosedDateView.text = room.closedDateTime
-                        binding.LimitheadCountView.text = room.limitHeadCount.toString()
+                        binding.LimitheadCountView.text = "${room.currentHeadCount}/${room.limitHeadCount}"
                         binding.contentsView.setText(room.content)
-
+                        if(room.internetUrl.equals("https://www.naver.com")) {
+                            binding.internetURL.setText("1365에 존재하지 않는 봉사활동입니다.")
+                        }else{
+                            binding.internetURL.setText(room.internetUrl)
+                        }
                         binding.regButton.setOnClickListener {
                             // 다이얼로그를 띄워서 사용자에게 확인을 받기
                             AlertDialog.Builder(this@DetailActivity)
@@ -95,8 +99,8 @@ class DetailActivity : AppCompatActivity() {
 
     fun applyForVolunteerActivity(roomId: Int, kakaoUrl:String?) {
         // 임시토큰
-       // val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
-         val accessToken = user.getAccessToken()
+        // val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
+        val accessToken = user.getAccessToken()
         val requestBody = "{\"id\": $roomId}".toRequestBody("application/json".toMediaTypeOrNull())
 
         val call: Call<Void> = retrofitInterface.applyForVolunteerActivity(accessToken, requestBody)
@@ -167,9 +171,7 @@ class DetailActivity : AppCompatActivity() {
                     ).show()
                     Log.d("Error Response", errorBody ?: "")
                 }
-
             }
-
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 // 네트워크 오류 등 호출 실패한 경우 처리
                 Toast.makeText(this@DetailActivity, "네트워크 연결에 실패했습니다.", Toast.LENGTH_SHORT).show()
