@@ -6,9 +6,9 @@ import com.example.volunteerku.data.ChangePasswordRequest
 import com.example.volunteerku.data.Detailresponse
 import com.example.volunteerku.data.DuplicateResponse
 import com.example.volunteerku.data.EmailCertifyCodeResponse
+import com.example.volunteerku.data.EmailResponse
 import com.example.volunteerku.data.ExistEmailResponse
 import com.example.volunteerku.data.JWT
-import com.example.volunteerku.data.EmailResponse
 import com.example.volunteerku.data.MyVolunteerInfoRequest
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.data.SaveImageResponse
@@ -22,9 +22,6 @@ import retrofit2.http.*
 
 
 interface UserRetrofitInterface {
-
-    @GET("")
-
     @POST("/api/users/register")
     fun signup(@Body request: SignupRequest): Call<Void>
 
@@ -48,12 +45,12 @@ interface UserRetrofitInterface {
     @POST("/api/users/password")
     fun changePassword(
         @Body request: ChangePasswordRequest
-    ):Call<Void>
+    ): Call<Void>
 
     @GET("/api/users/exist")
     fun isMember(
-        @Query("email") email:String
-    ):Call<ExistEmailResponse>
+        @Query("email") email: String
+    ): Call<ExistEmailResponse>
 
     @POST("/api/rooms/register")
     fun createPost(
@@ -78,8 +75,6 @@ interface UserRetrofitInterface {
 
     @GET("/api/rooms")
     fun getRooms(): Call<List<Room>>
-
-
 
     @Multipart
     @POST("/api/users/images")
@@ -115,7 +110,7 @@ interface UserRetrofitInterface {
 
 }
 
-interface VolunteerDataInterface{
+interface VolunteerDataInterface {
     @GET("/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList")
     fun volunteerSearch(
         @Query("progrmBgnde") progrmBgnde: String,
@@ -127,7 +122,7 @@ interface VolunteerDataInterface{
 
 }
 
-interface VolunteerDataDetailInterface{
+interface VolunteerDataDetailInterface {
     @GET("/openapi/service/rest/VolunteerPartcptnService/getVltrPartcptnItem/")
     fun volunteerSearchDetail(
         @Query("progrmRegistNo") progrmRegistNo: String

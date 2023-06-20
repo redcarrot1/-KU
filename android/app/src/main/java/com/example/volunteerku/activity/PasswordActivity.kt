@@ -33,7 +33,6 @@ class PasswordActivity : AppCompatActivity() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    Log.d("meg", "Text Change!!")
                     val isSatisCond1 = s.toString().length in 6..15
                     val isSatisCond2 = Regex("^(?=.*[A-Za-z])(?=.*\\d).+\$").matches(s.toString())
 

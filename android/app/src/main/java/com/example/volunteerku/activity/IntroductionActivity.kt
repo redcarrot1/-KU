@@ -28,7 +28,6 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class IntroductionActivity : AppCompatActivity() {
-    private val PICK_FROM_ALBUM = 1
     lateinit var binding: ActivityIntroductionBinding
     private lateinit var imageView: ImageView
     private var body: MultipartBody.Part? = null
@@ -70,7 +69,7 @@ class IntroductionActivity : AppCompatActivity() {
         }
     }
 
-    val permissionLauncher =
+    private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) { // 권한이 허용되었을 때
                 checkPermission()
@@ -82,7 +81,7 @@ class IntroductionActivity : AppCompatActivity() {
             }
         }
 
-    fun showContextPopupPermission() {
+    private fun showContextPopupPermission() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("권한 체크")
             .setMessage("반드시 저장소 접근 권한이 허용되어야 합니다.")
@@ -118,7 +117,7 @@ class IntroductionActivity : AppCompatActivity() {
         }
     }
 
-    fun getProFileImage() {
+    private fun getProFileImage() {
         Log.d("사진호출", "사진변경 호출")
         val chooserIntent = Intent(Intent.ACTION_CHOOSER)
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -128,7 +127,7 @@ class IntroductionActivity : AppCompatActivity() {
         launcher.launch(chooserIntent)
     }
 
-    var launcher =
+    private var launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val imagePath = result.data!!.data
@@ -179,10 +178,13 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     private fun goToSuccessSignupActivity() {
+        Log.d("이미지", "goToSuccessSignupActivity")
         val intent =
             Intent(this, SuccessSignupActivity::class.java)
-        intent.putExtra("imageUrl", imageUrl);
-        intent.putExtra("introduction", binding.introductionEt.text.toString());
+        intent.putExtra("imageUrl", imageUrl)
+        if (binding.introductionEt.text.toString().isEmpty())
+            intent.putExtra("introduction", " ")
+        else intent.putExtra("introduction", binding.introductionEt.text.toString())
         startActivity(intent)
     }
 }
