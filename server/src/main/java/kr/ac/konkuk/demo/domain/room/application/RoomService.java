@@ -32,7 +32,6 @@ public class RoomService {
     public void registerRoom(Long userId, Room room) {
         User user = userFindDao.findById(userId);
         room.updateHostUser(user);
-        room.increaseCurrentHeadCount();
         roomRepository.save(room);
 
         UserRoom userRoom = UserRoom.builder()

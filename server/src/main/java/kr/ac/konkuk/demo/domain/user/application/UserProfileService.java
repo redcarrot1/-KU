@@ -2,6 +2,7 @@ package kr.ac.konkuk.demo.domain.user.application;
 
 import kr.ac.konkuk.demo.domain.user.dao.UserFindDao;
 import kr.ac.konkuk.demo.domain.user.dao.UserRepository;
+import kr.ac.konkuk.demo.domain.user.dto.UserDataDto;
 import kr.ac.konkuk.demo.domain.user.entity.User;
 import kr.ac.konkuk.demo.domain.user.exception.UserNotFoundException;
 import kr.ac.konkuk.demo.global.manager.PasswordEncoder;
@@ -44,11 +45,18 @@ public class UserProfileService {
         user.updateUserImageUrl(imageUrl);
     }
 
+    @Transactional(readOnly = true)
     public boolean checkDuplicateNickname(String nickname) {
         return userRepository.existsByNickname(nickname);
     }
 
+    @Transactional(readOnly = true)
     public boolean existUserByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    public UserDataDto.Response getUserData(Long userId) {
+        User user = userFindDao.findById(userId);
+        return UserDataDto.of(user);
     }
 }

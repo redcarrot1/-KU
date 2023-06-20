@@ -71,4 +71,9 @@ public class UserApi {
         else map.put("isExist", false);
         return map;
     }
+
+    @GetMapping("/userdata")
+    public UserDataDto.Response getUserData(@UserId Long userId) {
+        return userProfileService.getUserData(userId);
+    }
 }
