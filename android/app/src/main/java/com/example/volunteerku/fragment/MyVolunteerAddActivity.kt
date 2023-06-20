@@ -77,7 +77,7 @@ class MyVolunteerAddActivity : Fragment() {
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     title = s.toString()
-                    binding.volunteerRegistBtn.isEnabled = s.toString().length in 6..15
+                    binding.volunteerRegistBtn.isEnabled = s.toString().length in 1..25
                 }
             }
         )
