@@ -28,7 +28,7 @@ class VolunteerItemDetail : AppCompatActivity() {
         setContentView(binding.root)
         val intent = intent
         progrmRegistNo = intent.getStringExtra("progrmRegistNo").toString()
-        itemUrl = intent.getStringExtra("url").toString()
+        itemUrl = intent.getStringExtra("url").toString().replace("amp;", "")
         if (progrmRegistNo.isNotEmpty()) {
             println("Detail progrmRegistNo: $progrmRegistNo")
             volunteerItemDetail(progrmRegistNo) // 변경된 매개변수 전달
