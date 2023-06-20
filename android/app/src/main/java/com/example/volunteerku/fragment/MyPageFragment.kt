@@ -14,6 +14,7 @@ import com.example.volunteerku.data.UserDataResponse
 import com.example.volunteerku.databinding.FragmentMyPageBinding
 import com.example.volunteerku.service.BASE_URL
 import com.example.volunteerku.service.UserRetrofitInterface
+import com.example.volunteerku.service.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +40,8 @@ class MyPageFragment() : Fragment() {
         binding = FragmentMyPageBinding.inflate(inflater, container, false)
 
         retrofitInterface = retrofit.create(UserRetrofitInterface::class.java)
-
+        val userService = UserService()
+        userService.signIn(user.email, user.password)
         getUserData()
 
         buttonInit()

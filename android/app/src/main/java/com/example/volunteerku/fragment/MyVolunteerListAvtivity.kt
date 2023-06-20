@@ -11,6 +11,7 @@ import com.example.volunteerku.activity.DetailActivity
 import com.example.volunteerku.data.MyVolunteerInfoRequest
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityMyVolunteerListAvtivityBinding
+import com.example.volunteerku.fragment.MyPageFragment
 import com.example.volunteerku.fragment.MyVolunteerAddActivity
 import com.example.volunteerku.service.BASE_URL
 import com.example.volunteerku.service.UserRetrofitInterface
@@ -46,7 +47,12 @@ class MyVolunteerListAvtivity : Fragment() {
                 .replace(R.id.fragmentContainer, MyVolunteerAddActivity())
                 .commit()
         }
-
+        binding.backButton.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, MyPageFragment())
+                .commit()
+        }
         return binding.root
     }
 

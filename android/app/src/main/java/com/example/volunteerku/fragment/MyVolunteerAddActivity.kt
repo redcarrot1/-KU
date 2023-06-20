@@ -49,7 +49,12 @@ class MyVolunteerAddActivity : Fragment() {
         binding = ActivityMyVolunteerAddBinding.inflate(inflater, container, false)
         retrofitInterface = retrofit.create(UserRetrofitInterface::class.java)
         init()
-
+        binding.backButton.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, MyPageFragment())
+                .commit()
+        }
         return binding.root
     }
 

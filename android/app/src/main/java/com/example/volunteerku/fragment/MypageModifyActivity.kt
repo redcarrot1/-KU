@@ -45,9 +45,17 @@ class MypageModifyActivity : Fragment() {
         newName = user.nickname
         newIntroduce = user.introduce
         binding.majorTextView.text = user.major
+
         initText()
         nickNameEventListner()
         introduceEventListner()
+
+        binding.backButton.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, MyPageFragment())
+                .commit()
+        }
 
         binding.endEditButton.setOnClickListener {
             editButtonClick()
@@ -59,11 +67,13 @@ class MypageModifyActivity : Fragment() {
     private fun nickNameEventListner(){
         binding.modifyUserName.doOnTextChanged { text, start, before, count ->
             newName = text.toString()
+            user.nickname = newName
         }
     }
     private fun introduceEventListner(){
         binding.editIntroduce.doOnTextChanged { text, start, before, count ->
             newIntroduce = text.toString()
+            user.introduce = newIntroduce
         }
     }
 
@@ -124,8 +134,6 @@ class MypageModifyActivity : Fragment() {
                 .addToBackStack(null)
                 .replace(R.id.fragmentContainer, MypageActivity())
                 .commit()
-            val userService = UserService()
-            userService.signIn(user.email, user.password)
         }
         builder.setNegativeButton("아니오") { dialog, which ->
             Toast.makeText(requireContext(), "내 정보 변경 취소", Toast.LENGTH_SHORT).show()
