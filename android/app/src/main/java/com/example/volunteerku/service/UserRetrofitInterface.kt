@@ -118,8 +118,6 @@ interface VolunteerDataInterface {
         @Query("Keyword") Keyword: String,
         @Query("actPlace") actPlace: String,
     ): Call<response>
-
-
 }
 
 interface VolunteerDataDetailInterface {

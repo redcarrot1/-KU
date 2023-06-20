@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.example.volunteerku.R
 import com.example.volunteerku.databinding.ActivityMypageBinding
 
-
 class MypageActivity : Fragment() {
 
     lateinit var binding: ActivityMypageBinding

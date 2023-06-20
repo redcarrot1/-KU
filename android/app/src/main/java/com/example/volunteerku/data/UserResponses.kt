@@ -2,11 +2,6 @@ package com.example.volunteerku.data
 
 import com.google.gson.annotations.SerializedName
 
-data class CommonResponse(
-    @SerializedName(value = "isSuccess") var isSuccess: Boolean,
-    @SerializedName(value = "response") var response: Any
-)
-
 data class EmailCertifyCodeResponse(
     @SerializedName(value = "isAlreadyExist") var isAlreadyExist: Boolean?,
 )
@@ -54,7 +49,7 @@ data class ChangeIntroductionRequest(
 )
 
 data class ChangeNickName(
-  @SerializedName(value = "nickname") var nickname: String,
+    @SerializedName(value = "nickname") var nickname: String,
 )
 
 data class MyVolunteerInfoRequest(

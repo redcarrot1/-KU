@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.volunteerku.fragment.SearchAdapter
 import com.example.volunteerku.data.response
 import com.example.volunteerku.databinding.ActivityVolunteerSearchBinding
+import com.example.volunteerku.fragment.SearchAdapter
 import com.example.volunteerku.service.VolunteerDataInterface
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
-import okhttp3.*
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -33,8 +33,6 @@ class VolunteerSearch : Fragment() {
     var StartDateString = ""
     var EndDateString = ""
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,37 +42,47 @@ class VolunteerSearch : Fragment() {
         volunteerSearch()
         binding.editTextTextStartDate.setOnClickListener {
             val cal = Calendar.getInstance()
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                val selectedDate = Calendar.getInstance()
-                selectedDate.set(Calendar.YEAR, year)
-                selectedDate.set(Calendar.MONTH, month)
-                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    val selectedDate = Calendar.getInstance()
+                    selectedDate.set(Calendar.YEAR, year)
+                    selectedDate.set(Calendar.MONTH, month)
+                    selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-                StartDateString = sdf.format(selectedDate.time)
-                binding.editTextTextStartDate.text = StartDateString
-              //  updateRegisterButtonState()
-            }
-            DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(
-                Calendar.MONTH), cal.get(
-                Calendar.DAY_OF_MONTH)).show()
+                    val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+                    StartDateString = sdf.format(selectedDate.time)
+                    binding.editTextTextStartDate.text = StartDateString
+                    //  updateRegisterButtonState()
+                }
+            DatePickerDialog(
+                requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(
+                    Calendar.MONTH
+                ), cal.get(
+                    Calendar.DAY_OF_MONTH
+                )
+            ).show()
         }
         binding.editTextVolunteerEndDate.setOnClickListener {
             val cal = Calendar.getInstance()
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                val selectedDate = Calendar.getInstance()
-                selectedDate.set(Calendar.YEAR, year)
-                selectedDate.set(Calendar.MONTH, month)
-                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    val selectedDate = Calendar.getInstance()
+                    selectedDate.set(Calendar.YEAR, year)
+                    selectedDate.set(Calendar.MONTH, month)
+                    selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-                EndDateString = sdf.format(selectedDate.time)
-                binding.editTextVolunteerEndDate.text = EndDateString
-                //  updateRegisterButtonState()
-            }
-            DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(
-                Calendar.MONTH), cal.get(
-                Calendar.DAY_OF_MONTH)).show()
+                    val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+                    EndDateString = sdf.format(selectedDate.time)
+                    binding.editTextVolunteerEndDate.text = EndDateString
+                    //  updateRegisterButtonState()
+                }
+            DatePickerDialog(
+                requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(
+                    Calendar.MONTH
+                ), cal.get(
+                    Calendar.DAY_OF_MONTH
+                )
+            ).show()
         }
 
         binding.searchBtn.setOnClickListener {
@@ -91,8 +99,12 @@ class VolunteerSearch : Fragment() {
     }
 
 
-
-    private fun volunteerSearch(keyword: String = "", area: String = "", startDate: String = "", endDate: String = "") {
+    private fun volunteerSearch(
+        keyword: String = "",
+        area: String = "",
+        startDate: String = "",
+        endDate: String = ""
+    ) {
 
         val client = OkHttpClient()
         val parser = TikXml.Builder().exceptionOnUnreadXml(false).build()
@@ -105,33 +117,32 @@ class VolunteerSearch : Fragment() {
             .create(VolunteerDataInterface::class.java)
 
 
-        retrofit.volunteerSearch(startDate,endDate,keyword,area).enqueue(object: retrofit2.Callback<response> {
-            override fun onResponse(call: Call<response>, response: Response<response>) {
-                if (!response.isSuccessful) {
-                    try {
-                        throw IOException("Unexpected code $response")
-                    } catch (e: Exception) {
-                        println("volunteerSearch ${e.message}")
+        retrofit.volunteerSearch(startDate, endDate, keyword, area)
+            .enqueue(object : retrofit2.Callback<response> {
+                override fun onResponse(call: Call<response>, response: Response<response>) {
+                    if (!response.isSuccessful) {
+                        try {
+                            throw IOException("Unexpected code $response")
+                        } catch (e: Exception) {
+                            println("volunteerSearch ${e.message}")
+                        }
+                    }
+
+                    val responseBody = response.body()
+                    println("responseBody $responseBody")
+                    responseBody?.let {
+                        activity?.runOnUiThread {
+                            searchAdapter.submitList(it.body?.items?.item ?: emptyList())
+                        }
                     }
                 }
 
-                val responseBody = response.body()
-                println("responseBody $responseBody")
-                responseBody?.let{
-                    activity?.runOnUiThread {
-                        searchAdapter.submitList(it.body?.items?.item ?: emptyList())
-                    }
+                override fun onFailure(call: Call<response>, t: Throwable) {
+                    Log.i("VolunteerSearch", "VolunteerSearch ${t.message}")
                 }
-            }
 
-            override fun onFailure(call: Call<response>, t: Throwable) {
-                Log.i("VolunteerSearch", "VolunteerSearch ${t.message}")
-            }
-
-        })
+            })
     }
-
-
 
 }
 

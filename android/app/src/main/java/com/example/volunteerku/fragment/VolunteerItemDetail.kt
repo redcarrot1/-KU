@@ -33,7 +33,7 @@ class VolunteerItemDetail : AppCompatActivity() {
             println("Detail progrmRegistNo: $progrmRegistNo")
             volunteerItemDetail(progrmRegistNo) // 변경된 매개변수 전달
         }
-        binding.partyPlayBtn.setOnClickListener{//단체신청버튼
+        binding.partyPlayBtn.setOnClickListener {//단체신청버튼
             val intent = Intent(this@VolunteerItemDetail, RegisterActivity::class.java)
             intent.putExtra("itemUrl", itemUrl)
             println("detail : $itemUrl")
@@ -62,12 +62,21 @@ class VolunteerItemDetail : AppCompatActivity() {
                         response: Response<Detailresponse>
                     ) {
                         println("Response: ${response.body()?.body?.items?.item?.get(0)?.progrmCn}")
-                        binding.textViewName.text = response.body()?.body?.items?.item?.get(0)?.progrmSj
-                        binding.textViewDate.text = response.body()?.body?.items?.item?.get(0)?.progrmBgnde + " ~ " + response.body()?.body?.items?.item?.get(0)?.progrmEndde
-                        binding.textViewDetailInfo.text = response.body()?.body?.items?.item?.get(0)?.progrmCn
-                        binding.textViewTime.text = response.body()?.body?.items?.item?.get(0)?.actBeginTm + " ~ " + response.body()?.body?.items?.item?.get(0)?.actEndTm
-                        binding.textViewLocation.text = response.body()?.body?.items?.item?.get(0)?.postAdres
-                        binding.soloPlayBtn.setOnClickListener{
+                        binding.textViewName.text =
+                            response.body()?.body?.items?.item?.get(0)?.progrmSj
+                        binding.textViewDate.text =
+                            response.body()?.body?.items?.item?.get(0)?.progrmBgnde + " ~ " + response.body()?.body?.items?.item?.get(
+                                0
+                            )?.progrmEndde
+                        binding.textViewDetailInfo.text =
+                            response.body()?.body?.items?.item?.get(0)?.progrmCn
+                        binding.textViewTime.text =
+                            response.body()?.body?.items?.item?.get(0)?.actBeginTm + " ~ " + response.body()?.body?.items?.item?.get(
+                                0
+                            )?.actEndTm
+                        binding.textViewLocation.text =
+                            response.body()?.body?.items?.item?.get(0)?.postAdres
+                        binding.soloPlayBtn.setOnClickListener {
                             println("soloPlayBtn clicked")
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(itemUrl))
                             startActivity(intent)

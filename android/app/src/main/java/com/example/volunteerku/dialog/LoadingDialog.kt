@@ -6,14 +6,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatDialog
 import com.bumptech.glide.Glide
 import com.example.volunteerku.R
 
-
 class LoadingDialog(context: Context) : Dialog(context) {
-
-    private lateinit var progressDialog: AppCompatDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +19,6 @@ class LoadingDialog(context: Context) : Dialog(context) {
 
         val gifImageView = findViewById<ImageView>(R.id.loading_progress_bar)
         Glide.with(context).asGif().load(R.raw.loading).into(gifImageView)
-
-
     }
 }
 

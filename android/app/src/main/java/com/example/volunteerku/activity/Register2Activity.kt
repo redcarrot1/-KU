@@ -1,8 +1,9 @@
 package com.example.volunteerku.activity
 
+//import android.app.ListActivity
+//import com.example.volunteerku.fragment.ListActivity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-//import android.app.ListActivity
 import android.app.ProgressDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -15,8 +16,6 @@ import androidx.core.widget.addTextChangedListener
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityRegister2Binding
-import com.example.volunteerku.fragment.ListFragment
-//import com.example.volunteerku.fragment.ListActivity
 import com.example.volunteerku.service.BASE_URL
 import com.example.volunteerku.service.UserRetrofitInterface
 import retrofit2.Call
@@ -71,29 +70,36 @@ class Register2Activity : AppCompatActivity() {
 
         binding.DateBtn.setOnClickListener {
             val cal = Calendar.getInstance()    // 현재 시간 가져오기
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                val selectedDate = Calendar.getInstance()
-                selectedDate.set(Calendar.YEAR, year)
-                selectedDate.set(Calendar.MONTH, month)
-                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    val selectedDate = Calendar.getInstance()
+                    selectedDate.set(Calendar.YEAR, year)
+                    selectedDate.set(Calendar.MONTH, month)
+                    selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val currentDate = Calendar.getInstance()
+                    val currentDate = Calendar.getInstance()
 
-                if (selectedDate.before(currentDate)) { // 선택한 날짜가 현재 날짜보다 이전인 경우
-                    // 과거 날짜 선택은 불가능하도록 처리
-                    AlertDialog.Builder(this@Register2Activity)
-                        .setMessage("과거의 날짜는 선택할 수 없습니다.")
-                        .setPositiveButton("확인") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .show()
-                } else {
-                    dateString = String.format("%04d-%02d-%02dT", year, month + 1, dayOfMonth)
-                    binding.Date.text = dateString
-                    updateRegisterButtonState()
+                    if (selectedDate.before(currentDate)) { // 선택한 날짜가 현재 날짜보다 이전인 경우
+                        // 과거 날짜 선택은 불가능하도록 처리
+                        AlertDialog.Builder(this@Register2Activity)
+                            .setMessage("과거의 날짜는 선택할 수 없습니다.")
+                            .setPositiveButton("확인") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
+                    } else {
+                        dateString = String.format("%04d-%02d-%02dT", year, month + 1, dayOfMonth)
+                        binding.Date.text = dateString
+                        updateRegisterButtonState()
+                    }
                 }
-            }
-            DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
+            DatePickerDialog(
+                this,
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
 
         }
 
@@ -114,7 +120,9 @@ class Register2Activity : AppCompatActivity() {
 
         }
 
-        if (!dateString.isEmpty() && !timeString.isEmpty() && !binding.kakaourl.text.toString().isEmpty()) {
+        if (!dateString.isEmpty() && !timeString.isEmpty() && !binding.kakaourl.text.toString()
+                .isEmpty()
+        ) {
             binding.RegisterBtn.isEnabled = true
         }
 
@@ -175,10 +183,19 @@ class Register2Activity : AppCompatActivity() {
         val internetUrl = intent.getStringExtra("itemUrl").toString() // TODO
         val title = intent.getStringExtra("title").toString()
         val limitHeadCount = currentCount // 현재 모집 인원을 저장할 변수
-        val closedDateTime = dateString+timeString // 임시날짜
+        val closedDateTime = dateString + timeString // 임시날짜
         val content = intent.getStringExtra("content").toString()
 
-        val room = Room(id = 0, kakaoUrl, internetUrl, title, currentHeadCount = 0, limitHeadCount, closedDateTime, content)
+        val room = Room(
+            id = 0,
+            kakaoUrl,
+            internetUrl,
+            title,
+            currentHeadCount = 0,
+            limitHeadCount,
+            closedDateTime,
+            content
+        )
 
         val call: Call<Void> = retrofitInterface.createPost(accessToken, room)
 
@@ -224,11 +241,13 @@ class Register2Activity : AppCompatActivity() {
             }
         })
     }
+
     private fun updateRegisterButtonState() {
         val dateString = binding.Date.text.toString()
         val timeString = binding.Clock.text.toString()
         val kakaourlString = binding.kakaourl.text.toString()
-        binding.RegisterBtn.isEnabled = dateString.isNotEmpty() && timeString.isNotEmpty() && kakaourlString.isNotEmpty()
+        binding.RegisterBtn.isEnabled =
+            dateString.isNotEmpty() && timeString.isNotEmpty() && kakaourlString.isNotEmpty()
     }
 
 }

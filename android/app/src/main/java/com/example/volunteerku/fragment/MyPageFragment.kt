@@ -2,11 +2,9 @@ package com.example.volunteerku.fragment
 
 import MyVolunteerListAvtivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.volunteerku.R
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
@@ -33,6 +31,7 @@ class MyPageFragment() : Fragment() {
         .baseUrl(BASE_URL)//baseUrl("http://34.64.106.246:8080")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +49,7 @@ class MyPageFragment() : Fragment() {
         return binding.root
     }
 
-    private fun getUserData(){
+    private fun getUserData() {
         val call: Call<UserDataResponse> = retrofitInterface.getUserData(user.getAccessToken())
         call.enqueue(object : Callback<UserDataResponse> {
             override fun onResponse(
@@ -64,11 +63,13 @@ class MyPageFragment() : Fragment() {
                 textViewInit()
 
             }
+
             override fun onFailure(call: Call<UserDataResponse>, t: Throwable) {
                 println("실패: $t")
             }
         })
     }
+
     private fun textViewInit() {
         binding.userName.text = nickname
         binding.departmentInfo.text = major

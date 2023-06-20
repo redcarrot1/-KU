@@ -1,14 +1,11 @@
 package com.example.volunteerku.fragment
 
-import MyVolunteerListAvtivity
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -17,7 +14,6 @@ import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.databinding.ActivityMypageModifyBinding
 import com.example.volunteerku.service.BASE_URL
 import com.example.volunteerku.service.UserRetrofitInterface
-import com.example.volunteerku.service.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,7 +46,7 @@ class MypageModifyActivity : Fragment() {
         nickNameEventListner()
         introduceEventListner()
 
-        binding.backButton.setOnClickListener{
+        binding.backButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.fragmentContainer, MyPageFragment())
@@ -64,21 +60,23 @@ class MypageModifyActivity : Fragment() {
         return binding.root
     }
 
-    private fun nickNameEventListner(){
+    private fun nickNameEventListner() {
         binding.modifyUserName.doOnTextChanged { text, start, before, count ->
             newName = text.toString()
             user.nickname = newName
         }
     }
-    private fun introduceEventListner(){
+
+    private fun introduceEventListner() {
         binding.editIntroduce.doOnTextChanged { text, start, before, count ->
             newIntroduce = text.toString()
             user.introduce = newIntroduce
         }
     }
 
-    private fun changeIntroduction(){
-        val call: Call<Void> = retrofitInterface.changeIntroduction(user.getAccessToken(), newIntroduce)
+    private fun changeIntroduction() {
+        val call: Call<Void> =
+            retrofitInterface.changeIntroduction(user.getAccessToken(), newIntroduce)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
@@ -100,7 +98,7 @@ class MypageModifyActivity : Fragment() {
         })
     }
 
-    private fun changeNickName(){
+    private fun changeNickName() {
         val call: Call<Void> = retrofitInterface.changeNickname(user.getAccessToken(), newName)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -123,7 +121,8 @@ class MypageModifyActivity : Fragment() {
             }
         })
     }
-    private fun editButtonClick(){
+
+    private fun editButtonClick() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("내 정보 변경")
         builder.setMessage("정말로 내 정보를 변경하시겠습니까?")
@@ -141,7 +140,7 @@ class MypageModifyActivity : Fragment() {
         builder.show()
     }
 
-    private fun initText(){
+    private fun initText() {
         binding.modifyUserName.setText(user.nickname)
         binding.editIntroduce.setText(user.introduce)
         binding.progressBar.min = 0

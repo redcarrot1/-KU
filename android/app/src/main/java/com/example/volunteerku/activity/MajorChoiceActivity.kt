@@ -160,7 +160,7 @@ class MajorChoiceActivity : AppCompatActivity() {
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
-                    Toast.makeText(this@MajorChoiceActivity, "대학과 학과를 선택해 주세요", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@MajorChoiceActivity, "단과대와 전공을 선택해 주세요", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

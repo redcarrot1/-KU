@@ -32,9 +32,7 @@ class MyVolunteerAddActivity : Fragment() {
     lateinit var binding: ActivityMyVolunteerAddBinding
     var dateString = "" // 날짜
     var timeString = "" // 시간
-  //  var minuteTime: Int = 0
     var title: String? = null
-   // var date:String? = null
 
     private lateinit var retrofitInterface: UserRetrofitInterface
 
@@ -42,6 +40,7 @@ class MyVolunteerAddActivity : Fragment() {
         .baseUrl(BASE_URL)//baseUrl("http://34.64.106.246:8080")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +48,7 @@ class MyVolunteerAddActivity : Fragment() {
         binding = ActivityMyVolunteerAddBinding.inflate(inflater, container, false)
         retrofitInterface = retrofit.create(UserRetrofitInterface::class.java)
         init()
-        binding.backButton.setOnClickListener{
+        binding.backButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.fragmentContainer, MyPageFragment())
@@ -83,19 +82,27 @@ class MyVolunteerAddActivity : Fragment() {
         )
         binding.DateBtn.setOnClickListener {
             val cal = Calendar.getInstance()
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                val selectedDate = Calendar.getInstance()
-                selectedDate.set(Calendar.YEAR, year)
-                selectedDate.set(Calendar.MONTH, month)
-                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    val selectedDate = Calendar.getInstance()
+                    selectedDate.set(Calendar.YEAR, year)
+                    selectedDate.set(Calendar.MONTH, month)
+                    selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                dateString = sdf.format(selectedDate.time)
-                binding.Date.text = dateString
-                updateRegisterButtonState()
-            }
-            DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(
-                Calendar.DAY_OF_MONTH)).show()
+                    val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    dateString = sdf.format(selectedDate.time)
+                    binding.Date.text = dateString
+                    updateRegisterButtonState()
+                }
+            DatePickerDialog(
+                requireContext(),
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(
+                    Calendar.DAY_OF_MONTH
+                )
+            ).show()
         }
 
         binding.TimeBtn.setOnClickListener {
@@ -124,53 +131,7 @@ class MyVolunteerAddActivity : Fragment() {
             timePickerDialog.show()
         }
 
-
-
-//        binding.volunteerDateEt.addTextChangedListener(
-//            object : TextWatcher {
-//                override fun afterTextChanged(s: Editable?) {
-//                    date = s.toString()
-//                }
-//
-//                override fun beforeTextChanged(
-//                    s: CharSequence?,
-//                    start: Int,
-//                    count: Int,
-//                    after: Int
-//                ) {
-//                    binding.volunteerRegistBtn.isEnabled = false
-//                }
-//
-//                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                    date = s.toString()
-//                    binding.volunteerRegistBtn.isEnabled = s.toString().length in 6..15
-//                }
-//            }
-//        )
-//
-//        binding.volunteerTimeEt.addTextChangedListener(
-//            object : TextWatcher {
-//                override fun afterTextChanged(s: Editable?) {
-//                    minuteTime = s.toString().toInt()
-//                }
-//
-//                override fun beforeTextChanged(
-//                    s: CharSequence?,
-//                    start: Int,
-//                    count: Int,
-//                    after: Int
-//                ) {
-//                    binding.volunteerRegistBtn.isEnabled = false
-//                }
-//
-//                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                    minuteTime = s.toString().toInt()
-//                    binding.volunteerRegistBtn.isEnabled = s.toString().length in 1..4
-//                }
-//            }
-//        )
-
-        binding.volunteerRegistBtn.setOnClickListener{
+        binding.volunteerRegistBtn.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("내 봉사 기록 등록")
             builder.setMessage("봉사기록을 등록하시겠습니까?")
@@ -185,8 +146,6 @@ class MyVolunteerAddActivity : Fragment() {
                 Toast.makeText(requireContext(), "봉사기록 등록 취소", Toast.LENGTH_SHORT).show()
             }
             builder.show()
-
-
         }
 
     }
@@ -195,12 +154,13 @@ class MyVolunteerAddActivity : Fragment() {
         val dateString = binding.Date.text.toString()
         val timeString = binding.Clock.text.toString()
         val kakaourlString = binding.volunteerTitle.text.toString()
-        binding.volunteerRegistBtn.isEnabled = dateString.isNotEmpty() && timeString.isNotEmpty() && kakaourlString.isNotEmpty()
+        binding.volunteerRegistBtn.isEnabled =
+            dateString.isNotEmpty() && timeString.isNotEmpty() && kakaourlString.isNotEmpty()
     }
 
-    private fun addVolunteerInfo(){
+    private fun addVolunteerInfo() {
         var request = MyVolunteerInfoRequest(timeString.toInt(), title.toString(), dateString)
-        val call: Call<Void> = retrofitInterface.volunteerRegist(user.getAccessToken(),request)
+        val call: Call<Void> = retrofitInterface.volunteerRegist(user.getAccessToken(), request)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
@@ -220,7 +180,6 @@ class MyVolunteerAddActivity : Fragment() {
 
         })
     }
-
 
 
 }

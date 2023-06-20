@@ -4,21 +4,16 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.volunteerku.R
-import com.example.volunteerku.VolunteerKUApplication
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityDetailBinding
 import com.example.volunteerku.service.BASE_URL
 import com.example.volunteerku.service.UserRetrofitInterface
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
@@ -31,7 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var retrofitInterface: UserRetrofitInterface
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,11 +53,12 @@ class DetailActivity : AppCompatActivity() {
                         binding.titleView.setText(room.title)
                         // binding.location.text = room.
                         binding.ClosedDateView.text = room.closedDateTime
-                        binding.LimitheadCountView.text = "${room.currentHeadCount}/${room.limitHeadCount}"
+                        binding.LimitheadCountView.text =
+                            "${room.currentHeadCount}/${room.limitHeadCount}"
                         binding.contentsView.setText(room.content)
-                        if(room.internetUrl.equals("https://www.naver.com")) {
+                        if (room.internetUrl.equals("https://www.naver.com")) {
                             binding.internetURL.setText("1365에 존재하지 않는 봉사활동입니다.")
-                        }else{
+                        } else {
                             binding.internetURL.setText(room.internetUrl)
                         }
                         binding.regButton.setOnClickListener {
@@ -97,7 +92,7 @@ class DetailActivity : AppCompatActivity() {
         }// 뒤로가기
     }
 
-    fun applyForVolunteerActivity(roomId: Int, kakaoUrl:String?) {
+    fun applyForVolunteerActivity(roomId: Int, kakaoUrl: String?) {
         // 임시토큰
         // val accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImF1ZCI6IjEiLCJpc3MiOiJ2b2x1bnRlZXJLVSIsImlhdCI6MTY4NTU0NzI5OH0.19rUh99CYKl8ZtKamntInimMiM5AwGlzXKxpvHadxIQ"
         val accessToken = user.getAccessToken()
@@ -172,6 +167,7 @@ class DetailActivity : AppCompatActivity() {
                     Log.d("Error Response", errorBody ?: "")
                 }
             }
+
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 // 네트워크 오류 등 호출 실패한 경우 처리
                 Toast.makeText(this@DetailActivity, "네트워크 연결에 실패했습니다.", Toast.LENGTH_SHORT).show()

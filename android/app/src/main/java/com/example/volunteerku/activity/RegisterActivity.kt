@@ -15,11 +15,13 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.title.addTextChangedListener { text ->
-            binding.nextButton.isEnabled = text.toString().isNotEmpty() && binding.content.text.toString().isNotEmpty()
+            binding.nextButton.isEnabled =
+                text.toString().isNotEmpty() && binding.content.text.toString().isNotEmpty()
         }
 
         binding.content.addTextChangedListener { text ->
-            binding.nextButton.isEnabled = binding.title.text.toString().isNotEmpty() && text.toString().isNotEmpty()
+            binding.nextButton.isEnabled =
+                binding.title.text.toString().isNotEmpty() && text.toString().isNotEmpty()
         }
 
         binding.nextButton.setOnClickListener {

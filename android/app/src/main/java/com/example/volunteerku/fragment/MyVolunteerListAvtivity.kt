@@ -1,15 +1,11 @@
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.volunteerku.R
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
-import com.example.volunteerku.activity.DetailActivity
 import com.example.volunteerku.data.MyVolunteerInfoRequest
-import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.ActivityMyVolunteerListAvtivityBinding
 import com.example.volunteerku.fragment.MyPageFragment
 import com.example.volunteerku.fragment.MyVolunteerAddActivity
@@ -47,7 +43,7 @@ class MyVolunteerListAvtivity : Fragment() {
                 .replace(R.id.fragmentContainer, MyVolunteerAddActivity())
                 .commit()
         }
-        binding.backButton.setOnClickListener{
+        binding.backButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.fragmentContainer, MyPageFragment())
@@ -68,7 +64,8 @@ class MyVolunteerListAvtivity : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         retrofitInterface = retrofit.create(UserRetrofitInterface::class.java)
-        val call: Call<List<MyVolunteerInfoRequest>> = retrofitInterface.getMyVolunteerInfo(user.getAccessToken())
+        val call: Call<List<MyVolunteerInfoRequest>> =
+            retrofitInterface.getMyVolunteerInfo(user.getAccessToken())
         call.enqueue(object : Callback<List<MyVolunteerInfoRequest>> {
             override fun onResponse(
                 call: Call<List<MyVolunteerInfoRequest>>,
@@ -88,7 +85,7 @@ class MyVolunteerListAvtivity : Fragment() {
             }
 
             override fun onFailure(call: Call<List<MyVolunteerInfoRequest>>, t: Throwable) {
-               println("Fail to Load Volunteer List ${t.message}")
+                println("Fail to Load Volunteer List ${t.message}")
             }
         })
     }

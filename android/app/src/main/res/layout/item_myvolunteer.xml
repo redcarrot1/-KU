@@ -23,7 +23,7 @@
             android:id="@+id/volunteerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:text="모바일 프로그래밍 과제 봉사" />
 
         <TextView

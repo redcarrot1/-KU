@@ -4,19 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.widget.doAfterTextChanged
 import com.example.volunteerku.R
-import com.example.volunteerku.VolunteerKUApplication
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.data.EmailCertifyCodeResponse
 import com.example.volunteerku.data.EmailResponse
@@ -194,14 +191,6 @@ class PasswordChangeCertifyActivity : AppCompatActivity() {
                 }
             }
         }).isExistEmail(email)
-    }
-
-    private fun goToLoginActivity() {
-        Log.d("TAG", "init: certifyEmail")
-        certifyTimer?.cancel()
-
-        var Intent = Intent(this, LoginActivity::class.java)
-        startActivity(Intent)
     }
 
     private fun goToPasswordChangeActivity() {

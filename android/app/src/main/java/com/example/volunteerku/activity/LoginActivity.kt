@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.goSignup.setOnClickListener {
             var Intent = Intent(this, EmailCertifyActivity::class.java)
+            finishAffinity()
             startActivity(Intent)
         }
         binding.loginButton.setOnClickListener {

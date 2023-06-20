@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import com.example.volunteerku.R
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
@@ -137,14 +135,17 @@ class ListFragment : Fragment() {
         applicationView()
         getRoomList()
     }
-    
+
     //사용자가 신청한 봉사활동 조회
     fun applicationView() {
         val accessToken = user.getAccessToken()
         val call: Call<List<Applications>> = retrofitInterface.getApplicationRooms(accessToken)
 
         call.enqueue(object : Callback<List<Applications>> {
-            override fun onResponse(call: Call<List<Applications>>, response: Response<List<Applications>>) {
+            override fun onResponse(
+                call: Call<List<Applications>>,
+                response: Response<List<Applications>>
+            ) {
                 if (response.isSuccessful) {
                     val applications = response.body()
                     if (applications != null) {
@@ -202,6 +203,7 @@ class ListFragment : Fragment() {
             }
         })
     }
+
     //onResume() 사용하여 게시글 업데이트ㅂ
     private fun getRoomList() {
         val call: Call<List<Room>> = retrofitInterface.getRooms()
@@ -231,6 +233,7 @@ class ListFragment : Fragment() {
             }
         })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

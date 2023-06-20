@@ -13,7 +13,9 @@ class MainActivity : AppCompatActivity() {
 
     val textarr = arrayListOf<String>("게시판", "검색하기", "내정보")
     val imgarr = arrayListOf<Int>(
-        R.drawable.billboard_icon_135884, R.drawable.baseline_search_24, R.drawable.baseline_bookmark_24
+        R.drawable.billboard_icon_135884,
+        R.drawable.baseline_search_24,
+        R.drawable.baseline_bookmark_24
     )
     lateinit var adapter: MyViewPagerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        println("currItem ${binding.viewpager.childCount}")
         if (binding.viewpager.currentItem == 1) {
             val child = supportFragmentManager.fragments.find { it.isResumed } as? MypageActivity
             child?.let {
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                     it.childFragmentManager.popBackStackImmediate()
                 } else {
                     super.onBackPressed()
+
                 }
             }
         } else {

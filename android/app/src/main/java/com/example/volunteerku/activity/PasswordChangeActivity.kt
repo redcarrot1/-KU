@@ -3,24 +3,17 @@ package com.example.volunteerku.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-import com.bumptech.glide.Glide.init
+import androidx.appcompat.app.AppCompatActivity
 import com.example.volunteerku.R
-import com.example.volunteerku.VolunteerKUApplication
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
-import com.example.volunteerku.data.EmailCertifyCodeResponse
-import com.example.volunteerku.data.EmailResponse
 import com.example.volunteerku.databinding.ActivityPasswordChangeBinding
 import com.example.volunteerku.dialog.LoadingDialog
-import com.example.volunteerku.dialog.NotMemberDialog
 import com.example.volunteerku.service.UserService
 
 class PasswordChangeActivity : AppCompatActivity() {
@@ -54,7 +47,6 @@ class PasswordChangeActivity : AppCompatActivity() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    Log.d("meg", "Text Change!!")
                     isSatisCond1 = s.toString().length in 6..15
                     isSatisCond2 = Regex("^(?=.*[A-Za-z])(?=.*\\d).+\$").matches(s.toString())
 
