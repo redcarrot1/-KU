@@ -55,9 +55,7 @@ class VolunteerSearch : Fragment() {
 
         val client = OkHttpClient()
         val parser = TikXml.Builder().exceptionOnUnreadXml(false).build()
-
         val url = "http://openapi.1365.go.kr"
-
         val retrofit = Retrofit.Builder()
             .client(client)
             .addConverterFactory(TikXmlConverterFactory.create(parser))
@@ -83,7 +81,6 @@ class VolunteerSearch : Fragment() {
                         searchAdapter.submitList(it.body?.items?.item ?: emptyList())
                     }
                 }
-
             }
 
             override fun onFailure(call: Call<response>, t: Throwable) {

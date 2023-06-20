@@ -37,12 +37,6 @@ class MyVolunteerListAvtivity : Fragment() {
         binding.progressBar.max = 1860
         binding.progressBar.progress = user.currentVolunteerTime
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        retrofitInterface = retrofit.create(UserRetrofitInterface::class.java)
-        getVolunteerList()
         onViewCreated(binding.root, savedInstanceState)
         getVolunteerList()
 
@@ -60,11 +54,14 @@ class MyVolunteerListAvtivity : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         myVolunteerAdapter = MyVolunteerAdapter(volunteerDataList)
         binding.myVolunteerList.adapter = myVolunteerAdapter
-
-
     }
 
     private fun getVolunteerList() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        retrofitInterface = retrofit.create(UserRetrofitInterface::class.java)
         val call: Call<List<MyVolunteerInfoRequest>> = retrofitInterface.getMyVolunteerInfo(user.getAccessToken())
         call.enqueue(object : Callback<List<MyVolunteerInfoRequest>> {
             override fun onResponse(
@@ -80,14 +77,11 @@ class MyVolunteerListAvtivity : Fragment() {
                             volunteerDataList.add(i)
                         }
                         myVolunteerAdapter.notifyDataSetChanged()
-
-                        Toast.makeText(requireContext(), "Response Successful", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
 
             override fun onFailure(call: Call<List<MyVolunteerInfoRequest>>, t: Throwable) {
-                // Handle failure
                println("Fail to Load Volunteer List ${t.message}")
             }
         })

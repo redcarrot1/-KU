@@ -13,6 +13,7 @@ import com.example.volunteerku.data.MyVolunteerInfoRequest
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.data.SaveImageResponse
 import com.example.volunteerku.data.SignupRequest
+import com.example.volunteerku.data.UserDataResponse
 import com.example.volunteerku.data.response
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -96,16 +97,21 @@ interface UserRetrofitInterface {
         @Body nickname: String
     ): Call<Void>
 
-    @POST("/api/volunteers")
+    @GET("/api/volunteers")
     fun getMyVolunteerInfo(
         @Header("Authorization") accessToken: String,
     ): Call<List<MyVolunteerInfoRequest>>
 
-    @GET("/api/volunteers/register")
+    @POST("/api/volunteers/register")
     fun volunteerRegist(
         @Header("Authorization") accessToken: String,
         @Body request: MyVolunteerInfoRequest
     ): Call<Void>
+
+    @GET("/api/users/userdata")
+    fun getUserData(
+        @Header("Authorization") accessToken: String
+    ): Call<UserDataResponse>
 
 }
 

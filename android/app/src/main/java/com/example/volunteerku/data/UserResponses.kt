@@ -63,6 +63,12 @@ data class MyVolunteerInfoRequest(
     @SerializedName(value = "date") var volunteerDate: String
 )
 
+data class UserDataResponse(
+    @SerializedName(value = "nickname") var nickname: String,
+    @SerializedName(value = "major") var major: String,
+    @SerializedName(value = "introduction") var introduction: String
+)
+
 data class SignupRequest(
     @SerializedName(value = "email") var email: String,
     @SerializedName(value = "password") var password: String,

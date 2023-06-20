@@ -16,7 +16,6 @@ class MyVolunteerAdapter(private val volunteerDataList: List<MyVolunteerInfoRequ
                 )
                 return ViewHolder(binding)
         }
-
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
                 val volunteerData = volunteerDataList[position]
                 holder.bind(volunteerData)
@@ -32,7 +31,7 @@ class MyVolunteerAdapter(private val volunteerDataList: List<MyVolunteerInfoRequ
                 fun bind(volunteerData: MyVolunteerInfoRequest) {
                         // Bind the data to the views in the item layout
                         binding.volunteerName.text = volunteerData.volunteerTitle
-                        binding.volunteerTime.text = volunteerData.volunteerTime.toString()
+                        binding.volunteerTime.text = volunteerData.volunteerTime.toString() + "분"
                         binding.volunteerDate.text = volunteerData.volunteerDate
                 }
         }
