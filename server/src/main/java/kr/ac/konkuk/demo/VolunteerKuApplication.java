@@ -138,7 +138,7 @@ public class VolunteerKuApplication {
                         .content("서울숲 청소")
                         .minuteTime(30)
                         .build());
-
+/*
         roomService.registerRoom(1L, Room.builder()
                 .title("유기견 봉사활동 같이 가실분 구해요!")
                 .content("6월 5일 광진구에서 유기견 봉사활동 진행하는데 같이 가실분 계신가요? 있으시면 아래 오픈카톡방 링크로 들어와주세요!!")
@@ -255,5 +255,6 @@ public class VolunteerKuApplication {
         roomService.joinRoom(2L, 4L);
         roomService.joinRoom(3L, 6L);
         roomService.joinRoom(1L, 7L);
+ */
     }
 }
