@@ -50,7 +50,7 @@ class VolunteerSearch : Fragment() {
                 selectedDate.set(Calendar.MONTH, month)
                 selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
                 StartDateString = sdf.format(selectedDate.time)
                 binding.editTextTextStartDate.text = StartDateString
               //  updateRegisterButtonState()
@@ -67,7 +67,7 @@ class VolunteerSearch : Fragment() {
                 selectedDate.set(Calendar.MONTH, month)
                 selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
                 EndDateString = sdf.format(selectedDate.time)
                 binding.editTextVolunteerEndDate.text = EndDateString
                 //  updateRegisterButtonState()
