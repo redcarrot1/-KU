@@ -57,7 +57,6 @@ class MyPageFragment() : Fragment() {
                 call: Call<UserDataResponse>,
                 response: Response<UserDataResponse>
             ) {
-                Toast.makeText(context, "성공", Toast.LENGTH_SHORT).show()
                 introduce = response.body()?.introduction.toString()
                 major = response.body()?.major.toString()
                 nickname = response.body()?.nickname.toString()
