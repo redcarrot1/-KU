@@ -1,3 +1,4 @@
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,9 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class VolunteerSearch : Fragment() {
 
@@ -26,6 +30,9 @@ class VolunteerSearch : Fragment() {
     var searchArea = ""
     var searchStartDate = ""
     var searchEndDate = ""
+    var StartDateString = ""
+    var EndDateString = ""
+
 
 
     override fun onCreateView(
@@ -35,6 +42,40 @@ class VolunteerSearch : Fragment() {
         binding = ActivityVolunteerSearchBinding.inflate(inflater, container, false)
 
         volunteerSearch()
+        binding.editTextTextStartDate.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(Calendar.YEAR, year)
+                selectedDate.set(Calendar.MONTH, month)
+                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                StartDateString = sdf.format(selectedDate.time)
+                binding.editTextTextStartDate.text = StartDateString
+              //  updateRegisterButtonState()
+            }
+            DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(
+                Calendar.MONTH), cal.get(
+                Calendar.DAY_OF_MONTH)).show()
+        }
+        binding.editTextVolunteerEndDate.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(Calendar.YEAR, year)
+                selectedDate.set(Calendar.MONTH, month)
+                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                EndDateString = sdf.format(selectedDate.time)
+                binding.editTextVolunteerEndDate.text = EndDateString
+                //  updateRegisterButtonState()
+            }
+            DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(
+                Calendar.MONTH), cal.get(
+                Calendar.DAY_OF_MONTH)).show()
+        }
 
         binding.searchBtn.setOnClickListener {
             searchKeyword = binding.editTextTextVolunteerName.text.toString()

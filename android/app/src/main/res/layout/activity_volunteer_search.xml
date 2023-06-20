@@ -63,14 +63,15 @@
 
                     android:text="봉사시작일자" />
 
-                <EditText
+                <TextView
                     android:id="@+id/editTextText_start_date"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="20230607"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,14 +79,15 @@
 
                     android:text="봉사종료일자" />
 
-                <EditText
+                <TextView
                     android:id="@+id/editText_volunteer_end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="20230609"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:gravity="center"/>
             </LinearLayout>
 
             <Button
