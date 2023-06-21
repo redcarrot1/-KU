@@ -56,11 +56,12 @@ class DetailActivity : AppCompatActivity() {
                         binding.LimitheadCountView.text =
                             "${room.currentHeadCount}/${room.limitHeadCount}"
                         binding.contentsView.setText(room.content)
-                        if (room.internetUrl.equals("https://www.naver.com")) {
-                            binding.internetURL.setText("1365에 존재하지 않는 봉사활동입니다.")
-                        } else {
-                            binding.internetURL.setText(room.internetUrl)
+
+                        binding.internetURL.text = room.internetUrl
+                        if(binding.internetURL.text.equals("null")){
+                            binding.internetURL.text = "1365에 존재하지 않는 봉사활동입니다."
                         }
+
                         binding.regButton.setOnClickListener {
                             // 다이얼로그를 띄워서 사용자에게 확인을 받기
                             AlertDialog.Builder(this@DetailActivity)

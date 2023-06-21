@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.example.volunteerku.R
 import com.example.volunteerku.VolunteerKUApplication.Companion.user
 import com.example.volunteerku.activity.DetailActivity
+import com.example.volunteerku.activity.RegisterActivity
 import com.example.volunteerku.data.Applications
 import com.example.volunteerku.data.Room
 import com.example.volunteerku.databinding.FragmentListBinding
@@ -126,6 +127,12 @@ class ListFragment : Fragment() {
             binding.ToggleBtnDown.visibility = View.VISIBLE
             binding.listView2.visibility = View.GONE
         }
+
+        binding.floatingButton.setOnClickListener {
+            val intent = Intent(requireContext(), RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
 
         return view
     }
